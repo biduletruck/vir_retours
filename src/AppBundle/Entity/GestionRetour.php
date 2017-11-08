@@ -90,7 +90,7 @@ class GestionRetour
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroRaq", type="string", length=255)
+     * @ORM\Column(name="numeroRaq", type="string", length=255,nullable=true)
      */
     private $numeroRaq;
 
@@ -127,6 +127,11 @@ class GestionRetour
      * @ORM\Column(name="commentaire", type="text", nullable=true)
      */
     private $commentaire;
+
+    public function __construct()
+    {
+        $this->setDateEntreeEntrepot(new \DateTime()) ;
+    }
 
 
     /**
