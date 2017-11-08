@@ -10,4 +10,5 @@ namespace AppBundle\Repository;
  */
 class HistoriqueGestionRetourRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

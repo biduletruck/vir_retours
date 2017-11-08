@@ -21,14 +21,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/bc", name="barcodetest")
-     */
-    public function bcAction($barcode = "123456789")
-    {
-        $myBarcode = new barCode();
-        $bcHTMLRaw = $myBarcode->getBarcodeHTML('$barcode', 'C128', 3, 100);
-        return $this->render('default/barcode.html.twig', array('barcodeHTML' => $bcHTMLRaw,));
-    }
+
 
 }

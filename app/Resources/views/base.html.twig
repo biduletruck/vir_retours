@@ -5,8 +5,10 @@
     <title>{% block title %}VIR {% endblock %}</title>
     <!-- Bootstrap -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+
     {% block stylesheets %}
 
     {% endblock %}
@@ -31,16 +33,25 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Tâches</a></li>
-                    <li><a href="#">Tournées</a></li>
+                    <li><a href="{{ path('retours_new') }}">Ajouter un retour</a></li>
+                    <li><a href="{{ path('retours_index') }}">Listing des retours</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Véhicules</a></li>
-                            <li><a href="#}">Employeurs</a></li>
-                            <li><a href="#">Fonctions</a></li>
-                            <li><a href="#">Personnels</a></li>
+                        <ul class="dropdown-menu multi-level">
+                            <li><a href="{{ path('admin_user_index') }}">Utilisateurs</a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Gestion Appli</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('admin_gestion_agence_index') }}">Agence</a></li>
+                                    <li><a href="{{ path('admin_gestion_donneurordre_index') }}">Donneur d'ordre</a></li>
+                                    <li><a href="{{ path('admin_gestion_emplacement_index') }}">Emplacement</a></li>
+                                    <li><a href="{{ path('admin_gestion_prestation_index') }}">Type de prestation</a></li>
+                                    <li><a href="{{ path('admin_gestion_motifretour_index') }}">Motif de retour</a></li>
+                                    <li><a href="{{ path('admin_gestion_action_index') }}">Type d'action</a></li>
+                                </ul>
+                            </li>
                         </ul>
+
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->

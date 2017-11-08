@@ -25,6 +25,8 @@ class GestionRetourController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
+        dump($gestionRetours);
+
 
         return $this->render('gestionretour/index.html.twig', array(
             'gestionRetours' => $gestionRetours,
@@ -132,5 +134,13 @@ class GestionRetourController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    public function bcAction($barcode)
+    {
+        $myBarcode = new barCode();
+        $bcHTMLRaw = $myBarcode->getBarcodeHTML('$barcode', 'C128', 1.75, 45);
+        return $bcHTMLRaw;
+        //return $this->render('default/barcode.html.twig', array('barcodeHTML' => $bcHTMLRaw,));
     }
 }
