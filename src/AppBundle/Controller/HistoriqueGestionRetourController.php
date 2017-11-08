@@ -26,6 +26,7 @@ class HistoriqueGestionRetourController extends Controller
 
         $historiqueGestionRetours = $em->getRepository('AppBundle:HistoriqueGestionRetour')->findAll();
 
+
         return $this->render('historiquegestionretour/index.html.twig', array(
             'historiqueGestionRetours' => $historiqueGestionRetours,
         ));

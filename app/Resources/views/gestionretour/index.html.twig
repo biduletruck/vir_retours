@@ -8,6 +8,7 @@
             <tr>
                 <th>Id</th>
                 <th>Numerosage</th>
+                <th>Code Barre</th>
                 <th>Numerodonneurordre</th>
                 <th>Nomdestinataire</th>
                 <th>Nombrecolis</th>
@@ -22,10 +23,13 @@
             </tr>
         </thead>
         <tbody>
-        {% for gestionRetour in gestionRetours %}
+        {% for key, gestionRetour in gestionRetours %}
             <tr>
                 <td><a href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.id }}</a></td>
                 <td>{{ gestionRetour.numeroSage }}</td>
+
+                    <td>{{ codebarre[loop.index0] |raw }}</td>
+
                 <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
                 <td>{{ gestionRetour.nomDestinataire }}</td>
                 <td>{{ gestionRetour.nombreColis }}</td>

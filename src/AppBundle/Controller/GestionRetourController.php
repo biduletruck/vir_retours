@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\GestionRetour;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use BG\BarcodeBundle\Util\Base1DBarcode as barCode;
 
 /**
  * Gestionretour controller.
@@ -25,11 +27,20 @@ class GestionRetourController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
-        dump($gestionRetours);
 
+        $code = [];
+        foreach ($gestionRetours as $gestionRetour)
+        {
+            $myBarcode = new barCode();
+           $code[] =  $bcHTMLRaw = $myBarcode->getBarcodeHTML($gestionRetour->getNumeroSage(), 'C128', 1.75, 45);
+
+        }
+
+        dump($code);
 
         return $this->render('gestionretour/index.html.twig', array(
             'gestionRetours' => $gestionRetours,
+            'codebarre' => $code,
         ));
     }
 
@@ -136,10 +147,10 @@ class GestionRetourController extends Controller
         ;
     }
 
-    public function bcAction($barcode)
+    public function barCode($barcode)
     {
         $myBarcode = new barCode();
-        $bcHTMLRaw = $myBarcode->getBarcodeHTML('$barcode', 'C128', 1.75, 45);
+        $bcHTMLRaw = $myBarcode->getBarcodeHTML($barcode, 'C128', 1.75, 45);
         return $bcHTMLRaw;
         //return $this->render('default/barcode.html.twig', array('barcodeHTML' => $bcHTMLRaw,));
     }
