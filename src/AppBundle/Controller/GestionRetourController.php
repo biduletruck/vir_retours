@@ -27,7 +27,6 @@ class GestionRetourController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
-        dump($gestionRetours);
 
         $code = [];
         foreach ($gestionRetours as $gestionRetour)
