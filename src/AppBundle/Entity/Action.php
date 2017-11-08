@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Retour
+ * Action
  *
- * @ORM\Table(name="retour")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\RetourRepository")
+ * @ORM\Table(name="action")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ActionRepository")
  */
-class Retour
+class Action
 {
     /**
      * @var int
@@ -24,9 +24,9 @@ class Retour
     /**
      * @var string
      *
-     * @ORM\Column(name="nomRetour", type="string", length=255, unique=true)
+     * @ORM\Column(name="nomAction", type="string", length=255, unique=true)
      */
-    private $nomRetour;
+    private $nomAction;
 
 
     /**
@@ -40,27 +40,27 @@ class Retour
     }
 
     /**
-     * Set nomRetour
+     * Set nomAction
      *
-     * @param string $nomRetour
+     * @param string $nomAction
      *
-     * @return Retour
+     * @return Action
      */
-    public function setNomRetour($nomRetour)
+    public function setNomAction($nomAction)
     {
-        $this->nomRetour = $nomRetour;
+        $this->nomAction = $nomAction;
 
         return $this;
     }
 
     /**
-     * Get nomRetour
+     * Get nomAction
      *
      * @return string
      */
-    public function getNomRetour()
+    public function getNomAction()
     {
-        return $this->nomRetour;
+        return $this->nomAction;
     }
 }
 
