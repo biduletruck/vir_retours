@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Gestionretour</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ gestionRetour.id }}</td>
+            </tr>
+            <tr>
+                <th>Numerosage</th>
+                <td>{{ gestionRetour.numeroSage }}</td>
+            </tr>
+            <tr>
+                <th>Numerodonneurordre</th>
+                <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
+            </tr>
+            <tr>
+                <th>Nomdestinataire</th>
+                <td>{{ gestionRetour.nomDestinataire }}</td>
+            </tr>
+            <tr>
+                <th>Nombrecolis</th>
+                <td>{{ gestionRetour.nombreColis }}</td>
+            </tr>
+            <tr>
+                <th>Datedemandedsa</th>
+                <td>{% if gestionRetour.dateDemandeDsa %}{{ gestionRetour.dateDemandeDsa|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datereponsedemandedsa</th>
+                <td>{% if gestionRetour.dateReponseDemandeDsa %}{{ gestionRetour.dateReponseDemandeDsa|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Numeroraq</th>
+                <td>{{ gestionRetour.numeroRaq }}</td>
+            </tr>
+            <tr>
+                <th>Datereceptionbonreprise</th>
+                <td>{% if gestionRetour.dateReceptionBonReprise %}{{ gestionRetour.dateReceptionBonReprise|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateentreeentrepot</th>
+                <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datesortieentrepot</th>
+                <td>{% if gestionRetour.dateSortieEntrepot %}{{ gestionRetour.dateSortieEntrepot|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ gestionRetour.commentaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('retours_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('retours_edit', { 'id': gestionRetour.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

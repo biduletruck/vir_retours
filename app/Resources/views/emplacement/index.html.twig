@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Emplacements list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nomemplacement</th>
+                <th>Codebarreemplacement</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for emplacement in emplacements %}
+            <tr>
+                <td><a href="{{ path('admin_gestion_emplacement_show', { 'id': emplacement.id }) }}">{{ emplacement.id }}</a></td>
+                <td>{{ emplacement.nomEmplacement }}</td>
+                <td>{{ emplacement.codeBarreEmplacement }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_gestion_emplacement_show', { 'id': emplacement.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_gestion_emplacement_edit', { 'id': emplacement.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_gestion_emplacement_new') }}">Create a new emplacement</a>
+        </li>
+    </ul>
+{% endblock %}

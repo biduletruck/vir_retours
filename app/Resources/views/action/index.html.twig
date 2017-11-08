@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Actions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nomaction</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for action in actions %}
+            <tr>
+                <td><a href="{{ path('admin_gestion_action_show', { 'id': action.id }) }}">{{ action.id }}</a></td>
+                <td>{{ action.nomAction }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_gestion_action_show', { 'id': action.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_gestion_action_edit', { 'id': action.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_gestion_action_new') }}">Create a new action</a>
+        </li>
+    </ul>
+{% endblock %}

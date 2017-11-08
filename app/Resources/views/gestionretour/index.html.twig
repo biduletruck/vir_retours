@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Gestionretours list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numerosage</th>
+                <th>Numerodonneurordre</th>
+                <th>Nomdestinataire</th>
+                <th>Nombrecolis</th>
+                <th>Datedemandedsa</th>
+                <th>Datereponsedemandedsa</th>
+                <th>Numeroraq</th>
+                <th>Datereceptionbonreprise</th>
+                <th>Dateentreeentrepot</th>
+                <th>Datesortieentrepot</th>
+                <th>Commentaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for gestionRetour in gestionRetours %}
+            <tr>
+                <td><a href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.id }}</a></td>
+                <td>{{ gestionRetour.numeroSage }}</td>
+                <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
+                <td>{{ gestionRetour.nomDestinataire }}</td>
+                <td>{{ gestionRetour.nombreColis }}</td>
+                <td>{% if gestionRetour.dateDemandeDsa %}{{ gestionRetour.dateDemandeDsa|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if gestionRetour.dateReponseDemandeDsa %}{{ gestionRetour.dateReponseDemandeDsa|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ gestionRetour.numeroRaq }}</td>
+                <td>{% if gestionRetour.dateReceptionBonReprise %}{{ gestionRetour.dateReceptionBonReprise|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if gestionRetour.dateSortieEntrepot %}{{ gestionRetour.dateSortieEntrepot|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ gestionRetour.commentaire }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('retours_edit', { 'id': gestionRetour.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('retours_new') }}">Create a new gestionRetour</a>
+        </li>
+    </ul>
+{% endblock %}

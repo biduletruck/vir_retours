@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Donneurordres list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nomdonneurordre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for donneurOrdre in donneurOrdres %}
+            <tr>
+                <td><a href="{{ path('admin_gestion_donneurordre_show', { 'id': donneurOrdre.id }) }}">{{ donneurOrdre.id }}</a></td>
+                <td>{{ donneurOrdre.nomDonneurOrdre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_gestion_donneurordre_show', { 'id': donneurOrdre.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_gestion_donneurordre_edit', { 'id': donneurOrdre.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_gestion_donneurordre_new') }}">Create a new donneurOrdre</a>
+        </li>
+    </ul>
+{% endblock %}

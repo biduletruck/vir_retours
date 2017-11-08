@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Prestations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nomprestation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prestation in prestations %}
+            <tr>
+                <td><a href="{{ path('admin_gestion_prestation_show', { 'id': prestation.id }) }}">{{ prestation.id }}</a></td>
+                <td>{{ prestation.nomPrestation }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_gestion_prestation_show', { 'id': prestation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_gestion_prestation_edit', { 'id': prestation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_gestion_prestation_new') }}">Create a new prestation</a>
+        </li>
+    </ul>
+{% endblock %}

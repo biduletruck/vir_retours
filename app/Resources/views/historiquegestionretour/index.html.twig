@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Historiquegestionretours list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dateaction</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for historiqueGestionRetour in historiqueGestionRetours %}
+            <tr>
+                <td><a href="{{ path('historique_show', { 'id': historiqueGestionRetour.id }) }}">{{ historiqueGestionRetour.id }}</a></td>
+                <td>{% if historiqueGestionRetour.dateAction %}{{ historiqueGestionRetour.dateAction|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('historique_show', { 'id': historiqueGestionRetour.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('historique_edit', { 'id': historiqueGestionRetour.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('historique_new') }}">Create a new historiqueGestionRetour</a>
+        </li>
+    </ul>
+{% endblock %}
