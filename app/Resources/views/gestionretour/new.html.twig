@@ -96,6 +96,14 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="col-xs-12 col-sm-12 col-md-12">
+                {{ form_label(form.emplacement) }}
+                {{ form_errors(form.emplacement) }}
+                {{ form_widget(form.emplacement) }}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 {{ form_label(form.commentaire) }}
                 {{ form_errors(form.commentaire) }}
                 {{ form_widget(form.commentaire) }}
@@ -115,5 +123,5 @@
 
         </div>
     </div>
-    {{ form_end(form) }}
+    {{ form_end(form, {'render_rest': false}) }}
 {% endblock %}

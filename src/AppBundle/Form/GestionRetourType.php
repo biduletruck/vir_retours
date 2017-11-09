@@ -49,7 +49,6 @@ class GestionRetourType extends AbstractType
                 'class' => 'AppBundle:Emplacement',
                 'choice_label' => 'nomEmplacement',
                 'placeholder' => 'Choisir emplacement',
-                'required'   => false,
             ))
             ->add('commentaire')
         ;
