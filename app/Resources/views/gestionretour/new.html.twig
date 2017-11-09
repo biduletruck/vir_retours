@@ -1,16 +1,118 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#ikea").hide();
+            $('#appbundle_gestionretour_donneurOrdre').on('change', function() {
+                if ( this.value == '1')
+                {
+                    $("#ikea").show();
+                }
+                else
+                {
+                    $("#ikea").hide();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <h1>Gestionretour creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            {{ form_row(form.dateEntreeEntrepot, { 'attr': {'class': 'hidden-row'} }) }}
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('retours_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.agence) }}
+                {{ form_errors(form.agence) }}
+                {{ form_widget(form.agence) }}
+            </div>
+
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.donneurOrdre) }}
+                {{ form_errors(form.donneurOrdre) }}
+                {{ form_widget(form.donneurOrdre, { 'attr': {'id': 'appbundle_gestionretour_donneurOrdre'} }) }}
+            </div>
+
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.numeroSage) }}
+                {{ form_errors(form.numeroSage) }}
+                {{ form_widget(form.numeroSage) }}
+            </div>
+
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.numeroDonneurOrdre) }}
+                {{ form_errors(form.numeroDonneurOrdre) }}
+                {{ form_widget(form.numeroDonneurOrdre) }}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.nomDestinataire) }}
+                {{ form_errors(form.nomDestinataire) }}
+                {{ form_widget(form.nomDestinataire) }}
+            </div>
+
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.nombreColis) }}
+                {{ form_errors(form.nombreColis) }}
+                {{ form_widget(form.nombreColis) }}
+            </div>
+
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.prestation) }}
+                {{ form_errors(form.prestation) }}
+                {{ form_widget(form.prestation) }}
+            </div>
+
+            <div class="col-ws-12 col-sm-6 col-md-3">
+                {{ form_label(form.motifRetour) }}
+                {{ form_errors(form.motifRetour) }}
+                {{ form_widget(form.motifRetour) }}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12" id="ikea">
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                {{ form_label(form.dateDemandeDsa) }}
+                {{ form_errors(form.dateDemandeDsa) }}
+                {{ form_widget(form.dateDemandeDsa) }}
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                {{ form_label(form.numeroRaq) }}
+                {{ form_errors(form.numeroRaq) }}
+                {{ form_widget(form.numeroRaq) }}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                {{ form_label(form.commentaire) }}
+                {{ form_errors(form.commentaire) }}
+                {{ form_widget(form.commentaire) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                <a href="{{ path('retours_index') }}" class="btn bg-info">Back to the list</a>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                <input type="submit" class="btn btn-primary" value="Create" />
+            </div>
+
+        </div>
+    </div>
+    {{ form_end(form, {'render_rest': false}) }}
+
 {% endblock %}

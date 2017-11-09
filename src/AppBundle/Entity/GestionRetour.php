@@ -76,21 +76,21 @@ class GestionRetour
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDemandeDsa", type="date")
+     * @ORM\Column(name="dateDemandeDsa", type="date", nullable=true)
      */
     private $dateDemandeDsa;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateReponseDemandeDsa", type="date")
+     * @ORM\Column(name="dateReponseDemandeDsa", type="date", nullable=true)
      */
     private $dateReponseDemandeDsa;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroRaq", type="string", length=255,nullable=true)
+     * @ORM\Column(name="numeroRaq", type="string", length=255, nullable=true)
      */
     private $numeroRaq;
 
@@ -111,13 +111,13 @@ class GestionRetour
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateSortieEntrepot", type="date", nullable=true)
+     * @ORM\Column(name="dateSortieEntrepot", type="date")
      */
     private $dateSortieEntrepot;
 
     /**
      * @ORM\ManyToOne(targetEntity="Emplacement")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $emplacement;
 

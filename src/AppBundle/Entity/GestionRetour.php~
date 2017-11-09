@@ -76,21 +76,21 @@ class GestionRetour
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDemandeDsa", type="date")
+     * @ORM\Column(name="dateDemandeDsa", type="date", nullable=true)
      */
     private $dateDemandeDsa;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateReponseDemandeDsa", type="date")
+     * @ORM\Column(name="dateReponseDemandeDsa", type="date", nullable=true)
      */
     private $dateReponseDemandeDsa;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroRaq", type="string", length=255)
+     * @ORM\Column(name="numeroRaq", type="string", length=255, nullable=true)
      */
     private $numeroRaq;
 
@@ -111,13 +111,13 @@ class GestionRetour
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateSortieEntrepot", type="date", nullable=true)
+     * @ORM\Column(name="dateSortieEntrepot", type="date")
      */
     private $dateSortieEntrepot;
 
     /**
      * @ORM\ManyToOne(targetEntity="Emplacement")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $emplacement;
 
@@ -127,6 +127,11 @@ class GestionRetour
      * @ORM\Column(name="commentaire", type="text", nullable=true)
      */
     private $commentaire;
+
+    public function __construct()
+    {
+        $this->setDateEntreeEntrepot(new \DateTime()) ;
+    }
 
 
     /**
@@ -378,5 +383,148 @@ class GestionRetour
     {
         return $this->commentaire;
     }
-}
 
+    /**
+     * Set numeroDonneurOrdre
+     *
+     * @param string $numeroDonneurOrdre
+     *
+     * @return GestionRetour
+     */
+    public function setNumeroDonneurOrdre($numeroDonneurOrdre)
+    {
+        $this->numeroDonneurOrdre = $numeroDonneurOrdre;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroDonneurOrdre
+     *
+     * @return string
+     */
+    public function getNumeroDonneurOrdre()
+    {
+        return $this->numeroDonneurOrdre;
+    }
+
+    /**
+     * Set agence
+     *
+     * @param \AppBundle\Entity\Agence $agence
+     *
+     * @return GestionRetour
+     */
+    public function setAgence(\AppBundle\Entity\Agence $agence)
+    {
+        $this->agence = $agence;
+
+        return $this;
+    }
+
+    /**
+     * Get agence
+     *
+     * @return \AppBundle\Entity\Agence
+     */
+    public function getAgence()
+    {
+        return $this->agence;
+    }
+
+    /**
+     * Set donneurOrdre
+     *
+     * @param \AppBundle\Entity\DonneurOrdre $donneurOrdre
+     *
+     * @return GestionRetour
+     */
+    public function setDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre)
+    {
+        $this->donneurOrdre = $donneurOrdre;
+
+        return $this;
+    }
+
+    /**
+     * Get donneurOrdre
+     *
+     * @return \AppBundle\Entity\DonneurOrdre
+     */
+    public function getDonneurOrdre()
+    {
+        return $this->donneurOrdre;
+    }
+
+    /**
+     * Set prestation
+     *
+     * @param \AppBundle\Entity\Prestation $prestation
+     *
+     * @return GestionRetour
+     */
+    public function setPrestation(\AppBundle\Entity\Prestation $prestation)
+    {
+        $this->prestation = $prestation;
+
+        return $this;
+    }
+
+    /**
+     * Get prestation
+     *
+     * @return \AppBundle\Entity\Prestation
+     */
+    public function getPrestation()
+    {
+        return $this->prestation;
+    }
+
+    /**
+     * Set motifRetour
+     *
+     * @param \AppBundle\Entity\MotifRetour $motifRetour
+     *
+     * @return GestionRetour
+     */
+    public function setMotifRetour(\AppBundle\Entity\MotifRetour $motifRetour)
+    {
+        $this->motifRetour = $motifRetour;
+
+        return $this;
+    }
+
+    /**
+     * Get motifRetour
+     *
+     * @return \AppBundle\Entity\MotifRetour
+     */
+    public function getMotifRetour()
+    {
+        return $this->motifRetour;
+    }
+
+    /**
+     * Set emplacement
+     *
+     * @param \AppBundle\Entity\Emplacement $emplacement
+     *
+     * @return GestionRetour
+     */
+    public function setEmplacement(\AppBundle\Entity\Emplacement $emplacement)
+    {
+        $this->emplacement = $emplacement;
+
+        return $this;
+    }
+
+    /**
+     * Get emplacement
+     *
+     * @return \AppBundle\Entity\Emplacement
+     */
+    public function getEmplacement()
+    {
+        return $this->emplacement;
+    }
+}
