@@ -97,21 +97,21 @@ class GestionRetour
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateReceptionBonReprise", type="date")
+     * @ORM\Column(name="dateReceptionBonReprise", type="date", nullable=true)
      */
     private $dateReceptionBonReprise;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateEntreeEntrepot", type="date")
+     * @ORM\Column(name="dateEntreeEntrepot", type="date", nullable=true)
      */
     private $dateEntreeEntrepot;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateSortieEntrepot", type="date")
+     * @ORM\Column(name="dateSortieEntrepot", type="date", nullable=true)
      */
     private $dateSortieEntrepot;
 
