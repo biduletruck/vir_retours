@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Mapping;
+
 /**
  * GestionRetourRepository
  *
@@ -11,16 +13,16 @@ namespace AppBundle\Repository;
 class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
 {
 
-/*
-    public function countTicketsByDay($visit_date)
+
+    public function findInStock()
     {
-        return $this->getEntityManager()->createQueryBuilder()
-            ->select("count(o.id)")
-            ->from("LouvreFrontBundle:Order", "o")
-            ->leftJoin("o.tickets","t")
-            ->where("o.visitDate = :visit_date")
-            ->setParameter('visit_date', $visit_date)
-            ->getQuery()
-            ->getSingleScalarResult();
-    */
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT g
+                    FROM AppBundle:GestionRetour g
+                    WHERE g.dateSortieEntrepot = :dateSortie'
+                        )->setParameter('dateSortie', '2000-01-01');
+
+        return $query->getResult();
+    }
 }

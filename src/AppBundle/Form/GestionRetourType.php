@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GestionRetourType extends AbstractType
@@ -39,12 +40,27 @@ class GestionRetourType extends AbstractType
                 'choice_label' => 'nomMotifRetour',
                 'placeholder' => 'Motif du retour'
             ))
-            ->add('dateDemandeDsa')
-            ->add('dateReponseDemandeDsa')
+            ->add('dateDemandeDsa',DateType::class,  array(
+                'widget' => 'single_text',
+                'html5' => true,
+            ))
+            ->add('dateReponseDemandeDsa',DateType::class,  array(
+                'widget' => 'single_text',
+                'html5' => true,
+            ))
             ->add('numeroRaq')
-            ->add('dateReceptionBonReprise')
-            ->add('dateEntreeEntrepot')
-            ->add('dateSortieEntrepot')
+            ->add('dateReceptionBonReprise',DateType::class,  array(
+                'widget' => 'single_text',
+                'html5' => true,
+            ))
+            ->add('dateEntreeEntrepot',DateType::class,  array(
+                'widget' => 'single_text',
+                'html5' => true,
+            ))
+            ->add('dateSortieEntrepot',DateType::class,  array(
+                'widget' => 'single_text',
+                'html5' => true,
+                ))
             ->add('emplacement', EntityType::class, array(
                 'class' => 'AppBundle:Emplacement',
                 'choice_label' => 'nomEmplacement',

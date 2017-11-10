@@ -130,7 +130,12 @@ class GestionRetour
 
     public function __construct()
     {
-        $this->setDateEntreeEntrepot(new \DateTime()) ;
+        $this->setDateEntreeEntrepot(new \DateTime()) ; // Date du jour
+        // Initialisation des dates vide
+        $this->setDateSortieEntrepot(new \DateTime("2000-01-01"));
+        $this->setDateDemandeDsa(new \DateTime("2000-01-01"));
+        $this->setDateReceptionBonReprise(new \DateTime("2000-01-01"));
+        $this->setDateReponseDemandeDsa(new \DateTime("2000-01-01"));
     }
 
 

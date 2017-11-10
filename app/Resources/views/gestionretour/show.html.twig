@@ -1,71 +1,105 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Gestionretour</h1>
+    <h1>Commande N° {{ gestionRetour.numeroSage }}</h1>
 
     <table>
         <tbody>
+
             <tr>
-                <th>Id</th>
-                <td>{{ gestionRetour.id }}</td>
-            </tr>
-            <tr>
-                <th>Numerosage</th>
-                <td>{{ gestionRetour.numeroSage }}</td>
-            </tr>
-            <tr>
-                <th>Numerodonneurordre</th>
-                <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
-            </tr>
-            <tr>
-                <th>Nomdestinataire</th>
+                <th>Destinataire</th>
                 <td>{{ gestionRetour.nomDestinataire }}</td>
             </tr>
             <tr>
-                <th>Nombrecolis</th>
+                <th>Code barre Sage</th>
+                <td>{{ codeSage |raw }}</td>
+            </tr>
+            <tr>
+                <th>Donneur d'Ordre</th>
+                <td>{{ gestionRetour.donneurOrdre.nomDonneurOrdre }}</td>
+            </tr>
+            <tr>
+                <th>Numéro DO</th>
+                <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
+            </tr>
+            <tr>
+                <th>Code barre DO</th>
+                <td>{{ codeDo |raw }}</td>
+            </tr>
+            <tr>
+                <th>Nombre de colis</th>
                 <td>{{ gestionRetour.nombreColis }}</td>
             </tr>
+        {% if gestionRetour.donneurOrdre.nomDonneurOrdre == "IKEA" %}
             <tr>
-                <th>Datedemandedsa</th>
-                <td>{% if gestionRetour.dateDemandeDsa %}{{ gestionRetour.dateDemandeDsa|date('Y-m-d') }}{% endif %}</td>
+                <th>Date demande DSA</th>
+                <td>{% if date(gestionRetour.dateDemandeDsa) ==  date('2000-01-01') %}
+                        {{ gestionRetour.dateDemandeDsa|date('') }}
+                    {% else %}
+                        {{ gestionRetour.dateDemandeDsa|date('d-m-Y') }}
+                    {% endif %}</td>
             </tr>
             <tr>
-                <th>Datereponsedemandedsa</th>
-                <td>{% if gestionRetour.dateReponseDemandeDsa %}{{ gestionRetour.dateReponseDemandeDsa|date('Y-m-d') }}{% endif %}</td>
+                <th>Date réponse DSA</th>
+                <td>
+                    {% if date(gestionRetour.dateReponseDemandeDsa) == date('2000-01-01')  %}
+                        {{ gestionRetour.dateReponseDemandeDsa|date('') }}
+                    {% else %}
+                        {{ gestionRetour.dateReponseDemandeDsa|date('d-m-Y') }}
+                    {% endif %}
+                </td>
             </tr>
             <tr>
-                <th>Numeroraq</th>
+                <th>Numéro de RAQ</th>
                 <td>{{ gestionRetour.numeroRaq }}</td>
             </tr>
             <tr>
-                <th>Datereceptionbonreprise</th>
-                <td>{% if gestionRetour.dateReceptionBonReprise %}{{ gestionRetour.dateReceptionBonReprise|date('Y-m-d') }}{% endif %}</td>
+                <th>Date Reception bon reprise</th>
+                <td>{% if date(gestionRetour.dateReceptionBonReprise) ==  date('2000-01-01')%}
+                        {{ gestionRetour.dateReceptionBonReprise|date('') }}
+                    {% else %}
+                        {{ gestionRetour.dateReceptionBonReprise|date('d-m-Y') }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Date d'entrée en entrepôt</th>
+                <td>{% if date(gestionRetour.dateEntreeEntrepot) ==  date('2000-01-01') %}
+                        {{ gestionRetour.dateEntreeEntrepot|date('') }}
+                    {% else %}
+                        {{ gestionRetour.dateEntreeEntrepot|date('d-m-Y') }}
+                    {% endif %}
+                </td>
             </tr>
             <tr>
-                <th>Dateentreeentrepot</th>
-                <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('Y-m-d') }}{% endif %}</td>
+                <th>Date de sortie de l'entrepôt</th>
+                <td>{% if date(gestionRetour.dateSortieEntrepot) == date('2000-01-01') %}
+                        {{ gestionRetour.dateSortieEntrepot|date('') }}
+                    {% else %}
+                        {{ gestionRetour.dateSortieEntrepot|date('d-m-Y') }}
+                    {% endif %}
+                </td>
             </tr>
-            <tr>
-                <th>Datesortieentrepot</th>
-                <td>{% if gestionRetour.dateSortieEntrepot %}{{ gestionRetour.dateSortieEntrepot|date('Y-m-d') }}{% endif %}</td>
-            </tr>
+
             <tr>
                 <th>Commentaire</th>
                 <td>{{ gestionRetour.commentaire }}</td>
             </tr>
+
         </tbody>
     </table>
 
-    <ul>
+    <ul class="list-inline">
         <li>
-            <a href="{{ path('retours_index') }}">Back to the list</a>
+            <a class="btn btn-info" href="{{ path('retours_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('retours_edit', { 'id': gestionRetour.id }) }}">Edit</a>
+            <a class="btn btn-warning" href="{{ path('retours_edit', { 'id': gestionRetour.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input class="btn btn-danger" type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

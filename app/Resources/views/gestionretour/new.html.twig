@@ -23,30 +23,33 @@
 
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            {{ form_label(form.agence) }}
+            {{ form_errors(form.agence) }}
+            {{ form_widget(form.agence) }}
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
             {{ form_row(form.dateEntreeEntrepot, { 'attr': {'class': 'hidden-row'} }) }}
         </div>
+    </div>
 
+    <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="col-ws-12 col-sm-6 col-md-3">
-                {{ form_label(form.agence) }}
-                {{ form_errors(form.agence) }}
-                {{ form_widget(form.agence) }}
-            </div>
 
-            <div class="col-ws-12 col-sm-6 col-md-3">
-                {{ form_label(form.donneurOrdre) }}
-                {{ form_errors(form.donneurOrdre) }}
-                {{ form_widget(form.donneurOrdre, { 'attr': {'id': 'appbundle_gestionretour_donneurOrdre'} }) }}
-            </div>
-
-            <div class="col-ws-12 col-sm-6 col-md-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 {{ form_label(form.numeroSage) }}
                 {{ form_errors(form.numeroSage) }}
                 {{ form_widget(form.numeroSage) }}
             </div>
 
-            <div class="col-ws-12 col-sm-6 col-md-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                {{ form_label(form.donneurOrdre) }}
+                {{ form_errors(form.donneurOrdre) }}
+                {{ form_widget(form.donneurOrdre, { 'attr': {'id': 'appbundle_gestionretour_donneurOrdre'} }) }}
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 {{ form_label(form.numeroDonneurOrdre) }}
                 {{ form_errors(form.numeroDonneurOrdre) }}
                 {{ form_widget(form.numeroDonneurOrdre) }}
@@ -54,25 +57,25 @@
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="col-ws-12 col-sm-6 col-md-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 {{ form_label(form.nomDestinataire) }}
                 {{ form_errors(form.nomDestinataire) }}
                 {{ form_widget(form.nomDestinataire) }}
             </div>
 
-            <div class="col-ws-12 col-sm-6 col-md-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 {{ form_label(form.nombreColis) }}
                 {{ form_errors(form.nombreColis) }}
                 {{ form_widget(form.nombreColis) }}
             </div>
 
-            <div class="col-ws-12 col-sm-6 col-md-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 {{ form_label(form.prestation) }}
                 {{ form_errors(form.prestation) }}
                 {{ form_widget(form.prestation) }}
             </div>
 
-            <div class="col-ws-12 col-sm-6 col-md-3">
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 {{ form_label(form.motifRetour) }}
                 {{ form_errors(form.motifRetour) }}
                 {{ form_widget(form.motifRetour) }}

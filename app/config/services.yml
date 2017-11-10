@@ -29,6 +29,13 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    app.barcode_service:
+        public: true
+        class: AppBundle\Service\BarcodeService
+        arguments:
+            - [barCodeGenerator, ['@?code']]
+
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

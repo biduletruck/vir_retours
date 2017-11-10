@@ -9,11 +9,11 @@
             <tr>
                 <th>Numero Sage</th>
                 <th>Code Barre</th>
+                <th>Donneur d'Ordre</th>
                 <th>Num DO</th>
                 <th>Destinataire</th>
                 <th>Nb colis</th>
                 <th>Entrée Dépôt</th>
-                <th>Sortie Dépôt</th>
                 <th>Emplacement</th>
             </tr>
             </thead>
@@ -22,11 +22,11 @@
                 <tr>
                     <td><a href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.numeroSage }}</a></td>
                     <td>{{ codebarre[loop.index0] |raw }}</td>
+                    <td>{{ gestionRetour.DonneurOrdre.nomDonneurOrdre }}</td>
                     <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
                     <td>{{ gestionRetour.nomDestinataire }}</td>
                     <td>{{ gestionRetour.nombreColis }}</td>
                     <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('Y-m-d') }}{% endif %}</td>
-                    <td>{% if gestionRetour.dateSortieEntrepot %}{{ gestionRetour.dateSortieEntrepot|date('Y-m-d') }}{% endif %}</td>
                     <td>{{ gestionRetour.emplacement.nomEmplacement }}</td>
 
                     <td>

@@ -25,15 +25,15 @@ class GestionRetourController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock();
 
-        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
+        //findAll -> trouver toutes les occurences
+        // $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
 
         $code = [];
         foreach ($gestionRetours as $gestionRetour)
         {
-            $myBarcode = new barCode();
-            $code[] =  $bcHTMLRaw = $myBarcode->getBarcodeHTML($gestionRetour->getNumeroSage(), 'C128', 1.75, 45);
-
+            $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroSage()) ;
         }
 
         return $this->render('gestionretour/index.html.twig', array(
@@ -76,11 +76,15 @@ class GestionRetourController extends Controller
      */
     public function showAction(GestionRetour $gestionRetour)
     {
+        $codeSage = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroSage()) ;
+        $codeDo = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroDonneurOrdre()) ;
         $deleteForm = $this->createDeleteForm($gestionRetour);
 
         return $this->render('gestionretour/show.html.twig', array(
             'gestionRetour' => $gestionRetour,
             'delete_form' => $deleteForm->createView(),
+            'codeSage' => $codeSage,
+            'codeDo' => $codeDo,
         ));
     }
 
