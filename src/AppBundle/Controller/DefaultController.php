@@ -20,4 +20,16 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/scan", name="scanbar")
+     */
+    public function scanAction(Request $request)
+    {
+
+        return $this->render('test/scan.html.twig');
+    }
+
+
+
+
 }
