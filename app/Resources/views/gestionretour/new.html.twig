@@ -5,7 +5,7 @@
         $(document).ready(function(){
             $("#ikea").hide();
             $('#appbundle_gestionretour_donneurOrdre').on('change', function() {
-                if ( this.value == '1')
+                if ( this.value === '1')
                 {
                     $("#ikea").show();
                 }
@@ -126,5 +126,5 @@
 
         </div>
     </div>
-    {{ form_end(form) }}
+    {{ form_end(form, {'render_rest': false}) }}
 {% endblock %}
