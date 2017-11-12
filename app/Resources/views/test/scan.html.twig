@@ -84,7 +84,8 @@
                 },
                 locator: {
                     patchSize: "medium",
-                    halfSample: true
+                    halfSample: true,
+
                 },
                 numOfWorkers: (navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4),
                 decoder: {
@@ -109,7 +110,11 @@
             );
             // Start the live stream scanner when the modal opens
             $('#livestream_scanner').on('shown.bs.modal', function (e) {
-                onCapabilitiesReady
+                if (capabilities.torch) {
+                    track.applyConstraints({
+                        advanced: [{torch: true}]
+                    })}
+
                 Quagga.init(
                     liveStreamConfig,
                     function(err) {
