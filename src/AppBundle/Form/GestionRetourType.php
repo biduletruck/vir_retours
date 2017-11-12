@@ -35,6 +35,7 @@ class GestionRetourType extends AbstractType
             ))
             ->add('nomDestinataire')
             ->add('nombreColis')
+            ->add('nombreSupport')
             ->add('motifRetour', EntityType::class, array(
                 'class' => 'AppBundle:MotifRetour',
                 'choice_label' => 'nomMotifRetour',
@@ -65,6 +66,11 @@ class GestionRetourType extends AbstractType
                 'class' => 'AppBundle:Emplacement',
                 'choice_label' => 'nomEmplacement',
                 'placeholder' => 'Choisir emplacement',
+            ))
+            ->add('etat', EntityType::class, array(
+                'class' => 'AppBundle:Etat',
+                'choice_label' => 'nomEtat',
+                'placeholder' => 'Choisir un état',
             ))
             ->add('commentaire')
         ;

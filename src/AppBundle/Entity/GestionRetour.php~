@@ -68,6 +68,13 @@ class GestionRetour
     private $nombreColis;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="nombreSupport", type="integer")
+     */
+    private $nombreSupport;
+
+    /**
      * @ORM\ManyToOne(targetEntity="MotifRetour")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -122,6 +129,12 @@ class GestionRetour
     private $emplacement;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Etat")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $etat;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text", nullable=true)
@@ -130,7 +143,12 @@ class GestionRetour
 
     public function __construct()
     {
-        $this->setDateEntreeEntrepot(new \DateTime()) ;
+        $this->setDateEntreeEntrepot(new \DateTime()) ; // Date du jour
+        // Initialisation des dates vide
+        $this->setDateSortieEntrepot(new \DateTime("2000-01-01"));
+        $this->setDateDemandeDsa(new \DateTime("2000-01-01"));
+        $this->setDateReceptionBonReprise(new \DateTime("2000-01-01"));
+        $this->setDateReponseDemandeDsa(new \DateTime("2000-01-01"));
     }
 
 

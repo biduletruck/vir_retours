@@ -1,29 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block javascripts %}
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#ikea").hide();
-            $('#appbundle_gestionretour_donneurOrdre').on('change', function() {
-                if ( this.value === '1')
-                {
-                    var now = new Date();
-                    var day = ("0" + now.getDate()).slice(-2);
-                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-                    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
 
-                    $("#ikea").show();
-                    $("#appbundle_gestionretour_dateDemandeDsa").val(today);
-
-                }
-                else
-                {
-                    $("#ikea").hide();
-                    $("#appbundle_gestionretour_dateDemandeDsa").val("2000-01-01");
-                }
-            });
-        });
-    </script>
 {% endblock %}
 
 {% block body %}
@@ -78,6 +56,12 @@
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-3">
+                {{ form_label(form.nombreSupport) }}
+                {{ form_errors(form.nombreSupport) }}
+                {{ form_widget(form.nombreSupport) }}
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
                 {{ form_label(form.prestation) }}
                 {{ form_errors(form.prestation) }}
                 {{ form_widget(form.prestation) }}
@@ -87,21 +71,6 @@
                 {{ form_label(form.motifRetour) }}
                 {{ form_errors(form.motifRetour) }}
                 {{ form_widget(form.motifRetour) }}
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12" id="ikea">
-
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                {{ form_label(form.dateDemandeDsa) }}
-                {{ form_errors(form.dateDemandeDsa) }}
-                {{ form_widget(form.dateDemandeDsa) }}
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                {{ form_label(form.numeroRaq) }}
-                {{ form_errors(form.numeroRaq) }}
-                {{ form_widget(form.numeroRaq) }}
             </div>
         </div>
 
@@ -134,5 +103,5 @@
 
         </div>
     </div>
-    {{ form_end(form, {'render_rest': false}) }}
+    {{ form_end(form) }}
 {% endblock %}

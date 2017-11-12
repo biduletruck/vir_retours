@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\AppBundle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,6 +69,13 @@ class GestionRetour
     private $nombreColis;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="nombreSupport", type="integer")
+     */
+    private $nombreSupport;
+
+    /**
      * @ORM\ManyToOne(targetEntity="MotifRetour")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -122,6 +130,12 @@ class GestionRetour
     private $emplacement;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Etat")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $etat;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text", nullable=true)
@@ -136,6 +150,7 @@ class GestionRetour
         $this->setDateDemandeDsa(new \DateTime("2000-01-01"));
         $this->setDateReceptionBonReprise(new \DateTime("2000-01-01"));
         $this->setDateReponseDemandeDsa(new \DateTime("2000-01-01"));
+
     }
 
 
@@ -531,5 +546,62 @@ class GestionRetour
     public function getEmplacement()
     {
         return $this->emplacement;
+    }
+
+    /**
+     * Set nombreSupport
+     *
+     * @param integer $nombreSupport
+     *
+     * @return GestionRetour
+     */
+    public function setNombreSupport($nombreSupport)
+    {
+        $this->nombreSupport = $nombreSupport;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreSupport
+     *
+     * @return integer
+     */
+    public function getNombreSupport()
+    {
+        return $this->nombreSupport;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param \AppBundle\Entity\Etat $etat
+     *
+     * @return GestionRetour
+     */
+    public function setEtat(\AppBundle\Entity\Etat $etat = null)
+    {
+
+
+        if ($etat = null)
+        {
+            $this->etat = 1;
+        }
+        else
+        {
+            $this->etat = $etat;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return \AppBundle\Entity\Etat
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 }
