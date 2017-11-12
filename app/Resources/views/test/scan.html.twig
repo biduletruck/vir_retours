@@ -32,15 +32,18 @@
                         <i class="fa fa-camera"></i> Use camera app
                         <input type="file" accept="image/*;capture=camera" capture="camera" class="hidden" />
                     </label>
-                    <label>
-                        <span>Camera</span>
-                        <select name="input-stream_constraints" id="deviceSelection">
-                        </select>
-                    </label>
-                    <label style="display: none">
-                        <span>Torch</span>
-                        <input type="checkbox" name="settings_torch" />
-                    </label>
+                    <div class="controls">
+                        <button class="stop">Stop</button>
+                        <label>
+                            <span>Camera</span>
+                            <select name="input-stream_constraints" id="deviceSelection">
+                            </select>
+                        </label>
+                        <label style="display: none">
+                            <span>Torch</span>
+                            <input type="checkbox" name="settings_torch" />
+                        </label>
+                    </div>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div><!-- /.modal-content -->
@@ -78,9 +81,26 @@
                     if (typeof track.getCapabilities === 'function') {
                         capabilities = track.getCapabilities();
                     }
+                    this.applySettingsVisibility('zoom', capabilities.zoom);
                     this.applySettingsVisibility('torch', capabilities.torch);
                 },
-
+                updateOptionsForMediaRange: function(node, range) {
+                    console.log('updateOptionsForMediaRange', node, range);
+                    var NUM_STEPS = 6;
+                    var stepSize = (range.max - range.min) / NUM_STEPS;
+                    var option;
+                    var value;
+                    while (node.firstChild) {
+                        node.removeChild(node.firstChild);
+                    }
+                    for (var i = 0; i <= NUM_STEPS; i++) {
+                        value = range.min + (stepSize * i);
+                        option = document.createElement('option');
+                        option.value = value;
+                        option.innerHTML = value;
+                        node.appendChild(option);
+                    }
+                },
                 applySettingsVisibility: function(setting, capability) {
                     // depending on type of capability
                     if (typeof capability === 'boolean') {
@@ -208,6 +228,27 @@
                                 deviceId: value
                             };
                         }
+                    },
+                    numOfWorkers: function(value) {
+                        return parseInt(value);
+                    },
+                    decoder: {
+                        readers: function(value) {
+                            if (value === 'ean_extended') {
+                                return [{
+                                    format: "ean_reader",
+                                    config: {
+                                        supplements: [
+                                            'ean_5_reader', 'ean_2_reader'
+                                        ]
+                                    }
+                                }];
+                            }
+                            return [{
+                                format: value + "_reader",
+                                config: {}
+                            }];
+                        }
                     }
                 },
                 state: {
@@ -233,7 +274,8 @@
                         }]
                     },
                     locate: true
-                }
+                },
+                lastResult : null
             };
 
             App.init();
@@ -263,17 +305,16 @@
             });
 
             Quagga.onDetected(function(result) {
-                if (result.codeResult.code){
-                    $('#scanner_input').val(result.codeResult.code);
-                    Quagga.stop();
-                    setTimeout(function(){ $('#livestream_scanner').modal('hide'); }, 1000);
-                }
-            });
+                var code = result.codeResult.code;
 
-            // Stop quagga in any case, when the modal is closed
-            $('#livestream_scanner').on('hide.bs.modal', function(){
-                if (Quagga){
-                    Quagga.stop();
+                if (App.lastResult !== code) {
+                    App.lastResult = code;
+                    var $node = null, canvas = Quagga.canvas.dom.image;
+
+                    $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
+                    $node.find("img").attr("src", canvas.toDataURL());
+                    $node.find("h4.code").html(code);
+                    $("#result_strip ul.thumbnails").prepend($node);
                 }
             });
         });
