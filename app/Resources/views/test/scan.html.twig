@@ -124,6 +124,10 @@
                     var self = this;
 
                     self.initCameraSelection();
+                    $(".controls").on("click", "button.stop", function(e) {
+                        e.preventDefault();
+                        Quagga.stop();
+                    });
 
                     $(".controls .reader-config-group").on("change", "input, select", function(e) {
                         e.preventDefault();
@@ -229,8 +233,7 @@
                         }]
                     },
                     locate: true
-                },
-                lastResult : null
+                }
             };
 
             App.init();
