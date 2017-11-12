@@ -32,20 +32,7 @@
                         <i class="fa fa-camera"></i> Use camera app
                         <input type="file" accept="image/*;capture=camera" capture="camera" class="hidden" />
                     </label>
-                    <div class="controls">
-                        <button class="stop">Stop</button>
-                    </div>
-                    <div class="reader-config-group">
-                        <label>
-                            <span>Camera</span>
-                            <select name="input-stream_constraints" id="deviceSelection">
-                            </select>
-                        </label>
-                        <label style="display: none">
-                            <span>Torch</span>
-                            <input type="checkbox" name="settings_torch" />
-                        </label>
-                    </div>
+
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div><!-- /.modal-content -->
@@ -110,10 +97,7 @@
             );
             // Start the live stream scanner when the modal opens
             $('#livestream_scanner').on('shown.bs.modal', function (e) {
-                if (capabilities.torch) {
-                    track.applyConstraints({
-                        advanced: [{torch: true}]
-                    })}
+
 
                 Quagga.init(
                     liveStreamConfig,
@@ -180,14 +164,7 @@
                 }
             });
 
-            function onCapabilitiesReady(capabilities) {
-                if (capabilities.torch) {
-                    track.applyConstraints({
-                        advanced: [{torch: true}]
-                    })
-                        .catch(e => console.log(e));
-                }
-            }
+
         });
 
     </script>
