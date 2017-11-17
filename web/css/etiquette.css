@@ -1,4 +1,28 @@
 @page {
     size: A4 landscape;
+    margin: 1cm;
 
+}
+
+
+body {
+    width: auto!important;
+    margin: auto!important;
+    font-family: serif;
+    font-size: 12pt;
+    background-color: #fff!important;
+    color: #000!important;
+}
+
+p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol {
+    color: #000!important;
+    margin: auto!important;
+}
+
+table {
+    page-break-before: always; /* chaque titre commence sur une nouvelle page */
+}
+hr {
+    display: none;
+    page-break-after: avoid; /* pas de saut après ces éléments */
 }

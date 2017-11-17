@@ -1,9 +1,21 @@
 {% extends 'base.html.twig' %}
+{% block div %}
+    <link rel="alternate" media="print" href="{{ path('etiquette', { 'id': gestionRetour.id }) }}">
+    <script type="text/javascript">
 
+        function imprime(){
+            window.frames[0].print();
+        }
+    </script>
+    {% endblock %}
 {% block body %}
 
     <div class="page-header">
-        <h1>Détail commande N° {{ gestionRetour.numeroSage }}</h1>
+        <h1>Détail commande N° {{ gestionRetour.numeroSage }}
+            <button type="button" class="btn btn-sm btn-primary" name="button" type="button" onClick="javascript:imprime()">
+                <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimer les supports
+            </button>
+        </h1>
     </div>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -227,4 +239,8 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    <iframe height="0px" src="{{ path('etiquette', { 'id': gestionRetour.id }) }}" style="visibility: hidden"></iframe>
+
+
 {% endblock %}

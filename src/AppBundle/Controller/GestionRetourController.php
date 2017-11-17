@@ -94,7 +94,7 @@ class GestionRetourController extends Controller
     /**
      * Finds and displays a gestionRetour entity.
      *
-     * @Route("/print/{id}", name="etiquette")
+     * @Route("/{id}/print", name="etiquette")
      * @Method("GET")
      */
     public function etiquetteAction(GestionRetour $gestionRetour)
