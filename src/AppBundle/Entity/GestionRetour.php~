@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\AppBundle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -111,7 +112,7 @@ class GestionRetour
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateEntreeEntrepot", type="date", nullable=true)
+     * @ORM\Column(name="dateEntreeEntrepot", type="date", nullable=false)
      */
     private $dateEntreeEntrepot;
 
@@ -144,11 +145,6 @@ class GestionRetour
     public function __construct()
     {
         $this->setDateEntreeEntrepot(new \DateTime()) ; // Date du jour
-        // Initialisation des dates vide
-        $this->setDateSortieEntrepot(new \DateTime("2000-01-01"));
-        $this->setDateDemandeDsa(new \DateTime("2000-01-01"));
-        $this->setDateReceptionBonReprise(new \DateTime("2000-01-01"));
-        $this->setDateReponseDemandeDsa(new \DateTime("2000-01-01"));
     }
 
 
@@ -545,4 +541,30 @@ class GestionRetour
     {
         return $this->emplacement;
     }
+
+    /**
+     * Set nombreSupport
+     *
+     * @param integer $nombreSupport
+     *
+     * @return GestionRetour
+     */
+    public function setNombreSupport($nombreSupport)
+    {
+        $this->nombreSupport = $nombreSupport;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreSupport
+     *
+     * @return integer
+     */
+    public function getNombreSupport()
+    {
+        return $this->nombreSupport;
+    }
+
+
 }

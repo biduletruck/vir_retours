@@ -1,0 +1,54 @@
+{% block nav %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('homepage') }}">VIR - Gestion des retours</a>
+            </div>
+            {% if is_granted('ROLE_USER') %}
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path('retours_new') }}">Ajouter un retour</a></li>
+                        <li><a href="{{ path('retours_index') }}">Listing des retours</a></li>
+                        <li><a href="{{ path('scanbar') }}">Test scan</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu multi-level">
+                                <li><a href="{{ path('admin_user_index') }}">Utilisateurs</a></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Gestion Appli</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('admin_gestion_agence_index') }}">Agence</a></li>
+                                        <li><a href="{{ path('admin_gestion_donneurordre_index') }}">Donneur d'ordre</a></li>
+                                        <li><a href="{{ path('admin_gestion_emplacement_index') }}">Emplacement</a></li>
+                                        <li><a href="{{ path('admin_gestion_prestation_index') }}">Type de prestation</a></li>
+                                        <li><a href="{{ path('admin_gestion_motifretour_index') }}">Motif de retour</a></li>
+                                        <li><a href="{{ path('admin_gestion_action_index') }}">Type d'action</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </li>
+                        {% endif %}
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            {% endif %}
+        </div><!-- /.container-fluid -->
+    </nav>
+{% endblock %}

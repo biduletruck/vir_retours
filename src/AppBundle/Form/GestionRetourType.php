@@ -44,15 +44,18 @@ class GestionRetourType extends AbstractType
             ->add('dateDemandeDsa',DateType::class,  array(
                 'widget' => 'single_text',
                 'html5' => true,
+                'required' => false,
             ))
             ->add('dateReponseDemandeDsa',DateType::class,  array(
                 'widget' => 'single_text',
                 'html5' => true,
+                'required' => false,
             ))
             ->add('numeroRaq')
             ->add('dateReceptionBonReprise',DateType::class,  array(
                 'widget' => 'single_text',
                 'html5' => true,
+                'required' => false,
             ))
             ->add('dateEntreeEntrepot',DateType::class,  array(
                 'widget' => 'single_text',
@@ -61,6 +64,7 @@ class GestionRetourType extends AbstractType
             ->add('dateSortieEntrepot',DateType::class,  array(
                 'widget' => 'single_text',
                 'html5' => true,
+                'required' => false,
                 ))
             ->add('emplacement', EntityType::class, array(
                 'class' => 'AppBundle:Emplacement',

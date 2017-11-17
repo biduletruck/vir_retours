@@ -36,6 +36,8 @@ class Emplacement
     private $codeBarreEmplacement;
 
 
+
+
     /**
      * Get id
      *

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\GestionRetour;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,10 +26,10 @@ class GestionRetourController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock();
+        //$gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock();
 
         //findAll -> trouver toutes les occurences
-        // $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
+         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
 
         $code = [];
         foreach ($gestionRetours as $gestionRetour)
@@ -51,7 +52,9 @@ class GestionRetourController extends Controller
     public function newAction(Request $request)
     {
         $gestionRetour = new Gestionretour();
-        $form = $this->createForm('AppBundle\Form\GestionRetourType', $gestionRetour);
+        $gestionRetour->setAgence($this->getUser()->getAgence());
+
+        $form = $this->createForm('AppBundle\Form\AddGestionRetourType', $gestionRetour);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -85,6 +88,25 @@ class GestionRetourController extends Controller
             'delete_form' => $deleteForm->createView(),
             'codeSage' => $codeSage,
             'codeDo' => $codeDo,
+        ));
+    }
+
+    /**
+     * Finds and displays a gestionRetour entity.
+     *
+     * @Route("/print/{id}", name="etiquette")
+     * @Method("GET")
+     */
+    public function etiquetteAction(GestionRetour $gestionRetour)
+    {
+        $codeSage = $this->container->get('app.barcode_service')->barCodeGeneratorHd($gestionRetour->getNumeroSage()) ;
+
+        $deleteForm = $this->createDeleteForm($gestionRetour);
+
+        return $this->render('gestionretour/etiquette.html.twig', array(
+            'gestionRetour' => $gestionRetour,
+            'delete_form' => $deleteForm->createView(),
+            'codeSage' => $codeSage,
         ));
     }
 

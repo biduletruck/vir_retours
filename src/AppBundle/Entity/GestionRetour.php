@@ -112,7 +112,7 @@ class GestionRetour
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateEntreeEntrepot", type="date", nullable=true)
+     * @ORM\Column(name="dateEntreeEntrepot", type="date", nullable=false)
      */
     private $dateEntreeEntrepot;
 
@@ -145,12 +145,6 @@ class GestionRetour
     public function __construct()
     {
         $this->setDateEntreeEntrepot(new \DateTime()) ; // Date du jour
-        // Initialisation des dates vide
-        $this->setDateSortieEntrepot(new \DateTime("2000-01-01"));
-        $this->setDateDemandeDsa(new \DateTime("2000-01-01"));
-        $this->setDateReceptionBonReprise(new \DateTime("2000-01-01"));
-        $this->setDateReponseDemandeDsa(new \DateTime("2000-01-01"));
-
     }
 
 
@@ -572,6 +566,8 @@ class GestionRetour
         return $this->nombreSupport;
     }
 
+
+
     /**
      * Set etat
      *
@@ -581,16 +577,7 @@ class GestionRetour
      */
     public function setEtat(\AppBundle\Entity\Etat $etat = null)
     {
-
-
-        if ($etat = null)
-        {
-            $this->etat = 1;
-        }
-        else
-        {
-            $this->etat = $etat;
-        }
+        $this->etat = $etat;
 
         return $this;
     }

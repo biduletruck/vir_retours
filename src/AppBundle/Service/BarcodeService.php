@@ -19,4 +19,9 @@ class BarcodeService
         return $bcHTMLRaw = $myBarcode->getBarcodeHTML($barcode, 'C128', 1.75, 45);
     }
 
+    public function barCodeGeneratorHd($barcode)
+    {
+        $myBarcode = new barCode();
+        return $bcHTMLRaw = $myBarcode->getBarcodeHTML($barcode, 'C128', 4.375, 112.5);
+    }
 }

@@ -21,7 +21,7 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             'SELECT g
                     FROM AppBundle:GestionRetour g
                     WHERE g.dateSortieEntrepot = :dateSortie'
-                        )->setParameter('dateSortie', '2000-01-01');
+                        )->setParameter('dateSortie', is_null());
 
         return $query->getResult();
     }
