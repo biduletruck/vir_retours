@@ -12,6 +12,7 @@ body {
     font-size: 12pt;
     background-color: #fff!important;
     color: #000!important;
+
 }
 
 p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol {
@@ -19,9 +20,63 @@ p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol {
     margin: auto!important;
 }
 
-table {
+.tg {
     page-break-before: always; /* chaque titre commence sur une nouvelle page */
+    font-family:"Arial Black", Gadget, sans-serif;
+
+    border:solid;
 }
+
+.tg td{
+    border:solid;
+}
+.tg .tg-motif{
+
+    font-weight:bold;
+    font-size:12vW;
+    text-align:center;
+    vertical-align:middle;
+    background-color:#000000 !important;
+    color:#ffffff !important;
+}
+
+.tg .tg-destinataire{
+    font-weight:bold;
+    font-size:10vw;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.tg .tg-do{
+
+    font-weight:bold;
+    font-size:9vw;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.tg .tg-emplacement{
+    width: 20%;
+    font-weight:bold;
+    font-size:10vw;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.tg .tg-codeBarre div div{
+    background-color:black !important;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.tg .tg-9kdx{}
+.tg .tg-9klht{font-weight:bold;font-size:10vw;font-family:"Arial Black", Gadget, sans-serif;text-align:center}
+.tg .tg-9k div div{}
+.tg .tg-yw4l{vertical-align:top;text-align:center}
+
+
+
+
 hr {
     display: none;
     page-break-after: avoid; /* pas de saut après ces éléments */
