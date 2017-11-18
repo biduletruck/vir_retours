@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>Détails DSA de la commande N° {{ gestionRetour.numeroSage }}
+        </h1>
+    </div>
+
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+
+{% endblock %}

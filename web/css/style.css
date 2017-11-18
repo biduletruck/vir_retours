@@ -3,6 +3,19 @@ body {
     padding-top: 70px;
 }
 
+.table > tbody > tr > td {
+    vertical-align: middle;
+    text-align: center;
+}
+.table > thead > tr > th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+ul > li{
+    list-style-type: none;
+}
+
 .dropdown-submenu {
     position: relative;
 }

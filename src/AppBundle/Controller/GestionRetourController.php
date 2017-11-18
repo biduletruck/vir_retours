@@ -72,6 +72,43 @@ class GestionRetourController extends Controller
     }
 
     /**
+     *Update gestionRetour entity.
+     *
+     * @Route("/{id}/dsaupdate", name="update_dsa")
+     * @Method({"GET", "POST"})
+     */
+    public function updateDsaAction(Request $request, GestionRetour $gestionRetour)
+    {
+
+        if ($gestionRetour->getDonneurOrdre()->getNomDonneurOrdre() != "IKEA")
+        {
+            $this->get('session')->getFlashBag()->add('danger', 'Pas de DSA pour ce client');
+            return $this->redirectToRoute('retours_index');
+        }
+        else{
+            $deleteForm = $this->createDeleteForm($gestionRetour);
+            $editForm = $this->createForm('AppBundle\Form\DsaGestionRetourType', $gestionRetour);
+            $editForm->handleRequest($request);
+
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+
+                $this->get('session')->getFlashBag()->add('success', 'DSA mis à jour');
+                return $this->redirectToRoute('retours_index');
+               // return $this->redirectToRoute('update_dsa', array('id' => $gestionRetour->getId()));
+            }
+
+            return $this->render('gestionretour/dsa.html.twig', array(
+                'gestionRetour' => $gestionRetour,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
+
+
+    }
+
+    /**
      * Finds and displays a gestionRetour entity.
      *
      * @Route("/{id}", name="retours_show")
