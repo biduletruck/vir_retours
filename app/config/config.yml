@@ -82,3 +82,35 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+
+easy_admin:
+    site_name: 'VIR - Admin Retours'
+    design:
+        menu:
+            - { label: 'Nos Agences', entity: 'Agence'}
+            - { label: "Donneurs d'ordre", entity: 'DonneurOrdre'}
+            - { label: 'Nos prestations', entity: 'Prestation'}
+            - { label: 'Les motifs de retour', entity: 'MotifRetour'}
+            - { label: 'Stockage', entity: 'Emplacement'}
+            - { label: 'Statut du retour', entity: 'Etat'}
+            - { label: "Retour à l'appli", route: 'homepage' }
+
+    entities:
+        Agence:
+            class: AppBundle\Entity\Agence
+            label: 'Nos Agences'
+        DonneurOrdre:
+            class: AppBundle\Entity\DonneurOrdre
+            label: "Donneurs d'ordre"
+        Prestation:
+            class: AppBundle\Entity\Prestation
+            label: 'Nos prestations'
+        MotifRetour:
+            class: AppBundle\Entity\MotifRetour
+            label: 'Les motifs de retour'
+        Emplacement:
+            class: AppBundle\Entity\Emplacement
+            label: 'Stockage'
+        Etat:
+            class: AppBundle\Entity\Etat
+            label: 'Statut du retour'

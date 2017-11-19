@@ -20,7 +20,7 @@
             <tbody >
             {% for key, gestionRetour in gestionRetours %}
                 <tr>
-                    <td><a href="{{ path('retours_show', { 'id': gestionRetour.id }) }}"><span class="label label-info">{{ gestionRetour.numeroSage }}</span></a></td>
+                    <td><a class="btn btn-small btn-info" href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.numeroSage }}</a></td>
                     <td>{{ codebarre[loop.index0] |raw }}</td>
                     <td>{{ gestionRetour.DonneurOrdre.nomDonneurOrdre }}</td>
                     <td>{{ gestionRetour.numeroDonneurOrdre }}</td>

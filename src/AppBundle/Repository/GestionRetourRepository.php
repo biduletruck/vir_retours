@@ -20,9 +20,24 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
         $query = $em->createQuery(
             'SELECT g
                     FROM AppBundle:GestionRetour g
-                    WHERE g.dateSortieEntrepot = :dateSortie'
-                        )->setParameter('dateSortie', is_null());
+                    WHERE g.dateSortieEntrepot IS NULL'
+                        );
 
         return $query->getResult();
+    }
+
+    public function rechercheRetours($recherche, $idAgence)
+    {
+        $query = $this->createQueryBuilder('g')
+            ->where('g.numeroSage LIKE :recherche')
+            ->orWhere('g.numeroDonneurOrdre LIKE :recherche')
+            ->orWhere('g.nomDestinataire LIKE :recherche')
+            ->andWhere('g.agence = :agence')
+            ->orderBy('g.dateEntreeEntrepot')
+            ->setParameter('recherche', '%' . $recherche . '%')
+            ->setParameter('agence', $idAgence)
+            ->getQuery();
+
+        return $query->getArrayResult();
     }
 }

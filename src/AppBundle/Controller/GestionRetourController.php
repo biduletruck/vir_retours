@@ -7,6 +7,7 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use BG\BarcodeBundle\Util\Base1DBarcode as barCode;
 
@@ -26,10 +27,10 @@ class GestionRetourController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        //$gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock();
+        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock();
 
         //findAll -> trouver toutes les occurences
-         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
+         //$gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
 
         $code = [];
         foreach ($gestionRetours as $gestionRetour)
@@ -41,6 +42,36 @@ class GestionRetourController extends Controller
             'gestionRetours' => $gestionRetours,
             'codebarre' => $code,
         ));
+    }
+
+    /**
+     * Lists all gestionRetour entities.
+     *
+     * @Route("/recherche", name="retours_recherche")
+     * @Method("GET")
+     */
+    public function rechercheRetoursAction(Request $request)
+    {
+        $form = $this->createFormBuilder(null)->add('recherche', TextType::class, array('attr' => array('placeholder' => 'Recherche')))->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $recherche = $form->getData() ;
+            $gestionRetours = $this->getDoctrine()->getRepository('AppBundle:GestionRetour')->rechercheRetours($recherche['recherche'], $this->getUser()->getAgence());
+
+            $code = [];
+            foreach ($gestionRetours as $gestionRetour)
+            {
+                $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroSage()) ;
+            }
+
+            return $this->render('gestionretour/index.html.twig', array(
+                'gestionRetours' => $gestionRetours,
+                'codebarre' => $code,
+            ));
+        }
+
     }
 
     /**
@@ -94,11 +125,11 @@ class GestionRetourController extends Controller
                 $this->getDoctrine()->getManager()->flush();
 
                 $this->get('session')->getFlashBag()->add('success', 'DSA mis à jour');
-                return $this->redirectToRoute('retours_index');
-               // return $this->redirectToRoute('update_dsa', array('id' => $gestionRetour->getId()));
+                //return $this->redirectToRoute('retours_index');
+                return $this->redirectToRoute('retours_show', array('id' => $gestionRetour->getId()));
             }
 
-            return $this->render('gestionretour/dsa.html.twig', array(
+            return $this->render(':gestionretour:dsa.html.twig', array(
                 'gestionRetour' => $gestionRetour,
                 'edit_form' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
