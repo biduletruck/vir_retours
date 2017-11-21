@@ -27,10 +27,11 @@ class GestionRetourController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock();
+        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
+
 
         //findAll -> trouver toutes les occurences
-         //$gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findAll();
+         //$gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
 
         $code = [];
         foreach ($gestionRetours as $gestionRetour)
@@ -44,35 +45,45 @@ class GestionRetourController extends Controller
         ));
     }
 
-    /**
-     * Lists all gestionRetour entities.
-     *
-     * @Route("/recherche", name="retours_recherche")
-     * @Method("GET")
-     */
-    public function rechercheRetoursAction(Request $request)
+    public function barreRechercheAction()
     {
-        $form = $this->createFormBuilder(null)->add('recherche', TextType::class, array('attr' => array('placeholder' => 'Recherche')))->getForm();
-        $form->handleRequest($request);
+        $form = $this->createFormBuilder(null)
+            ->add('recherche', TextType::class)
+            ->getForm();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        return $this->render(':gestionretour:barre_recherche.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 
-            $recherche = $form->getData() ;
-            $gestionRetours = $this->getDoctrine()->getRepository('AppBundle:GestionRetour')->rechercheRetours($recherche['recherche'], $this->getUser()->getAgence());
+    /**
+     * @Route("/recherche", name="retours_recherche")
+     * @param Request $request
+     */
+    public function resultatRecherche(Request $request)
+    {
+        $res = $request->request->get('form');
+        $em = $this->getDoctrine()->getManager();
+        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->rechercheRetours($res['recherche'],$this->getUser()->getAgence());
 
-            $code = [];
-            foreach ($gestionRetours as $gestionRetour)
-            {
-                $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroSage()) ;
-            }
-
-            return $this->render('gestionretour/index.html.twig', array(
-                'gestionRetours' => $gestionRetours,
-                'codebarre' => $code,
-            ));
+/*
+        $code = [];
+        foreach ($gestionRetours as $gestionRetour)
+        {
+            echo '<pre>';
+            var_dump($gestionRetour);
+            die();
+            $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour["numeroSage"]) ;
         }
+*/
+        return $this->render('gestionretour/recherche_colis.html.twig', array(
+            'gestionRetours' => $gestionRetours,
+            //'codebarre' => $code,
+        ));
 
     }
+
+
 
     /**
      * Creates a new gestionRetour entity.

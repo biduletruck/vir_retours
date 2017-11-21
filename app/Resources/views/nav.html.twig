@@ -26,6 +26,7 @@
                         <li {% if app.request.attributes.get('_route') == 'easyadmin' %}class="active"{% endif %}><a href="{{ path('easyadmin') }}">Gestion Appli</a></li>
                     </ul>
 
+
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -37,6 +38,8 @@
                             {% endif %}
                         </li>
                     </ul>
+
+                    {{ render(controller('AppBundle:GestionRetour:barreRecherche')) }}
                 </div><!-- /.navbar-collapse -->
             {% endif %}
         </div><!-- /.container-fluid -->

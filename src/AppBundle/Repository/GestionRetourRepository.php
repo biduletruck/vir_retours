@@ -13,18 +13,31 @@ use Doctrine\ORM\Mapping;
 class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
 {
 
-
-    public function findInStock()
+/*
+    public function findInStock($idAgence)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
             'SELECT g
                     FROM AppBundle:GestionRetour g
-                    WHERE g.dateSortieEntrepot IS NULL'
+                    WHERE g.dateSortieEntrepot IS NULL
+                      AND g.agence '
                         );
 
         return $query->getResult();
     }
+*/
+        public function findInStock($idAgence)
+        {
+            $query = $this->createQueryBuilder('g')
+                ->where('g.dateSortieEntrepot IS NULL')
+                ->andWhere('g.agence = :agence')
+                ->orderBy('g.dateSortieEntrepot')
+                ->setParameter('agence', $idAgence)
+                ->getQuery();
+
+            return $query->getResult();
+        }
 
     public function rechercheRetours($recherche, $idAgence)
     {
