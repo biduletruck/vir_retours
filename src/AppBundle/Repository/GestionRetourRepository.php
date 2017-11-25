@@ -42,9 +42,12 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
     public function rechercheRetours($recherche, $idAgence)
     {
         $query = $this->createQueryBuilder('g')
+            ->select('g', 'd')
+            ->join('g.donneurOrdre', 'd')
             ->where('g.numeroSage LIKE :recherche')
             ->orWhere('g.numeroDonneurOrdre LIKE :recherche')
             ->orWhere('g.nomDestinataire LIKE :recherche')
+            ->orWhere('d.nomDonneurOrdre LIKE :recherche')
             ->andWhere('g.agence = :agence')
             ->orderBy('g.dateEntreeEntrepot')
             ->setParameter('recherche', '%' . $recherche . '%')
