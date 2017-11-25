@@ -7,10 +7,11 @@
         <table  class="table table-hover table-responsive">
             <thead>
             <tr>
+
+                <th>Num DO</th>
+                <th>Donneur d'Ordre</th>
                 <th>Numero Sage</th>
                 <th>Code Barre</th>
-                <th>Donneur d'Ordre</th>
-                <th>Num DO</th>
                 <th>Destinataire</th>
                 <th>Nb colis</th>
                 <th>Entrée Dépôt</th>
@@ -20,26 +21,19 @@
             <tbody >
             {% for key, gestionRetour in gestionRetours %}
                 <tr>
+                    <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
+                    <td>{{ gestionRetour.DonneurOrdre.nomDonneurOrdre }}</td>
                     <td><a class="btn btn-small btn-info" href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.numeroSage }}</a></td>
                     <td>{{ codebarre[loop.index0] |raw }}</td>
-                    <td>{{ gestionRetour.DonneurOrdre.nomDonneurOrdre }}</td>
-                    <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
                     <td>{{ gestionRetour.nomDestinataire }}</td>
                     <td>{{ gestionRetour.nombreColis }}</td>
                     <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('Y-m-d') }}{% endif %}</td>
                     <td>{{ gestionRetour.emplacement.nomEmplacement }}</td>
+                    <td>{% if gestionRetour.donneurOrdre.nomDonneurOrdre == 'IKEA' %}
 
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('retours_edit', { 'id': gestionRetour.id }) }}"><span class="label label-warning">edit</span></a>
-                            </li>
-                            {% if gestionRetour.donneurOrdre.nomDonneurOrdre == 'IKEA' %}
-                            <li>
-                                <a href="{{ path('update_dsa', { 'id': gestionRetour.id }) }}"><span class="label label-info" >dsa</span></a>
-                            </li>
-                            {% endif %}
-                        </ul>
+                            <a href="{{ path('update_dsa', { 'id': gestionRetour.id }) }}"><span class="label label-info" >dsa</span></a>
+
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

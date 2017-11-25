@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use BG\BarcodeBundle\Util\Base1DBarcode as barCode;
 
@@ -57,8 +58,13 @@ class GestionRetourController extends Controller
     }
 
     /**
+     * Barre de recherche
+     *
      * @Route("/recherche", name="retours_recherche")
      * @param Request $request
+     * @Method("POST")
+     *
+     * @return array
      */
     public function resultatRecherche(Request $request)
     {
@@ -66,23 +72,10 @@ class GestionRetourController extends Controller
         $em = $this->getDoctrine()->getManager();
         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->rechercheRetours($res['recherche'],$this->getUser()->getAgence());
 
-/*
-        $code = [];
-        foreach ($gestionRetours as $gestionRetour)
-        {
-            echo '<pre>';
-            var_dump($gestionRetour);
-            die();
-            $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour["numeroSage"]) ;
-        }
-*/
         return $this->render('gestionretour/recherche_colis.html.twig', array(
             'gestionRetours' => $gestionRetours,
-            //'codebarre' => $code,
         ));
-
     }
-
 
 
     /**
@@ -198,7 +191,7 @@ class GestionRetourController extends Controller
     public function editAction(Request $request, GestionRetour $gestionRetour)
     {
         $deleteForm = $this->createDeleteForm($gestionRetour);
-        $editForm = $this->createForm('AppBundle\Form\GestionRetourType', $gestionRetour);
+        $editForm = $this->createForm('AppBundle\Form\updateGestionRetourType', $gestionRetour);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
