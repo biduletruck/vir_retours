@@ -18,9 +18,9 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        {{ form_label(edit_form.agence) }}
-                        {{ form_errors(edit_form.agence) }}
-                        {{ form_widget(edit_form.agence, { 'attr':{'disabled':'disabled'} }) }}
+
+                        {{ form_errors(edit_form.agence, { 'attr' : { 'style':'display:none'} }) }}
+                        {{ form_widget(edit_form.agence, { 'attr' : { 'style':'display:none'} }) }}
 
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
