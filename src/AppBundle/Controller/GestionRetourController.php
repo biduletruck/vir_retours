@@ -96,7 +96,7 @@ class GestionRetourController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($gestionRetour);
             $em->flush();
-
+            $this->get('session')->getFlashBag()->add('success', 'La fiche retour à été correctement créée');
             return $this->redirectToRoute('retours_show', array('id' => $gestionRetour->getId()));
         }
 
@@ -129,7 +129,6 @@ class GestionRetourController extends Controller
                 $this->getDoctrine()->getManager()->flush();
 
                 $this->get('session')->getFlashBag()->add('success', 'DSA mis à jour');
-                //return $this->redirectToRoute('retours_index');
                 return $this->redirectToRoute('retours_show', array('id' => $gestionRetour->getId()));
             }
 
@@ -196,8 +195,9 @@ class GestionRetourController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->get('session')->getFlashBag()->add('success', 'La fiche retour à été mise à jour');
 
-            return $this->redirectToRoute('retours_edit', array('id' => $gestionRetour->getId()));
+            return $this->redirectToRoute('retours_show', array('id' => $gestionRetour->getId()));
         }
 
         return $this->render('gestionretour/edit.html.twig', array(
