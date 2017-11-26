@@ -91,7 +91,6 @@ easy_admin:
             - { label: "Donneurs d'ordre", entity: 'DonneurOrdre'}
             - { label: 'Nos prestations', entity: 'Prestation'}
             - { label: 'Les motifs de retour', entity: 'MotifRetour'}
-            - { label: 'Stockage', entity: 'Emplacement'}
             - { label: "Retour à l'appli", route: 'homepage' }
 
     entities:
@@ -107,6 +106,3 @@ easy_admin:
         MotifRetour:
             class: AppBundle\Entity\MotifRetour
             label: 'Les motifs de retour'
-        Emplacement:
-            class: AppBundle\Entity\Emplacement
-            label: 'Stockage'
