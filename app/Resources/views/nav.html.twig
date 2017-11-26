@@ -21,7 +21,6 @@
                     <ul class="nav navbar-nav">
                         <li {% if app.request.attributes.get('_route') == 'retours_new' %}class="active"{% endif %}><a href="{{ path('retours_new') }}">Ajouter un retour</a></li>
                         <li {% if app.request.attributes.get('_route') == 'retours_index' %}class="active"{% endif %}><a href="{{ path('retours_index') }}">Listing des retours</a></li>
-                        <li {% if app.request.attributes.get('_route') == 'scanbar' %}class="active"{% endif %}><a href="{{ path('scanbar') }}">Test scan</a></li>
                         <li {% if app.request.attributes.get('_route') == 'admin_user_index' %}class="active"{% endif %}><a href="{{ path('admin_user_index') }}">Utilisateurs</a></li>
                         <li {% if app.request.attributes.get('_route') == 'easyadmin' %}class="active"{% endif %}><a href="{{ path('easyadmin') }}">Gestion Appli</a></li>
                     </ul>

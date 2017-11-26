@@ -44,10 +44,12 @@
         </div>
     </div>
 </div>
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <a class="btn btn-danger" href="{{ path('retours_show', { 'id': gestionRetour.id }) }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Annuler</a>
 
-<div class="center-block">
-    <button class="btn btn-success" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Valider</button>
-    <a class="btn btn-danger" href="{{ path('retours_index') }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Fermer</a>
+    <button type="submit" class="btn btn-success ">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mise à jour DSA
+    </button>
 </div>
 
     {{ form_end(edit_form) }}

@@ -29,7 +29,7 @@
                     <td>{{ gestionRetour.nombreColis }}</td>
                     <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('Y-m-d') }}{% endif %}</td>
                     <td>{{ gestionRetour.stockage }}</td>
-                    <td>{% if gestionRetour.donneurOrdre.nomDonneurOrdre == 'IKEA' %}
+                    <td>{% if gestionRetour.donneurOrdre.nomDonneurOrdre starts with 'IKEA' %}
 
                             <a href="{{ path('update_dsa', { 'id': gestionRetour.id }) }}"><span class="label label-info" >dsa</span></a>
 

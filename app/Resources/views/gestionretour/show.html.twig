@@ -67,12 +67,7 @@
                             <div>{{ gestionRetour.nomDestinataire | upper }}</div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label for="disabledTextInput">Etat</label>
-                            <div>{{ gestionRetour.etat.nomEtat }}</div>
-                        </div>
-                    </div>
+
                 </div>
                 
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -87,12 +82,8 @@
                             <label for="disabledTextInput">Code barre Sage</label>
                             {{ codeSage |raw }}
                         </div>
-                    </div><div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label for="disabledTextInput">Evenement retour Sage</label>
-                            <h4>à venir</h4>
-                        </div>
                     </div>
+
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -172,7 +163,7 @@
         </div>
     </div>
 
-{% if gestionRetour.donneurOrdre.nomDonneurOrdre == "IKEA" %}
+{% if gestionRetour.donneurOrdre.nomDonneurOrdre starts with 'IKEA' %}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="panel panel-default">

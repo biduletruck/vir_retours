@@ -116,12 +116,8 @@ class GestionRetourController extends Controller
     public function updateDsaAction(Request $request, GestionRetour $gestionRetour)
     {
 
-        if ($gestionRetour->getDonneurOrdre()->getNomDonneurOrdre() != "IKEA")
+        if (strpos($gestionRetour->getDonneurOrdre()->getNomDonneurOrdre(), "IKEA") !== false)
         {
-            $this->get('session')->getFlashBag()->add('danger', 'Pas de DSA pour ce client');
-            return $this->redirectToRoute('retours_index');
-        }
-        else{
             $deleteForm = $this->createDeleteForm($gestionRetour);
             $editForm = $this->createForm('AppBundle\Form\DsaGestionRetourType', $gestionRetour);
             $editForm->handleRequest($request);
@@ -138,6 +134,14 @@ class GestionRetourController extends Controller
                 'edit_form' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
             ));
+
+
+        }
+        else
+        {
+            $this->get('session')->getFlashBag()->add('danger', 'Pas de DSA pour ce client');
+            return $this->redirectToRoute('retours_index');
+
         }
 
 
