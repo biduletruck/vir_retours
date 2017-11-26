@@ -22,7 +22,7 @@
                             <th class="tg-motif" colspan="4">{{ gestionRetour.motifRetour.nomMotifRetour }}</th>
                         </tr>
                         <tr>
-                            <td class="tg-destinataire" colspan="4">{{ gestionRetour.nomDestinataire |truncate(20)|raw  }}</td>
+                            <td class="tg-destinataire" colspan="4">{{ gestionRetour.nomDestinataire |truncate(20) |upper |raw  }}</td>
                         </tr>
                         <tr>
                             <td class="tg-do" colspan="4">{{ gestionRetour.donneurOrdre.nomDonneurOrdre }}</td>
@@ -32,8 +32,8 @@
                             <td class="tg-emplacement" colspan="1" rowspan="2">{{ i }}/{{ gestionRetour.nombreSupport }}</td>
                         </tr>
                         <tr>
-                            <td class="tg-noSage" colspan="1">Numéro Sage: {{ gestionRetour.numeroSage }}</td>
-                            <td class="tg-dateEntree" colspan="1">Date d'entrée: {{ gestionRetour.dateEntreeEntrepot|date('d-m-Y') }}</td>
+                            <td class="tg-noSage" colspan="1"><h2>{{ gestionRetour.numeroSage }}</h2> </td>
+                            <td class="tg-dateEntree" colspan="1">{{ gestionRetour.dateEntreeEntrepot|date('d-m-Y') }}</td>
                             <td class="tg-nbColis" colspan="1">Nb colis: {{ gestionRetour.nombreColis }}</td>
                         </tr>
                     </table>

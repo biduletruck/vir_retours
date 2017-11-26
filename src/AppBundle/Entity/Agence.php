@@ -63,9 +63,6 @@ class Agence
         return $this->nomAgence;
     }
 
-    public function __toString()
-    {
-        return $this->nomAgence;
-    }
+
 }
 

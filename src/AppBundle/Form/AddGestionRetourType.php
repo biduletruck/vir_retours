@@ -26,6 +26,11 @@ class AddGestionRetourType extends AbstractType
                 'choice_label' => 'nomDonneurOrdre',
                 'placeholder' => 'Choisir un DO'
             ))
+            ->add('magasin', EntityType::class, array(
+                'class' => 'AppBundle:Magasin',
+                'choice_label' => 'nomMagasin',
+                'placeholder' => 'Choisir un magasin'
+            ))
             ->add('numeroSage')
             ->add('numeroDonneurOrdre')
             ->add('prestation', EntityType::class, array(

@@ -130,6 +130,12 @@ class GestionRetour
     private $emplacement;
 
     /**
+     * @ORM\ManyToOne(targetEntity="magasin")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $magasin;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Etat")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -591,4 +597,30 @@ class GestionRetour
     {
         return $this->etat;
     }
+
+    /**
+     * Set magasin
+     *
+     * @param \AppBundle\Entity\magasin $magasin
+     *
+     * @return GestionRetour
+     */
+    public function setMagasin(\AppBundle\Entity\magasin $magasin = null)
+    {
+        $this->magasin = $magasin;
+
+        return $this;
+    }
+
+    /**
+     * Get magasin
+     *
+     * @return \AppBundle\Entity\magasin
+     */
+    public function getMagasin()
+    {
+        return $this->magasin;
+    }
+
+
 }
