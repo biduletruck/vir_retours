@@ -65,8 +65,12 @@
                         {{ form_widget(edit_form.donneurOrdre) }}
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        <h4>Magasin à venir</h4>
+                        {{ form_label(edit_form.magasin) }}
+
+                        {{ form_widget(edit_form.magasin) }}
+                        {{ form_errors(edit_form.magasin) }}
                     </div>
+
                 </div>
 
 

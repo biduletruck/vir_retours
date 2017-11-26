@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Listing des retours</h1>
+
+    <div class="col-sm-12 col-md-12">
+        <table  class="table table-hover table-responsive">
+            <thead>
+            <tr>
+
+                <th>Num DO</th>
+                <th>Donneur d'Ordre</th>
+                <th>Numero Sage</th>
+                <th>Code Barre</th>
+                <th>Destinataire</th>
+                <th>Nb colis</th>
+                <th>Entrée Dépôt</th>
+                <th>Emplacement</th>
+            </tr>
+            </thead>
+            <tbody >
+            {% for key, gestionRetour in gestionRetours %}
+                <tr>
+                    <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
+
+                    <td><a class="btn btn-small btn-info" href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.numeroSage }}</a></td>
+                    <td>{{ codebarre[loop.index0] |raw }}</td>
+                    <td>{{ gestionRetour.nomDestinataire }}</td>
+                    <td>{{ gestionRetour.nombreColis }}</td>
+                    <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ gestionRetour.emplacement.nomEmplacement }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="col-sm-12 col-md-12">
+            <a href="{{ path('retours_new') }}"><span class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un retour</span></a>
+        </div>
+    </div>
+
+{% endblock %}

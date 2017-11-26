@@ -115,14 +115,12 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        {% if gestionRetour.donneurOrdre.nomDonneurOrdre == "IKEA" %}
-                            <!-- champ magasin à prévoir -->
-                            <div class="form-group">
-                                <label for="disabledTextInput">Magasin</label>
-                                <div>Champ à prévoir</div>
-                            </div>
-                        {% endif %}
+                        <div class="form-group">
+                            <label for="disabledTextInput">Donneur ordre</label>
+                            <div>{{ gestionRetour.magasin.nomMagasin  | upper }}</div>
+                        </div>
                     </div>
+
 
                 </div>
 

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\AppBundle;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * GestionRetour
@@ -28,11 +29,7 @@ class GestionRetour
      */
     private $agence;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="DonneurOrdre")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $donneurOrdre;
+
 
     /**
      * @var string
@@ -132,6 +129,7 @@ class GestionRetour
     /**
      * @ORM\ManyToOne(targetEntity="magasin")
      * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank()
      */
     private $magasin;
 

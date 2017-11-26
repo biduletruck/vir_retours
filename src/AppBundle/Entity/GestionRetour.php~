@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\AppBundle;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * GestionRetour
@@ -28,11 +29,7 @@ class GestionRetour
      */
     private $agence;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="DonneurOrdre")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $donneurOrdre;
+
 
     /**
      * @var string
@@ -130,8 +127,16 @@ class GestionRetour
     private $emplacement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="magasin")
+     * @ORM\ManyToOne(targetEntity="donneurOrdre")
      * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $donneurOrdre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="magasin", inversedBy="donneurOrdre")
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank()
      */
     private $magasin;
 
@@ -597,4 +602,30 @@ class GestionRetour
     {
         return $this->etat;
     }
+
+    /**
+     * Set magasin
+     *
+     * @param \AppBundle\Entity\magasin $magasin
+     *
+     * @return GestionRetour
+     */
+    public function setMagasin(\AppBundle\Entity\magasin $magasin = null)
+    {
+        $this->magasin = $magasin;
+
+        return $this;
+    }
+
+    /**
+     * Get magasin
+     *
+     * @return \AppBundle\Entity\magasin
+     */
+    public function getMagasin()
+    {
+        return $this->magasin;
+    }
+
+
 }

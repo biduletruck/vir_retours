@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class updateGestionRetourType extends AbstractType
@@ -61,6 +63,19 @@ class updateGestionRetourType extends AbstractType
             ))
             ->add('commentaire')
         ;
+        $builder->get('donneurOrdre')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event){
+                $form = $event->getForm();
+                dump($form->getData());
+                $form->getParent()->add('magasin', EntityType::class, [
+                    'class' => 'AppBundle\Entity\Magasin',
+                    'placeholder' => 'choisir le magasin',
+                    'choices' => $form->getData()->getMagasins(),
+                ]);
+
+            }
+        );
     }
     
     /**

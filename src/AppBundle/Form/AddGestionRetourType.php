@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddGestionRetourType extends AbstractType
@@ -24,13 +26,11 @@ class AddGestionRetourType extends AbstractType
             ->add('donneurOrdre', EntityType::class, array(
                 'class' => 'AppBundle:DonneurOrdre',
                 'choice_label' => 'nomDonneurOrdre',
+                'mapped' => false,
+                'required' => false,
                 'placeholder' => 'Choisir un DO'
             ))
-            ->add('magasin', EntityType::class, array(
-                'class' => 'AppBundle:Magasin',
-                'choice_label' => 'nomMagasin',
-                'placeholder' => 'Choisir un magasin'
-            ))
+
             ->add('numeroSage')
             ->add('numeroDonneurOrdre')
             ->add('prestation', EntityType::class, array(
@@ -62,6 +62,20 @@ class AddGestionRetourType extends AbstractType
             ))
             ->add('commentaire')
         ;
+
+        $builder->get('donneurOrdre')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event){
+                $form = $event->getForm();
+                dump($form->getData());
+                $form->getParent()->add('magasin', EntityType::class, [
+                    'class' => 'AppBundle\Entity\Magasin',
+                    'placeholder' => 'choisir le magasin',
+                    'choices' => $form->getData()->getMagasins(),
+                ]);
+
+            }
+        );
     }
     
     /**

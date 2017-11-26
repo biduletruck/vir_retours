@@ -28,11 +28,11 @@ class GestionRetourController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
+      //  $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
 
 
         //findAll -> trouver toutes les occurences
-         //$gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
+         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
 
         $code = [];
         foreach ($gestionRetours as $gestionRetour)
@@ -40,7 +40,7 @@ class GestionRetourController extends Controller
             $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroSage()) ;
         }
 
-        return $this->render('gestionretour/index.html.twig', array(
+        return $this->render('index-old.html.twig', array(
             'gestionRetours' => $gestionRetours,
             'codebarre' => $code,
         ));

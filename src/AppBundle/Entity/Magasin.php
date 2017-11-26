@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="magasin")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MagasinRepository")
  */
-class Magasin
+class  Magasin
 {
     /**
      * @var int
@@ -36,10 +36,11 @@ class Magasin
     private $departementMagasin;
 
     /**
-     * @ORM\ManyToOne(targetEntity="DonneurOrdre")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DonneurOrdre",inversedBy="magasins")
      */
     private $donneurOrdre;
+
+
 
 
 
@@ -108,7 +109,7 @@ class Magasin
      *
      * @return Magasin
      */
-    public function setDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre)
+    public function setDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre = null)
     {
         $this->donneurOrdre = $donneurOrdre;
 
@@ -124,4 +125,10 @@ class Magasin
     {
         return $this->donneurOrdre;
     }
+
+    public function __toString()
+    {
+        return $this->nomMagasin;
+    }
+
 }
