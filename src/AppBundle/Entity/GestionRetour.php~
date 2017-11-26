@@ -136,14 +136,6 @@ class GestionRetour
      */
     private $emplacement;
 
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="etat", type="string", length=255, nullable=false)
-     */
-    private $etat;
-
     /**
      * @var string
      *
