@@ -30,7 +30,7 @@
                     <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('d-m-Y') }}{% endif %}</td>
                     <td>{{ gestionRetour.stockage }}</td>
                     <td>
-                        {% if is_granted('ROLE_EXPLOITANT') %}
+                        {% if is_granted('ROLE_EXPLOITANT') or is_granted('ROLE_ADMIN') %}
                             {% if gestionRetour.donneurOrdre.nomDonneurOrdre starts with 'IKEA' %}
 
                                 <a href="{{ path('update_dsa', { 'id': gestionRetour.id }) }}"><span class="label label-info" >dsa</span></a>

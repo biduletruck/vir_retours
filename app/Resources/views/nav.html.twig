@@ -22,7 +22,6 @@
                         <li {% if app.request.attributes.get('_route') == 'retours_new' %}class="active"{% endif %}><a href="{{ path('retours_new') }}">Ajouter un retour</a></li>
                         <li {% if app.request.attributes.get('_route') == 'retours_index' %}class="active"{% endif %}><a href="{{ path('retours_index') }}">Listing des retours</a></li>
                     {% if is_granted("ROLE_ADMIN") %}
-                        <li {% if app.request.attributes.get('_route') == 'admin_user_index' %}class="active"{% endif %}><a href="{{ path('admin_user_index') }}">Utilisateurs</a></li>
                         <li {% if app.request.attributes.get('_route') == 'easyadmin' %}class="active"{% endif %}><a href="{{ path('easyadmin') }}">Gestion Appli</a></li>
                     {% endif %}
                     </ul>
@@ -30,13 +29,11 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li>
-                                <a href="{{ path('fos_user_security_logout') }}">
-                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                </a>
-                            </li>
-                            {% endif %}
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        {% endif %}
                         </li>
                     </ul>
 

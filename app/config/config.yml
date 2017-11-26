@@ -91,6 +91,7 @@ easy_admin:
             - { label: "Donneurs d'ordre", entity: 'DonneurOrdre'}
             - { label: 'Nos prestations', entity: 'Prestation'}
             - { label: 'Les motifs de retour', entity: 'MotifRetour'}
+            - { label: 'utilisateurs', entity: 'User'}
             - { label: "Retour à l'appli", route: 'homepage' }
 
     entities:
@@ -106,3 +107,18 @@ easy_admin:
         MotifRetour:
             class: AppBundle\Entity\MotifRetour
             label: 'Les motifs de retour'
+        User:
+            class: AppBundle\Entity\User
+            form:
+                fields:
+                    - username
+                    - email
+                    - nom
+                    - prenom
+                    - agence
+                    - enabled
+                    - lastLogin
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_MAGASINIER': 'ROLE_USER', 'ROLE_EXPLOITANT': 'ROLE_EXPLOITANT', 'ROLE_DIRECTEUR': 'ROLE_ADMIN', 'ROLE_ADMIN': 'ROLE_ADMIN','ROLE_SUPER_ADMIN': 'ROLE_SUPER_ADMIN' } } }
+
