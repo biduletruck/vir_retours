@@ -92,7 +92,6 @@ easy_admin:
             - { label: 'Nos prestations', entity: 'Prestation'}
             - { label: 'Les motifs de retour', entity: 'MotifRetour'}
             - { label: 'Stockage', entity: 'Emplacement'}
-            - { label: 'Statut du retour', entity: 'Etat'}
             - { label: "Retour à l'appli", route: 'homepage' }
 
     entities:
@@ -111,6 +110,3 @@ easy_admin:
         Emplacement:
             class: AppBundle\Entity\Emplacement
             label: 'Stockage'
-        Etat:
-            class: AppBundle\Entity\Etat
-            label: 'Statut du retour'

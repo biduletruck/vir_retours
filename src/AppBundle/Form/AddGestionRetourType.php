@@ -26,11 +26,6 @@ class AddGestionRetourType extends AbstractType
                 'choice_label' => 'nomDonneurOrdre',
                 'placeholder' => 'Choisir un DO'
             ))
-            ->add('magasin', EntityType::class, array(
-                'class' => 'AppBundle:Magasin',
-                'choice_label' => 'nomMagasin',
-                'placeholder' => 'Choisir un magasin'
-            ))
             ->add('numeroSage')
             ->add('numeroDonneurOrdre')
             ->add('prestation', EntityType::class, array(
@@ -50,16 +45,7 @@ class AddGestionRetourType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => true,
             ))
-            ->add('emplacement', EntityType::class, array(
-                'class' => 'AppBundle:Emplacement',
-                'choice_label' => 'nomEmplacement',
-                'placeholder' => 'Choisir emplacement',
-            ))
-            ->add('etat', EntityType::class, array(
-                'class' => 'AppBundle:Etat',
-                'choice_label' => 'nomEtat',
-                'placeholder' => 'Choisir un état',
-            ))
+            ->add('stockage')
             ->add('commentaire')
         ;
     }

@@ -124,20 +124,23 @@ class GestionRetour
     private $dateSortieEntrepot;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="stockage", type="string", length=255, nullable=true)
+     */
+    private $stockage;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Emplacement")
      * @ORM\JoinColumn(nullable=true)
      */
     private $emplacement;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="magasin")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $magasin;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Etat")
-     * @ORM\JoinColumn(nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", length=255, nullable=false)
      */
     private $etat;
 
@@ -596,5 +599,55 @@ class GestionRetour
     public function getEtat()
     {
         return $this->etat;
+    }
+
+    /**
+     * Set magasin
+     *
+     * @param \AppBundle\Entity\magasin $magasin
+     *
+     * @return GestionRetour
+     */
+    public function setMagasin(\AppBundle\Entity\magasin $magasin = null)
+    {
+        $this->magasin = $magasin;
+
+        return $this;
+    }
+
+    /**
+     * Get magasin
+     *
+     * @return \AppBundle\Entity\magasin
+     */
+    public function getMagasin()
+    {
+        return $this->magasin;
+    }
+
+
+
+    /**
+     * Set stockage
+     *
+     * @param string $stockage
+     *
+     * @return GestionRetour
+     */
+    public function setStockage($stockage)
+    {
+        $this->stockage = $stockage;
+
+        return $this;
+    }
+
+    /**
+     * Get stockage
+     *
+     * @return string
+     */
+    public function getStockage()
+    {
+        return $this->stockage;
     }
 }

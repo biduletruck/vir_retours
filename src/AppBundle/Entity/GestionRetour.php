@@ -124,22 +124,17 @@ class GestionRetour
     private $dateSortieEntrepot;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="stockage", type="string", length=255, nullable=true)
+     */
+    private $stockage;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Emplacement")
      * @ORM\JoinColumn(nullable=true)
      */
     private $emplacement;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="magasin")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $magasin;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Etat")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $etat;
 
     /**
      * @var string
@@ -623,4 +618,28 @@ class GestionRetour
     }
 
 
+
+    /**
+     * Set stockage
+     *
+     * @param string $stockage
+     *
+     * @return GestionRetour
+     */
+    public function setStockage($stockage)
+    {
+        $this->stockage = $stockage;
+
+        return $this;
+    }
+
+    /**
+     * Get stockage
+     *
+     * @return string
+     */
+    public function getStockage()
+    {
+        return $this->stockage;
+    }
 }

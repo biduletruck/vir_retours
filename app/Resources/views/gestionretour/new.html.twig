@@ -8,7 +8,6 @@
     <div class="page-header">
         <H1>Ajouter un retour client</H1>
     </div>
-{{ dump() }}
     {{ form_start(form) }}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -36,21 +35,15 @@
                             {{ form_errors(form.nomDestinataire) }}
                             {{ form_widget(form.nomDestinataire) }}
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            {{ form_label(form.etat) }}
-                            {{ form_errors(form.etat) }}
-                            {{ form_widget(form.etat) }}
-                        </div>
+
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             {{ form_label(form.numeroSage) }}
                             {{ form_errors(form.numeroSage) }}
-                            {{ form_widget(form.numeroSage) }}
+                            {{ form_widget(form.numeroSage, { 'attr': {'maxlength': 9} }) }}
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <h4>evenement sage à venir</h4>
-                        </div>
+
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -63,12 +56,6 @@
                             {{ form_errors(form.donneurOrdre) }}
                             {{ form_widget(form.donneurOrdre) }}
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            {{ form_label(form.magasin) }}
-                            {{ form_errors(form.magasin) }}
-                            {{ form_widget(form.magasin) }}
-                        </div>
-
                     </div>
 
 
@@ -105,9 +92,9 @@
                             {{ form_widget(form.motifRetour) }}
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
-                            {{ form_label(form.emplacement) }}
-                            {{ form_errors(form.emplacement) }}
-                            {{ form_widget(form.emplacement) }}
+                            {{ form_label(form.stockage) }}
+                            {{ form_errors(form.stockage) }}
+                            {{ form_widget(form.stockage) }}
                         </div>
                     </div>
 
