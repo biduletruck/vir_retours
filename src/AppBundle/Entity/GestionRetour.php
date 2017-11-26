@@ -567,58 +567,6 @@ class GestionRetour
         return $this->nombreSupport;
     }
 
-
-
-    /**
-     * Set etat
-     *
-     * @param \AppBundle\Entity\Etat $etat
-     *
-     * @return GestionRetour
-     */
-    public function setEtat(\AppBundle\Entity\Etat $etat = null)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return \AppBundle\Entity\Etat
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
-
-    /**
-     * Set magasin
-     *
-     * @param \AppBundle\Entity\magasin $magasin
-     *
-     * @return GestionRetour
-     */
-    public function setMagasin(\AppBundle\Entity\magasin $magasin = null)
-    {
-        $this->magasin = $magasin;
-
-        return $this;
-    }
-
-    /**
-     * Get magasin
-     *
-     * @return \AppBundle\Entity\magasin
-     */
-    public function getMagasin()
-    {
-        return $this->magasin;
-    }
-
-
-
     /**
      * Set stockage
      *
