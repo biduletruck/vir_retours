@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Detailvoyages list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dateajout</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for detailVoyage in detailVoyages %}
+            <tr>
+                <td><a href="{{ path('detailvoyage_show', { 'id': detailVoyage.id }) }}">{{ detailVoyage.id }}</a></td>
+                <td>{% if detailVoyage.dateAjout %}{{ detailVoyage.dateAjout|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('detailvoyage_show', { 'id': detailVoyage.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('detailvoyage_edit', { 'id': detailVoyage.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('detailvoyage_new') }}">Create a new detailVoyage</a>
+        </li>
+    </ul>
+{% endblock %}

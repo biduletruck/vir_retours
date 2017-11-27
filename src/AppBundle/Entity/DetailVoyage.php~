@@ -1,0 +1,81 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DetailVoyage
+ *
+ * @ORM\Table(name="detail_voyage")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DetailVoyageRepository")
+ */
+class DetailVoyage
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateAjout", type="datetime")
+     */
+    private $dateAjout;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     */
+    private $logins;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Voyage", mappedBy="nomVoyage")
+     */
+    private $voyages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour")
+     */
+    private $retours;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateAjout
+     *
+     * @param \DateTime $dateAjout
+     *
+     * @return DetailVoyage
+     */
+    public function setDateAjout($dateAjout)
+    {
+        $this->dateAjout = $dateAjout;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAjout
+     *
+     * @return \DateTime
+     */
+    public function getDateAjout()
+    {
+        return $this->dateAjout;
+    }
+}
+
