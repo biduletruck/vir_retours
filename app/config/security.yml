@@ -29,7 +29,7 @@ security:
         - { path: ^/register, role: ROLE_ADMIN }
         - { path: ^/resetting, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/gestion/, role: ROLE_ADMIN }
+        - { path: ^/gestion/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /edit, role: ROLE_ADMIN }
-        - { path: ^/, role: ROLE_USER }
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
