@@ -88,7 +88,8 @@ easy_admin:
     design:
         menu:
             - { label: 'Nos Agences', entity: 'Agence'}
-            - { label: "Donneurs d'ordre", entity: 'DonneurOrdre'}
+            - { label: "Donneurs d'Ordres", entity: 'DonneurOrdre'}
+            - { label: "Les magasins", entity: 'Magasin'}
             - { label: 'Nos prestations', entity: 'Prestation'}
             - { label: 'Les motifs de retour', entity: 'MotifRetour'}
             - { label: 'Stockage', entity: 'Emplacement'}
@@ -102,6 +103,9 @@ easy_admin:
         DonneurOrdre:
             class: AppBundle\Entity\DonneurOrdre
             label: "Donneurs d'ordre"
+        Magasin:
+            class: AppBundle\Entity\Magasin
+            label: "Les magasins"
         Prestation:
             class: AppBundle\Entity\Prestation
             label: 'Nos prestations'
