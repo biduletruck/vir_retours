@@ -30,6 +30,8 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
         public function findInStock($idAgence)
         {
             $query = $this->createQueryBuilder('g')
+                ->select('g', 'm')
+                ->join('g.magasin', 'm')
                 ->where('g.dateSortieEntrepot IS NULL')
                 ->andWhere('g.agence = :agence')
                 ->orderBy('g.dateSortieEntrepot')

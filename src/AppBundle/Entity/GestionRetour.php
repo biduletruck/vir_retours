@@ -127,7 +127,7 @@ class GestionRetour
     private $emplacement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="magasin")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Magasin")
      * @ORM\JoinColumn(nullable=true)
      * @Assert\NotBlank()
      */
