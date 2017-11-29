@@ -2,12 +2,14 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\DonneurOrdre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddGestionRetourType extends AbstractType
@@ -67,17 +69,32 @@ class AddGestionRetourType extends AbstractType
             FormEvents::POST_SUBMIT,
             function (FormEvent $event){
                 $form = $event->getForm();
-                dump($form->getData());
-                $form->getParent()->add('magasin', EntityType::class, [
-                    'class' => 'AppBundle\Entity\Magasin',
-                    'placeholder' => 'choisir le magasin',
-                    'choices' => $form->getData()->getMagasins(),
-                ]);
-
+                $this->addMagasinField($form->getParent(), $form->getData());
             }
         );
     }
-    
+    /*
+     * rajoute un champ magasin au formulaire
+     */
+    private function addMagasinField(FormInterface $form, DonneurOrdre $donneurOrdre = null){
+        $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
+            'magasin',
+            EntityType::class,
+            null,
+            [
+                'class' => 'AppBundle\Entity\Magasin',
+                'placeholder' => $donneurOrdre ? 'Selectionnez le magasin ' : '',
+                'mapped' => false,
+                'required' => false,
+                'auto_initialize' => false,
+                'choices'         => $donneurOrdre ? $donneurOrdre->getMagasins() : []
+            ]
+        );
+
+        $form->add($builder->getForm());
+
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -95,6 +112,8 @@ class AddGestionRetourType extends AbstractType
     {
         return 'appbundle_addgestionretour';
     }
+
+
 
 
 }
