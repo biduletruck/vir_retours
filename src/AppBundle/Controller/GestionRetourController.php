@@ -94,6 +94,7 @@ class GestionRetourController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $gestionRetour->setAgence($this->getUser()->getAgence());
             $em->persist($gestionRetour);
             $em->flush();
 

@@ -178,21 +178,15 @@
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <div class="form-group">
                             <label for="disabledTextInput">Date demande DSA</label>
-                            {% if date(gestionRetour.dateDemandeDsa) ==  date('') %}
-                                <div>{{ gestionRetour.dateDemandeDsa|date('') }}</div>
-                            {% else %}
-                                <div>{{ gestionRetour.dateDemandeDsa|date('d-m-Y') }}</div>
-                            {% endif %}
+                            {{ gestionRetour.dateDemandeDsa is empty ? "" : gestionRetour.dateDemandeDsa|date('d-m-Y')}}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <div class="form-group">
                             <label for="disabledTextInput">Date réponse DSA</label>
-                            {% if date(gestionRetour.dateReponseDemandeDsa) ==  date('') %}
-                                <div>{{ gestionRetour.dateReponseDemandeDsa|date('') }}</div>
-                            {% else %}
-                                <div>{{ gestionRetour.dateReponseDemandeDsa|date('d-m-Y') }}</div>
-                            {% endif %}
+
+                            {{ gestionRetour.dateReponseDemandeDsa is empty ? "" : gestionRetour.dateReponseDemandeDsa|date('d-m-Y')}}
+
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
@@ -203,11 +197,8 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <label for="disabledTextInput">Date Reception bon reprise</label>
-                        {% if date(gestionRetour.dateReceptionBonReprise) ==  date('') %}
-                            <div>{{ gestionRetour.dateReceptionBonReprise|date('') }}</div>
-                        {% else %}
-                            <div>{{ gestionRetour.dateReceptionBonReprise|date('d-m-Y') }}</div>
-                        {% endif %}
+                        {{ gestionRetour.dateReceptionBonReprise is empty ? "" : gestionRetour.dateReceptionBonReprise|date('d-m-Y')}}
+
                     </div>
                 </div>
             </div>

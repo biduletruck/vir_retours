@@ -16,11 +16,11 @@ class AddGestionRetourType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('agence', EntityType::class, array(
+           /* ->add('agence', EntityType::class, array(
                 'class' => 'AppBundle:Agence',
                 'choice_label' => 'nomAgence',
                 'placeholder' => 'Choisir une agence'
-            ))
+            ))*/
             ->add('donneurOrdre', EntityType::class, array(
                 'class' => 'AppBundle:DonneurOrdre',
                 'choice_label' => 'nomDonneurOrdre',
