@@ -30,7 +30,6 @@ class GestionRetour
     private $agence;
 
 
-
     /**
      * @var string
      *
@@ -47,7 +46,6 @@ class GestionRetour
 
     /**
      * @ORM\ManyToOne(targetEntity="Prestation")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $prestation;
 
@@ -74,7 +72,6 @@ class GestionRetour
 
     /**
      * @ORM\ManyToOne(targetEntity="MotifRetour")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $motifRetour;
 
@@ -121,17 +118,20 @@ class GestionRetour
     private $dateSortieEntrepot;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Emplacement")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Emplacement")
      */
     private $emplacement;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Magasin")
-     * @ORM\JoinColumn(nullable=true)
-     * @Assert\NotBlank()
+
      */
     private $magasin;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DonneurOrdre")
+     */
+    private $donneurOrdre;
 
     /**
      * @ORM\ManyToOne(targetEntity="Etat")
@@ -155,7 +155,7 @@ class GestionRetour
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -184,6 +184,30 @@ class GestionRetour
     public function getNumeroSage()
     {
         return $this->numeroSage;
+    }
+
+    /**
+     * Set numeroDonneurOrdre
+     *
+     * @param string $numeroDonneurOrdre
+     *
+     * @return GestionRetour
+     */
+    public function setNumeroDonneurOrdre($numeroDonneurOrdre)
+    {
+        $this->numeroDonneurOrdre = $numeroDonneurOrdre;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroDonneurOrdre
+     *
+     * @return string
+     */
+    public function getNumeroDonneurOrdre()
+    {
+        return $this->numeroDonneurOrdre;
     }
 
     /**
@@ -227,11 +251,35 @@ class GestionRetour
     /**
      * Get nombreColis
      *
-     * @return int
+     * @return integer
      */
     public function getNombreColis()
     {
         return $this->nombreColis;
+    }
+
+    /**
+     * Set nombreSupport
+     *
+     * @param integer $nombreSupport
+     *
+     * @return GestionRetour
+     */
+    public function setNombreSupport($nombreSupport)
+    {
+        $this->nombreSupport = $nombreSupport;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreSupport
+     *
+     * @return integer
+     */
+    public function getNombreSupport()
+    {
+        return $this->nombreSupport;
     }
 
     /**
@@ -403,30 +451,6 @@ class GestionRetour
     }
 
     /**
-     * Set numeroDonneurOrdre
-     *
-     * @param string $numeroDonneurOrdre
-     *
-     * @return GestionRetour
-     */
-    public function setNumeroDonneurOrdre($numeroDonneurOrdre)
-    {
-        $this->numeroDonneurOrdre = $numeroDonneurOrdre;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroDonneurOrdre
-     *
-     * @return string
-     */
-    public function getNumeroDonneurOrdre()
-    {
-        return $this->numeroDonneurOrdre;
-    }
-
-    /**
      * Set agence
      *
      * @param \AppBundle\Entity\Agence $agence
@@ -451,37 +475,13 @@ class GestionRetour
     }
 
     /**
-     * Set donneurOrdre
-     *
-     * @param \AppBundle\Entity\DonneurOrdre $donneurOrdre
-     *
-     * @return GestionRetour
-     */
-    public function setDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre)
-    {
-        $this->donneurOrdre = $donneurOrdre;
-
-        return $this;
-    }
-
-    /**
-     * Get donneurOrdre
-     *
-     * @return \AppBundle\Entity\DonneurOrdre
-     */
-    public function getDonneurOrdre()
-    {
-        return $this->donneurOrdre;
-    }
-
-    /**
      * Set prestation
      *
      * @param \AppBundle\Entity\Prestation $prestation
      *
      * @return GestionRetour
      */
-    public function setPrestation(\AppBundle\Entity\Prestation $prestation)
+    public function setPrestation(\AppBundle\Entity\Prestation $prestation = null)
     {
         $this->prestation = $prestation;
 
@@ -505,7 +505,7 @@ class GestionRetour
      *
      * @return GestionRetour
      */
-    public function setMotifRetour(\AppBundle\Entity\MotifRetour $motifRetour)
+    public function setMotifRetour(\AppBundle\Entity\MotifRetour $motifRetour = null)
     {
         $this->motifRetour = $motifRetour;
 
@@ -529,7 +529,7 @@ class GestionRetour
      *
      * @return GestionRetour
      */
-    public function setEmplacement(\AppBundle\Entity\Emplacement $emplacement)
+    public function setEmplacement(\AppBundle\Entity\Emplacement $emplacement = null)
     {
         $this->emplacement = $emplacement;
 
@@ -547,30 +547,28 @@ class GestionRetour
     }
 
     /**
-     * Set nombreSupport
+     * Set magasin
      *
-     * @param integer $nombreSupport
+     * @param \AppBundle\Entity\Magasin $magasin
      *
      * @return GestionRetour
      */
-    public function setNombreSupport($nombreSupport)
+    public function setMagasin(\AppBundle\Entity\Magasin $magasin)
     {
-        $this->nombreSupport = $nombreSupport;
+        $this->magasin = $magasin;
 
         return $this;
     }
 
     /**
-     * Get nombreSupport
+     * Get magasin
      *
-     * @return integer
+     * @return \AppBundle\Entity\Magasin
      */
-    public function getNombreSupport()
+    public function getMagasin()
     {
-        return $this->nombreSupport;
+        return $this->magasin;
     }
-
-
 
     /**
      * Set etat
@@ -597,28 +595,26 @@ class GestionRetour
     }
 
     /**
-     * Set magasin
+     * Set donneurOrdre
      *
-     * @param \AppBundle\Entity\magasin $magasin
+     * @param \AppBundle\Entity\DonneurOrdre $donneurOrdre
      *
      * @return GestionRetour
      */
-    public function setMagasin(\AppBundle\Entity\magasin $magasin = null)
+    public function setDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre = null)
     {
-        $this->magasin = $magasin;
+        $this->donneurOrdre = $donneurOrdre;
 
         return $this;
     }
 
     /**
-     * Get magasin
+     * Get donneurOrdre
      *
-     * @return \AppBundle\Entity\magasin
+     * @return \AppBundle\Entity\DonneurOrdre
      */
-    public function getMagasin()
+    public function getDonneurOrdre()
     {
-        return $this->magasin;
+        return $this->donneurOrdre;
     }
-
-
 }

@@ -36,11 +36,113 @@ class  Magasin
     private $departementMagasin;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DonneurOrdre",inversedBy="magasins")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DonneurOrdre", mappedBy="magasins")
      */
-    private $donneurOrdre;
+    private $donneurOrdres;
+
+    public function __toString()
+    {
+        return $this->nomMagasin;
+    }
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->donneurOrdres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set nomMagasin
+     *
+     * @param string $nomMagasin
+     *
+     * @return Magasin
+     */
+    public function setNomMagasin($nomMagasin)
+    {
+        $this->nomMagasin = $nomMagasin;
+
+        return $this;
+    }
+
+    /**
+     * Get nomMagasin
+     *
+     * @return string
+     */
+    public function getNomMagasin()
+    {
+        return $this->nomMagasin;
+    }
+
+    /**
+     * Set departementMagasin
+     *
+     * @param integer $departementMagasin
+     *
+     * @return Magasin
+     */
+    public function setDepartementMagasin($departementMagasin)
+    {
+        $this->departementMagasin = $departementMagasin;
+
+        return $this;
+    }
+
+    /**
+     * Get departementMagasin
+     *
+     * @return integer
+     */
+    public function getDepartementMagasin()
+    {
+        return $this->departementMagasin;
+    }
+
+    /**
+     * Add donneurOrdre
+     *
+     * @param \AppBundle\Entity\DonneurOrdre $donneurOrdre
+     *
+     * @return Magasin
+     */
+    public function addDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre)
+    {
+        $this->donneurOrdres[] = $donneurOrdre;
+
+        return $this;
+    }
+
+    /**
+     * Remove donneurOrdre
+     *
+     * @param \AppBundle\Entity\DonneurOrdre $donneurOrdre
+     */
+    public function removeDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre)
+    {
+        $this->donneurOrdres->removeElement($donneurOrdre);
+    }
+
+    /**
+     * Get donneurOrdres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDonneurOrdres()
+    {
+        return $this->donneurOrdres;
+    }
 }

@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Magasin
+ * Coli
  *
- * @ORM\Table(name="magasin")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\MagasinRepository")
+ * @ORM\Table(name="coli")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ColiRepository")
  */
-class  Magasin
+class Coli
 {
     /**
      * @var int
@@ -24,28 +24,78 @@ class  Magasin
     /**
      * @var string
      *
-     * @ORM\Column(name="nomMagasin", type="string", length=255)
+     * @ORM\Column(name="colis", type="string", length=255)
      */
-    private $nomMagasin;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="departementMagasin", type="integer")
-     */
-    private $departementMagasin;
+    private $colis;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\DonneurOrdre", mappedBy="magasins")
      */
     private $donneurOrdres;
 
-    public function __toString()
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Magasin")
+     */
+    private $magasin;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
     {
-        return $this->nomMagasin;
+        return $this->id;
     }
 
+    /**
+     * Set colis
+     *
+     * @param string $colis
+     *
+     * @return Coli
+     */
+    public function setColis($colis)
+    {
+        $this->colis = $colis;
 
+        return $this;
+    }
+
+    /**
+     * Get colis
+     *
+     * @return string
+     */
+    public function getColis()
+    {
+        return $this->colis;
+    }
+
+    /**
+     * Set magasin
+     *
+     * @param \AppBundle\Entity\Magasin $magasin
+     *
+     * @return Coli
+     */
+    public function setMagasin(\AppBundle\Entity\Magasin $magasin = null)
+    {
+        $this->magasin = $magasin;
+
+        return $this;
+    }
+
+    /**
+     * Get magasin
+     *
+     * @return \AppBundle\Entity\Magasin
+     */
+    public function getMagasin()
+    {
+        return $this->magasin;
+    }
     /**
      * Constructor
      */
@@ -55,69 +105,11 @@ class  Magasin
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nomMagasin
-     *
-     * @param string $nomMagasin
-     *
-     * @return Magasin
-     */
-    public function setNomMagasin($nomMagasin)
-    {
-        $this->nomMagasin = $nomMagasin;
-
-        return $this;
-    }
-
-    /**
-     * Get nomMagasin
-     *
-     * @return string
-     */
-    public function getNomMagasin()
-    {
-        return $this->nomMagasin;
-    }
-
-    /**
-     * Set departementMagasin
-     *
-     * @param integer $departementMagasin
-     *
-     * @return Magasin
-     */
-    public function setDepartementMagasin($departementMagasin)
-    {
-        $this->departementMagasin = $departementMagasin;
-
-        return $this;
-    }
-
-    /**
-     * Get departementMagasin
-     *
-     * @return integer
-     */
-    public function getDepartementMagasin()
-    {
-        return $this->departementMagasin;
-    }
-
-    /**
      * Add donneurOrdre
      *
      * @param \AppBundle\Entity\DonneurOrdre $donneurOrdre
      *
-     * @return Magasin
+     * @return Coli
      */
     public function addDonneurOrdre(\AppBundle\Entity\DonneurOrdre $donneurOrdre)
     {
@@ -145,4 +137,6 @@ class  Magasin
     {
         return $this->donneurOrdres;
     }
+
+
 }

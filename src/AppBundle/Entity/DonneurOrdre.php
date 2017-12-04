@@ -29,17 +29,15 @@ class DonneurOrdre
     private $nomDonneurOrdre;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Magasin", mappedBy="donneurOrdre")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Magasin", inversedBy="donneurOrdres")
      */
 
     private $magasins;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
+
+    public function __toString()
     {
-        $this->magasins = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->nomDonneurOrdre;
     }
 
     /**
@@ -77,41 +75,26 @@ class DonneurOrdre
     }
 
     /**
-     * Add magasin
+     * Set magasins
      *
-     * @param \AppBundle\Entity\Magasin $magasin
+     * @param \AppBundle\Entity\Magasin $magasins
      *
      * @return DonneurOrdre
      */
-    public function addMagasin(\AppBundle\Entity\Magasin $magasin)
+    public function setMagasins(\AppBundle\Entity\Magasin $magasins = null)
     {
-        $this->magasins[] = $magasin;
+        $this->magasins = $magasins;
 
         return $this;
     }
 
     /**
-     * Remove magasin
-     *
-     * @param \AppBundle\Entity\Magasin $magasin
-     */
-    public function removeMagasin(\AppBundle\Entity\Magasin $magasin)
-    {
-        $this->magasins->removeElement($magasin);
-    }
-
-    /**
      * Get magasins
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\Magasin
      */
-    public function getMagasins()
+    public function   getMagasins()
     {
         return $this->magasins;
-    }
-
-    public function __toString()
-    {
-        return $this->nomDonneurOrdre;
     }
 }

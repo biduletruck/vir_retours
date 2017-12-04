@@ -20,11 +20,7 @@ class AddGestionRetourType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('agence', EntityType::class, array(
-                'class' => 'AppBundle:Agence',
-                'choice_label' => 'nomAgence',
-                'placeholder' => 'Choisir une agence'
-            ))
+
             ->add('donneurOrdre', EntityType::class, array(
                 'class' => 'AppBundle:DonneurOrdre',
                 'choice_label' => 'nomDonneurOrdre',
@@ -65,34 +61,37 @@ class AddGestionRetourType extends AbstractType
             ->add('commentaire')
         ;
 
-        $builder->get('donneurOrdre')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event){
-                $form = $event->getForm();
-                $this->addMagasinField($form->getParent(), $form->getData());
+        $formModifier = function (FormInterface $form, DonneurOrdre $donneurOrdre = null) {
+            $magasin = null === $donneurOrdre ? array() : $donneurOrdre->getMagasins();
+
+            $form->add('magasin', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Magasin',
+                'placeholder' => '',
+                'choices' => $magasin,
+            ));
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getDonneurOrdre());
             }
         );
-    }
-    /*
-     * rajoute un champ magasin au formulaire
-     */
-    private function addMagasinField(FormInterface $form, DonneurOrdre $donneurOrdre = null){
-        $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
-            'magasin',
-            EntityType::class,
-            null,
-            [
-                'class' => 'AppBundle\Entity\Magasin',
-                'placeholder' => $donneurOrdre ? 'Selectionnez le magasin ' : '',
-                'mapped' => false,
-                'required' => false,
-                'auto_initialize' => false,
-                'choices'         => $donneurOrdre ? $donneurOrdre->getMagasins() : []
-            ]
+
+        $builder->get('donneurOrdre')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+
+                $donneurOrdre = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier($event->getForm()->getParent(), $donneurOrdre);
+            }
         );
-
-        $form->add($builder->getForm());
-
     }
 
     /**

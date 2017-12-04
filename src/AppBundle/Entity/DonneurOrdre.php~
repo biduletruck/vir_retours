@@ -29,9 +29,72 @@ class DonneurOrdre
     private $nomDonneurOrdre;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Magasin", mappedBy="donneurOrdres")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Magasin", inversedBy="donneurOrdres")
      */
 
     private $magasins;
 
+
+    public function __toString()
+    {
+        return $this->nomDonneurOrdre;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nomDonneurOrdre
+     *
+     * @param string $nomDonneurOrdre
+     *
+     * @return DonneurOrdre
+     */
+    public function setNomDonneurOrdre($nomDonneurOrdre)
+    {
+        $this->nomDonneurOrdre = $nomDonneurOrdre;
+
+        return $this;
+    }
+
+    /**
+     * Get nomDonneurOrdre
+     *
+     * @return string
+     */
+    public function getNomDonneurOrdre()
+    {
+        return $this->nomDonneurOrdre;
+    }
+
+    /**
+     * Set magasins
+     *
+     * @param \AppBundle\Entity\Magasin $magasins
+     *
+     * @return DonneurOrdre
+     */
+    public function setMagasins(\AppBundle\Entity\Magasin $magasins = null)
+    {
+        $this->magasins = $magasins;
+
+        return $this;
+    }
+
+    /**
+     * Get magasins
+     *
+     * @return \AppBundle\Entity\Magasin
+     */
+    public function   getMagasins()
+    {
+        return $this->magasins;
+    }
 }
