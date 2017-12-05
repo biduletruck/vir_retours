@@ -36,7 +36,7 @@ class  Magasin
     private $departementMagasin;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DonneurOrdre", mappedBy="magasins")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DonneurOrdre", inversedBy="magasins")
      */
     private $donneurOrdres;
 
@@ -144,5 +144,19 @@ class  Magasin
     public function getDonneurOrdres()
     {
         return $this->donneurOrdres;
+    }
+
+    /**
+     * Set donneurOrdres
+     *
+     * @param \AppBundle\Entity\DonneurOrdre $donneurOrdres
+     *
+     * @return Magasin
+     */
+    public function setDonneurOrdres(\AppBundle\Entity\DonneurOrdre $donneurOrdres = null)
+    {
+        $this->donneurOrdres = $donneurOrdres;
+
+        return $this;
     }
 }

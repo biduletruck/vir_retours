@@ -29,7 +29,7 @@ class DonneurOrdre
     private $nomDonneurOrdre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Magasin", inversedBy="donneurOrdres")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Magasin", mappedBy="donneurOrdres")
      */
 
     private $magasins;

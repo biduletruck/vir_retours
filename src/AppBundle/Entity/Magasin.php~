@@ -36,7 +36,7 @@ class  Magasin
     private $departementMagasin;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DonneurOrdre", mappedBy="magasins")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DonneurOrdre", inversedBy="magasins")
      */
     private $donneurOrdres;
 
