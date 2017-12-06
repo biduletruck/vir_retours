@@ -6,7 +6,7 @@
     <div class="page-header">
         <H1>Ajouter un retour client</H1>
     </div>
-{{ dump() }}
+
     {{ form_start(form) }}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -32,9 +32,7 @@
                             {{ form_widget(form.nomDestinataire) }}
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            {{ form_label(form.etat) }}
-                            {{ form_errors(form.etat) }}
-                            {{ form_widget(form.etat) }}
+
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

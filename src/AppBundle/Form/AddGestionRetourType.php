@@ -24,9 +24,7 @@ class AddGestionRetourType extends AbstractType
             ->add('donneurOrdre', EntityType::class, array(
                 'class' => 'AppBundle:DonneurOrdre',
                 'choice_label' => 'nomDonneurOrdre',
-                'mapped' => false,
-                'required' => false,
-                'placeholder' => 'Choisir un DO'
+                'placeholder' => 'Choisir un donneur d\'ordre'
             ))
 
             ->add('numeroSage')
@@ -52,11 +50,6 @@ class AddGestionRetourType extends AbstractType
                 'class' => 'AppBundle:Emplacement',
                 'choice_label' => 'nomEmplacement',
                 'placeholder' => 'Choisir emplacement',
-            ))
-            ->add('etat', EntityType::class, array(
-                'class' => 'AppBundle:Etat',
-                'choice_label' => 'nomEtat',
-                'placeholder' => 'Choisir un état',
             ))
             ->add('commentaire')
         ;

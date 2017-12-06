@@ -23,7 +23,7 @@
             {% for key, gestionRetour in gestionRetours %}
                 <tr {% if date(gestionRetour.dateSortieEntrepot) !=  date('') %}class="danger" {% endif %}>
                     <td><a class="btn btn-small btn-info" href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.numeroSage }}</a></td>
-                    <td>{{ gestionRetour.donneurOrdre.nomDonneurOrdre }}</td>
+                    <td>{{ gestionRetour.magasin.nomMagasin }}</td>
                     <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
                     <td>{{ gestionRetour.nomDestinataire }}</td>
                     <td>{{ gestionRetour.nombreColis }}</td>

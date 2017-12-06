@@ -40,7 +40,7 @@ class GestionRetourController extends Controller
             $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroSage()) ;
         }
 
-        return $this->render('index.html.twig', array(
+        return $this->render(':gestionretour:index.html.twig', array(
             'gestionRetours' => $gestionRetours,
             'codebarre' => $code,
         ));
