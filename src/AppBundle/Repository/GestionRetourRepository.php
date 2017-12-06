@@ -52,7 +52,7 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             ->orWhere('g.numeroDonneurOrdre LIKE :recherche')
             ->orWhere('g.nomDestinataire LIKE :recherche')
             ->orWhere('m.nomMagasin LIKE :recherche')
-            ->orWhere('m.nomDonneurOrdre LIKE :recherche')
+            ->orWhere('d.nomDonneurOrdre LIKE :recherche')
             ->andWhere('g.agence = :agence')
             ->orderBy('g.dateEntreeEntrepot')
             ->setParameter('recherche', '%' . $recherche . '%')
