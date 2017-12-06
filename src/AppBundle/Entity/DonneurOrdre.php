@@ -40,6 +40,15 @@ class DonneurOrdre
         return $this->nomDonneurOrdre;
     }
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->magasins = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -75,37 +84,6 @@ class DonneurOrdre
     }
 
     /**
-     * Set magasins
-     *
-     * @param \AppBundle\Entity\Magasin $magasins
-     *
-     * @return DonneurOrdre
-     */
-    public function setMagasins(\AppBundle\Entity\Magasin $magasins = null)
-    {
-        $this->magasins = $magasins;
-
-        return $this;
-    }
-
-    /**
-     * Get magasins
-     *
-     * @return \AppBundle\Entity\Magasin
-     */
-    public function   getMagasins()
-    {
-        return $this->magasins;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->magasins = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add magasin
      *
      * @param \AppBundle\Entity\Magasin $magasin
@@ -127,5 +105,15 @@ class DonneurOrdre
     public function removeMagasin(\AppBundle\Entity\Magasin $magasin)
     {
         $this->magasins->removeElement($magasin);
+    }
+
+    /**
+     * Get magasins
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMagasins()
+    {
+        return $this->magasins;
     }
 }

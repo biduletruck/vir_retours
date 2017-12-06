@@ -145,4 +145,18 @@ class  Magasin
     {
         return $this->donneurOrdres;
     }
+
+    /**
+     * Set donneurOrdres
+     *
+     * @param \AppBundle\Entity\DonneurOrdre $donneurOrdres
+     *
+     * @return Magasin
+     */
+    public function setDonneurOrdres(\AppBundle\Entity\DonneurOrdre $donneurOrdres = null)
+    {
+        $this->donneurOrdres = $donneurOrdres;
+
+        return $this;
+    }
 }
