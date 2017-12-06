@@ -60,11 +60,18 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <label for="disabledTextInput">Nom destinataire</label>
-                                <div>{{ gestionRetour.nomDestinataire | upper }}</div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Nom destinataire</label>
+                            <div>{{ gestionRetour.nomDestinataire | upper }}</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Etat</label>
+                            <div>
+
                             </div>
                         </div>
 
@@ -85,33 +92,42 @@
                         </div>
 
                     </div>
+                </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <div class="form-group">
-                                <label for="disabledTextInput">Numero donneur ordre</label>
-                                <div>{{ gestionRetour.numeroDonneurOrdre }}</div>
-                            </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Numero donneur ordre</label>
+                            <div>{{ gestionRetour.numeroDonneurOrdre }}</div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <div class="form-group">
-                                <label for="disabledTextInput">Code barre DO</label>
-                                {{ codeDo |raw }}
-                            </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Code barre donneur d'ordre</label>
+                            {{ codeDo |raw }}
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <div class="form-group">
-                                <label for="disabledTextInput">Donneur ordre</label>
-                                <div>{{ gestionRetour.donneurOrdre.nomDonneurOrdre  | upper }}</div>
-                            </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Donneur ordre</label>
+                            <div>{{ gestionRetour.donneurOrdre.nomDonneurOrdre | upper }}</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Magasin</label>
+                            <div>{{ gestionRetour.magasin.nomMagasin  | upper }}</div>
                         </div>
                     </div>
 
 
                 </div>
 
+
             </div>
+
         </div>
+    </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="panel panel-default">
@@ -147,7 +163,7 @@
                     <div class="col-xs-12 col-sm-4 col-md-2">
                         <div class="form-group">
                             <label for="disabledTextInput">Emplacement</label>
-                            <div>{{ gestionRetour.stockage | upper  }}</div>
+                            <div>{{ gestionRetour.emplacement  }}</div>
                         </div>
                     </div>
 

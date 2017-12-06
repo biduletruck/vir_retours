@@ -110,5 +110,76 @@ class HistoriqueGestionRetour
     {
         return $this->dateAction;
     }
-}
 
+    /**
+     * Set retour
+     *
+     * @param \AppBundle\Entity\GestionRetour $retour
+     *
+     * @return HistoriqueGestionRetour
+     */
+    public function setRetour(\AppBundle\Entity\GestionRetour $retour)
+    {
+        $this->retour = $retour;
+
+        return $this;
+    }
+
+    /**
+     * Get retour
+     *
+     * @return \AppBundle\Entity\GestionRetour
+     */
+    public function getRetour()
+    {
+        return $this->retour;
+    }
+
+    /**
+     * Set emplacement
+     *
+     * @param \AppBundle\Entity\Emplacement $emplacement
+     *
+     * @return HistoriqueGestionRetour
+     */
+    public function setEmplacement(\AppBundle\Entity\Emplacement $emplacement)
+    {
+        $this->emplacement = $emplacement;
+
+        return $this;
+    }
+
+    /**
+     * Get emplacement
+     *
+     * @return \AppBundle\Entity\Emplacement
+     */
+    public function getEmplacement()
+    {
+        return $this->emplacement;
+    }
+
+    /**
+     * Set utilisateur
+     *
+     * @param \AppBundle\Entity\User $utilisateur
+     *
+     * @return HistoriqueGestionRetour
+     */
+    public function setUtilisateur(\AppBundle\Entity\User $utilisateur)
+    {
+        $this->Utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUtilisateur()
+    {
+        return $this->Utilisateur;
+    }
+}

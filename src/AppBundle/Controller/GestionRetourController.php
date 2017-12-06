@@ -3,14 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\GestionRetour;
-use AppBundle\Entity\User;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Form;
+
 use Symfony\Component\HttpFoundation\Request;
-use BG\BarcodeBundle\Util\Base1DBarcode as barCode;
+
 
 /**
  * Gestionretour controller.
@@ -28,11 +28,11 @@ class GestionRetourController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
+      //  $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
 
 
         //findAll -> trouver toutes les occurences
-         //$gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
+         $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
 
         $code = [];
         foreach ($gestionRetours as $gestionRetour)
@@ -40,7 +40,7 @@ class GestionRetourController extends Controller
             $code[] = $this->container->get('app.barcode_service')->barCodeGenerator($gestionRetour->getNumeroSage()) ;
         }
 
-        return $this->render('gestionretour/index.html.twig', array(
+        return $this->render(':gestionretour:index.html.twig', array(
             'gestionRetours' => $gestionRetours,
             'codebarre' => $code,
         ));
@@ -87,12 +87,13 @@ class GestionRetourController extends Controller
     public function newAction(Request $request)
     {
         $gestionRetour = new Gestionretour();
-        $gestionRetour->setAgence($this->getUser()->getAgence());
 
         $form = $this->createForm('AppBundle\Form\AddGestionRetourType', $gestionRetour);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $gestionRetour->setAgence($this->getUser()->getAgence());
             $em->persist($gestionRetour);
@@ -125,7 +126,7 @@ class GestionRetourController extends Controller
 
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
-
+                $gestionRetour->setAgence($this->getUser()->getAgence());
                 $this->get('session')->getFlashBag()->add('success', 'DSA mis à jour');
                 return $this->redirectToRoute('retours_show', array('id' => $gestionRetour->getId()));
             }

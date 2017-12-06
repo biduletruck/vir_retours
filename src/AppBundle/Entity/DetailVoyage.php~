@@ -44,6 +44,7 @@ class DetailVoyage
     private $retours;
 
 
+
     /**
      * Get id
      *
@@ -77,5 +78,94 @@ class DetailVoyage
     {
         return $this->dateAjout;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->voyages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setDateAjout(new \DateTime());
+    }
 
+    /**
+     * Set logins
+     *
+     * @param \AppBundle\Entity\User $logins
+     *
+     * @return DetailVoyage
+     */
+    public function setLogins(\AppBundle\Entity\User $logins = null)
+    {
+        $this->logins = $logins;
+
+        return $this;
+    }
+
+    /**
+     * Get logins
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getLogins()
+    {
+        return $this->logins;
+    }
+
+    /**
+     * Add voyage
+     *
+     * @param \AppBundle\Entity\Voyage $voyage
+     *
+     * @return DetailVoyage
+     */
+    public function addVoyage(\AppBundle\Entity\Voyage $voyage)
+    {
+        $this->voyages[] = $voyage;
+
+        return $this;
+    }
+
+    /**
+     * Remove voyage
+     *
+     * @param \AppBundle\Entity\Voyage $voyage
+     */
+    public function removeVoyage(\AppBundle\Entity\Voyage $voyage)
+    {
+        $this->voyages->removeElement($voyage);
+    }
+
+    /**
+     * Get voyages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVoyages()
+    {
+        return $this->voyages;
+    }
+
+    /**
+     * Set retours
+     *
+     * @param \AppBundle\Entity\GestionRetour $retours
+     *
+     * @return DetailVoyage
+     */
+    public function setRetours(\AppBundle\Entity\GestionRetour $retours = null)
+    {
+        $this->retours = $retours;
+
+        return $this;
+    }
+
+    /**
+     * Get retours
+     *
+     * @return \AppBundle\Entity\GestionRetour
+     */
+    public function getRetours()
+    {
+        return $this->retours;
+    }
+}

@@ -19,9 +19,6 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="col-xs-12 col-sm-6 col-md-3">
 
-                        {{ form_errors(edit_form.agence, { 'attr' : { 'style':'display:none'} }) }}
-                        {{ form_widget(edit_form.agence, { 'attr' : { 'style':'display:none'} }) }}
-
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         {{ form_row(edit_form.dateEntreeEntrepot) }}
@@ -37,15 +34,19 @@
                         {{ form_errors(edit_form.nomDestinataire) }}
                         {{ form_widget(edit_form.nomDestinataire) }}
                     </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
 
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         {{ form_label(edit_form.numeroSage) }}
                         {{ form_errors(edit_form.numeroSage) }}
-                        {{ form_widget(edit_form.numeroSage, { 'attr': {'maxlength': 9} }) }}
+                        {{ form_widget(edit_form.numeroSage) }}
                     </div>
-
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <h4>evenement sage à venir</h4>
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -59,8 +60,12 @@
                         {{ form_widget(edit_form.donneurOrdre) }}
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        <h4>Magasin à venir</h4>
+                        {{ form_label(edit_form.magasin) }}
+
+                        {{ form_widget(edit_form.magasin) }}
+                        {{ form_errors(edit_form.magasin) }}
                     </div>
+
                 </div>
 
 
@@ -126,3 +131,32 @@
     {{ form_end(edit_form) }}
 
     {% endblock %}
+
+    {% block javascripts %}
+{{ parent() }}
+        <script>
+        var $donneurOrdre = $('#appbundle_updategestionretour_donneurOrdre');
+        // When sport gets selected ...
+        $donneurOrdre.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$donneurOrdre.attr('name')] = $donneurOrdre.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+                    $('#appbundle_updategestionretour_magasin').replaceWith(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('#appbundle_updategestionretour_magasin')
+                    );
+                    // Position field now displays the appropriate positions.
+                }
+            });
+        });
+    </script>
+{% endblock %}

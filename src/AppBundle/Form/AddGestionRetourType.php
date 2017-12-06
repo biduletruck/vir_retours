@@ -2,10 +2,14 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\DonneurOrdre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddGestionRetourType extends AbstractType
@@ -16,16 +20,13 @@ class AddGestionRetourType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           /* ->add('agence', EntityType::class, array(
-                'class' => 'AppBundle:Agence',
-                'choice_label' => 'nomAgence',
-                'placeholder' => 'Choisir une agence'
-            ))*/
+
             ->add('donneurOrdre', EntityType::class, array(
                 'class' => 'AppBundle:DonneurOrdre',
                 'choice_label' => 'nomDonneurOrdre',
-                'placeholder' => 'Choisir un DO'
+                'placeholder' => 'Choisir un donneur d\'ordre'
             ))
+
             ->add('numeroSage')
             ->add('numeroDonneurOrdre')
             ->add('prestation', EntityType::class, array(
@@ -45,11 +46,47 @@ class AddGestionRetourType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => true,
             ))
-            ->add('stockage')
+            ->add('emplacement', EntityType::class, array(
+                'class' => 'AppBundle:Emplacement',
+                'choice_label' => 'nomEmplacement',
+                'placeholder' => 'Choisir emplacement',
+            ))
             ->add('commentaire')
         ;
+
+        $formModifier = function (FormInterface $form, DonneurOrdre $donneurOrdre = null) {
+            $magasin = null === $donneurOrdre ? array() : $donneurOrdre->getMagasins();
+
+            $form->add('magasin', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Magasin',
+                'placeholder' => '',
+                'choices' => $magasin,
+            ));
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getDonneurOrdre());
+            }
+        );
+
+        $builder->get('donneurOrdre')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+
+                $donneurOrdre = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier($event->getForm()->getParent(), $donneurOrdre);
+            }
+        );
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -67,6 +104,8 @@ class AddGestionRetourType extends AbstractType
     {
         return 'appbundle_addgestionretour';
     }
+
+
 
 
 }

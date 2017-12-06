@@ -2,10 +2,14 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\DonneurOrdre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class updateGestionRetourType extends AbstractType
@@ -16,10 +20,11 @@ class updateGestionRetourType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('agence', EntityType::class, array(
-                'class' => 'AppBundle:Agence',
-                'choice_label' => 'nomAgence',
-                'placeholder' => 'Choisir une agence'
+
+            ->add('magasin', EntityType::class, array(
+                'class' => 'AppBundle:Magasin',
+                'choice_label' => 'nomMagasin',
+                'placeholder' => 'Choisir un Magasin'
             ))
             ->add('donneurOrdre', EntityType::class, array(
                 'class' => 'AppBundle:DonneurOrdre',
@@ -48,14 +53,17 @@ class updateGestionRetourType extends AbstractType
             ->add('dateSortieEntrepot',DateType::class,  array(
                 'widget' => 'single_text',
                 'html5' => true,
+                'required' => false,
             ))
             ->add('emplacement', EntityType::class, array(
                 'class' => 'AppBundle:Emplacement',
                 'choice_label' => 'nomEmplacement',
                 'placeholder' => 'Choisir emplacement',
             ))
+
             ->add('commentaire')
         ;
+
     }
     
     /**

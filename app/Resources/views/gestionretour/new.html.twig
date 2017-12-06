@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block javascripts %}
-
-{% endblock %}
 
 {% block body %}
     <div class="page-header">
         <H1>Ajouter un retour client</H1>
     </div>
+
     {{ form_start(form) }}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -33,7 +31,9 @@
                             {{ form_errors(form.nomDestinataire) }}
                             {{ form_widget(form.nomDestinataire) }}
                         </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
 
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -41,7 +41,9 @@
                             {{ form_errors(form.numeroSage) }}
                             {{ form_widget(form.numeroSage, { 'attr': {'maxlength': 9} }) }}
                         </div>
-
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <h4>evenement sage à venir</h4>
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -54,6 +56,12 @@
                             {{ form_errors(form.donneurOrdre) }}
                             {{ form_widget(form.donneurOrdre) }}
                         </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            {{ form_label(form.magasin) }}
+                            {{ form_errors(form.magasin) }}
+                            {{ form_widget(form.magasin) }}
+                        </div>
+
                     </div>
 
 
@@ -90,9 +98,9 @@
                             {{ form_widget(form.motifRetour) }}
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-3">
-                            {{ form_label(form.stockage) }}
-                            {{ form_errors(form.stockage) }}
-                            {{ form_widget(form.stockage) }}
+                            {{ form_label(form.emplacement) }}
+                            {{ form_errors(form.emplacement) }}
+                            {{ form_widget(form.emplacement) }}
                         </div>
                     </div>
 
@@ -122,4 +130,35 @@
 
     {{ form_end(form) }}
 
+
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+        <script>
+        var $donneurOrdre = $('#appbundle_addgestionretour_donneurOrdre');
+        // When sport gets selected ...
+        $donneurOrdre.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$donneurOrdre.attr('name')] = $donneurOrdre.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+                    $('#appbundle_addgestionretour_magasin').replaceWith(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('#appbundle_addgestionretour_magasin')
+                    );
+                    // Position field now displays the appropriate positions.
+                }
+            });
+        });
+    </script>
 {% endblock %}
