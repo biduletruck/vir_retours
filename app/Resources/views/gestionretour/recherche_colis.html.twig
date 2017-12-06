@@ -12,31 +12,24 @@
                 <th>Numero Sage</th>
                 <th>Num DO</th>
                 <th>Donneur d'Ordre</th>
-                <th>Magasin</th>
                 <th>Destinataire</th>
                 <th>Nombre de colis</th>
                 <th>Date d'entrée Dépôt</th>
+
                 <th>Date de Sortie Dépôt</th>
             </tr>
             </thead>
             <tbody >
             {% for key, gestionRetour in gestionRetours %}
-                <tr {% if date(gestionRetour.dateSortieEntrepot) !=  date('') %}class="danger" {% endif %}>
+                <tr {{ gestionRetour.dateReponseDemandeDsa is empty ? "" : "class='danger'" }}>
                     <td><a class="btn btn-small btn-info" href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.numeroSage }}</a></td>
-                    <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
                     <td>{{ gestionRetour.donneurOrdre.nomDonneurOrdre }}</td>
-                    <td>{{ gestionRetour.magasin.nomMagasin }}</td>
-
+                    <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
                     <td>{{ gestionRetour.nomDestinataire }}</td>
                     <td>{{ gestionRetour.nombreColis }}</td>
                     <td>{% if gestionRetour.dateEntreeEntrepot %}{{ gestionRetour.dateEntreeEntrepot|date('d-m-Y') }}{% endif %}</td>
 
-                    <td>{% if date(gestionRetour.dateSortieEntrepot) ==  date('') %}
-                            {{ gestionRetour.dateSortieEntrepot|date('') }}
-                        {% else %}
-                            {{ gestionRetour.dateSortieEntrepot|date('d-m-Y') }}
-                        {% endif %}
-                    </td>
+                    <td>{{ gestionRetour.dateReponseDemandeDsa is empty ? "" : gestionRetour.dateReponseDemandeDsa|date('d-m-Y')}}</td>
 
 
                 </tr>
