@@ -88,6 +88,7 @@ easy_admin:
     design:
         menu:
             - { label: 'Nos Agences', entity: 'Agence'}
+            - { label: 'Ratttachement DO', entity: 'Rattachement'}
             - { label: "Donneurs d'Ordres", entity: 'DonneurOrdre'}
             - { label: "Les magasins", entity: 'Magasin'}
             - { label: 'Nos prestations', entity: 'Prestation'}
@@ -99,6 +100,9 @@ easy_admin:
         Agence:
             class: AppBundle\Entity\Agence
             label: 'Nos Agences'
+        Rattachement:
+            class: AppBundle\Entity\Rattachement
+            label: 'Ratttachement DO'
         DonneurOrdre:
             class: AppBundle\Entity\DonneurOrdre
             label: "Donneurs d'ordre"

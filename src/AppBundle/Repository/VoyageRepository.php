@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class VoyageRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findInStock($idAgence)
+    {
+        $query = $this->createQueryBuilder('g')
+            ->select('g', 'm','d','r')
+            ->join('g.magasin', 'm')
+            ->join('g.donneurOrdre', 'd')
+            ->join('d.rattachement', 'r')
+            ->where('g.dateSortieEntrepot IS NULL')
+            ->andWhere('g.agence = :agence')
+            ->orderBy('g.dateSortieEntrepot')
+            ->setParameter('agence', $idAgence)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

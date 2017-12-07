@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,14 @@ class VoyageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nomVoyage')->add('dateCreation')->add('dateRetour')->add('statut')->add('agence')->add('createur');
+        $builder
+            ->add('nomVoyage')
+            ->add('dateCreation')
+            ->add('dateRetour')
+            ->add('rattachement')
+            ->add('statut')
+            ->add('agence')
+            ->add('createur');
     }
     
     /**

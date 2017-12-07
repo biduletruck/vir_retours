@@ -59,6 +59,11 @@ class Voyage
      */
     private $createur;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Rattachement")
+     */
+    private $rattachement;
+
     public function __construct()
     {
         $this->setStatut(false);

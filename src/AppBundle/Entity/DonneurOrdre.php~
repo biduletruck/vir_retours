@@ -34,6 +34,11 @@ class DonneurOrdre
 
     private $magasins;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Rattachement")
+     */
+    private $rattachement;
+
 
     public function __toString()
     {
@@ -115,5 +120,29 @@ class DonneurOrdre
     public function getMagasins()
     {
         return $this->magasins;
+    }
+
+    /**
+     * Set rattachement
+     *
+     * @param \AppBundle\Entity\Rattachement $rattachement
+     *
+     * @return DonneurOrdre
+     */
+    public function setRattachement(\AppBundle\Entity\Rattachement $rattachement = null)
+    {
+        $this->rattachement = $rattachement;
+
+        return $this;
+    }
+
+    /**
+     * Get rattachement
+     *
+     * @return \AppBundle\Entity\Rattachement
+     */
+    public function getRattachement()
+    {
+        return $this->rattachement;
     }
 }
