@@ -61,4 +61,19 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getArrayResult();
     }
+
+    public function findStockForTravel($rattachement)
+    {
+        $query = $this->createQueryBuilder('g')
+            ->select('g','d','r', 'm')
+            ->join('g.magasin', 'm')
+            ->join('g.donneurOrdre', 'd')
+            ->join('d.rattachement', 'r')
+            ->Where('r.nom = :rattachement')
+            ->orderBy('g.dateSortieEntrepot')
+            ->setParameter('rattachement', $rattachement)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
