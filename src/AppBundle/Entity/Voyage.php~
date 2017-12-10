@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Voyage
@@ -25,6 +26,7 @@ class Voyage
      * @var string
      *
      * @ORM\Column(name="nomVoyage", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nomVoyage;
 
@@ -32,6 +34,7 @@ class Voyage
      * @var \DateTime
      *
      * @ORM\Column(name="dateCreation", type="date")
+     * @Assert\NotBlank()
      */
     private $dateCreation;
 
@@ -39,11 +42,13 @@ class Voyage
      * @var \DateTime
      *
      * @ORM\Column(name="dateRetour", type="date", nullable=true)
+     * @Assert\NotBlank()
      */
     private $dateRetour;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Agence")
+     *
      */
     private $agence;
 
@@ -222,5 +227,29 @@ class Voyage
     public function getCreateur()
     {
         return $this->createur;
+    }
+
+    /**
+     * Set rattachement
+     *
+     * @param \AppBundle\Entity\Rattachement $rattachement
+     *
+     * @return Voyage
+     */
+    public function setRattachement(\AppBundle\Entity\Rattachement $rattachement = null)
+    {
+        $this->rattachement = $rattachement;
+
+        return $this;
+    }
+
+    /**
+     * Get rattachement
+     *
+     * @return \AppBundle\Entity\Rattachement
+     */
+    public function getRattachement()
+    {
+        return $this->rattachement;
     }
 }

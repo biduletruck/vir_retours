@@ -41,4 +41,26 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6" id="liste_dispo">
+                {% block colis %}
+                    {% include ":voyage:colis_attente_retour.html.twig" %}
+                {% endblock %}
+            </div>
+            <div class="col-md-6" id="liste_retour">
+                <div class="col-md-12" id="add_retour">
+
+                </div>
+                <div class="col-md-12">
+                    {% block liste_retour %}
+                        {% include ":voyage:colis_en_cour_retour.html.twig" %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+

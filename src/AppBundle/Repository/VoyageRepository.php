@@ -11,5 +11,4 @@ namespace AppBundle\Repository;
 class VoyageRepository extends \Doctrine\ORM\EntityRepository
 {
 
-
 }

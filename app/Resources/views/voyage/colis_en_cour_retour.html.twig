@@ -1,0 +1,8 @@
+{% block liste_retour %}
+  {% for colis in listing_retour %}
+      <form action="post">
+          <input type="checkbox" name="{{ colis.id }}" value="" data-toggle="toggle" data-size="mini" data-on="Enabled" data-off="Disabled">
+        {{ colis.magasin.nomMagasin }}
+      </form>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% block colis %}
+
+        {% for disponibilite in disponibilites %}
+            <div class="col-md12" id="add{{ disponibilite.id }}">
+                <button type="button" class="btn btn-xs btn-primary" name="add" id="{{ disponibilite.id }}"> Ajouter</button>
+                <span id="msg{{ disponibilite.id }}">{{ disponibilite.magasin.nomMagasin }}</span>
+            </div>
+
+
+        {% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        $("button").click(function(e){
+            var idClicked = e.target.id;
+
+            if(e.target.name === "add")
+            {
+                $("#" + idClicked).attr("class" ,"btn btn-xs btn-danger").attr("name" ,"suppr").html("Supprimer");
+                $("#add" + idClicked).hide().appendTo("#add_retour").slideDown().attr("id" ,"suppr"+ idClicked);
+            }
+            else if(e.target.name === "suppr")
+            {
+                $("#" + idClicked).attr("class" ,"btn btn-xs btn-primary").attr("name" ,"add").html("Ajouter");
+                $("#suppr" + idClicked).hide().appendTo("#liste_dispo").slideDown().attr("id" ,"add"+ idClicked);
+            }
+
+        });
+
+    </script>
+{% endblock %}

@@ -34,12 +34,12 @@ class DetailVoyage
     private $logins;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Voyage", mappedBy="nomVoyage")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Voyage", mappedBy="id")
      */
     private $voyages;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\GestionRetour")
      */
     private $retours;
 
