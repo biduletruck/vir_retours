@@ -13,12 +13,27 @@ class DetailVoyageRepository extends \Doctrine\ORM\EntityRepository
     public function findPackageInTravel($numeroVoyage)
     {
         $query = $this->createQueryBuilder('d')
-            ->select('d', 'g')
-            ->join('d.retours', 'g')
-            ->where('d.id = :voyage')
+            ->select('d', 'v', 'g')
+            ->join('d.voyage', 'v')
+            ->join('d.retour', 'g')
+            ->where('d.voyage = :voyage')
             ->setParameter('voyage', $numeroVoyage)
             ->getQuery();
 
         return $query->getResult();
     }
+
+
+    public function findPackage($retour)
+    {
+        $query = $this->createQueryBuilder('d')
+            ->delete('d')
+            ->where('d.retour = :retour')
+            ->setParameter('retour', $retour)
+            ->getQuery();
+
+        $query->execute();
+
+    }
+
 }

@@ -1,8 +1,9 @@
 {% block liste_retour %}
-  {% for colis in listing_retour %}
-      <form action="post">
-          <input type="checkbox" name="{{ colis.id }}" value="" data-toggle="toggle" data-size="mini" data-on="Enabled" data-off="Disabled">
-        {{ colis.magasin.nomMagasin }}
-      </form>
-  {% endfor %}
+    {% for retour in listing_retour %}
+        <div class="col-md12" id="suppr{{ retour.retour.id }}" name="{{ retour.id }}">
+            <button type="button" class="btn btn-xs btn-danger" name="suppr" id="{{ retour.retour.id }}"> Supprimer</button>
+            <span id="msg{{ retour.id }}">{{ retour.retour.magasin.nomMagasin }} / {{ retour.retour.nomDestinataire }}  / {{ retour.id }} / {{ retour.retour.id }} </span>
+        </div>
+    {% endfor %}
 {% endblock %}
+

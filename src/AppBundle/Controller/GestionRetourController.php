@@ -28,8 +28,6 @@ class GestionRetourController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-      //  $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());
-
 
         //findAll -> trouver toutes les occurences
          $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->findInStock($this->getUser()->getAgence());

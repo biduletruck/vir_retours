@@ -68,10 +68,16 @@ class VoyageController extends Controller
         $deleteForm = $this->createDeleteForm($voyage);
 
         $em = $this->getDoctrine()->getManager();
-        $stockForTravel = $em->getRepository('AppBundle:GestionRetour')
-            ->findStockForTravel($voyage->getRattachement()->getNom());
+
         $packageInTravel = $em->getRepository('AppBundle:DetailVoyage')
             ->findPackageInTravel($voyage->getId());
+
+
+        $stockForTravel = $em->getRepository('AppBundle:GestionRetour')
+            ->findStockForTravel($voyage->getRattachement()->getNom() );
+
+
+
         return $this->render('voyage/show.html.twig', array(
             'voyage' => $voyage,
             'disponibilites' => $stockForTravel,

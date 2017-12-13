@@ -140,6 +140,13 @@ class GestionRetour
     private $etat;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="statut", type="boolean")
+     */
+    private $voyage;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text", nullable=true)
@@ -617,4 +624,5 @@ class GestionRetour
     {
         return $this->donneurOrdre;
     }
+
 }

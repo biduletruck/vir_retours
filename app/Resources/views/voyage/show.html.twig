@@ -44,23 +44,93 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="col-md-6" id="liste_dispo">
-                {% block colis %}
-                    {% include ":voyage:colis_attente_retour.html.twig" %}
-                {% endblock %}
-            </div>
-            <div class="col-md-6" id="liste_retour">
-                <div class="col-md-12" id="add_retour">
-
+            <div class="col-md-6">
+                <div class=" panel panel-default"  >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Retours disponible</h3>
+                    </div>
+                    <div class="panel-body" id="liste_dispo">
+                        {% block colis %}
+                            {% include ":voyage:colis_attente_retour.html.twig" %}
+                        {% endblock %}
+                    </div>
                 </div>
-                <div class="col-md-12">
-                    {% block liste_retour %}
-                        {% include ":voyage:colis_en_cour_retour.html.twig" %}
-                    {% endblock %}
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Retours en attente</h3>
+                    </div>
+                    <div class="panel-body" id="liste_retour">
+                        {% block liste_retour %}
+                            {% include ":voyage:colis_en_cour_retour.html.twig" %}
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        $("button").click(function(e){
+            var idClicked = e.target.id;
+            var nameClicked = $(this).parent().attr('name');
+
+
+            if(e.target.name === "add")
+            {
+
+                $.ajax({
+                    url: "{{ path('detailvoyage_add_package') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        "id":  idClicked,
+                        "voyage": {{ voyage.id }}
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+
+                        $("#" + idClicked).attr("class" ,"btn btn-xs btn-danger").attr("name" ,"suppr").html("Supprimer");
+                        $("#add" + idClicked).hide().appendTo("#liste_retour").slideDown().attr("id" ,"suppr"+ idClicked).attr("name" ,data);
+
+                    }
+                });
+
+            }
+            else if(e.target.name === "suppr")
+            {
+
+                $.ajax({
+                    url: "{{ path('detailvoyage_suppr_package') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        "id":  idClicked,
+                        "name": nameClicked,
+                        "voyage": {{ voyage.id }}
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+
+                        $("#" + idClicked).attr("class" ,"btn btn-xs btn-primary").attr("name" ,"add").html("Ajouter");
+                        $("#suppr" + idClicked).hide().appendTo("#liste_dispo").slideDown().attr("id" ,"add"+ idClicked).attr("id" ,"add"+ idClicked).attr("name" ,"");
+
+                    }
+                });
+            }
+
+        });
+
+    </script>
 {% endblock %}
 
 

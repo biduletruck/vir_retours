@@ -64,9 +64,6 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
 
     public function findStockForTravel($rattachement)
     {
-        $subQuery = $this->createQueryBuilder('v')
-            ->select('v.retours')
-            ->from('AppBundle:DetailVoyage','v');
 
         $query = $this->createQueryBuilder('g')
             ->select('g','d','r', 'm')
@@ -74,13 +71,14 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             ->join('g.donneurOrdre', 'd')
             ->join('d.rattachement', 'r')
             ->Where('r.nom = :rattachement')
-            ->andWhere('g.id NOT IN (:subquery)')
+            ->andWhere('g.voyage = 0')
             ->orderBy('g.dateSortieEntrepot')
             ->setParameter('rattachement', $rattachement)
-            ->setParameter('subquery', $subQuery)
             ->getQuery();
 
         return $query->getResult();
+
+
     }
 
 

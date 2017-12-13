@@ -3,9 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\DetailVoyage;
+use AppBundle\Entity\GestionRetour;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Voyage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Detailvoyage controller.
@@ -56,6 +61,72 @@ class DetailVoyageController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+    /**
+     * Creates a add Package on detailVoyage entity.
+     *
+     * @Route("/addpackage", name="detailvoyage_add_package")
+     * @Method({"POST"})
+     */
+    public function addPackageAction(Request $request)
+    {
+
+        if ($request->isMethod('POST') && $request->isXmlHttpRequest())
+        {
+
+            $content = $request->request;
+            $em = $this->getDoctrine()->getManager();
+            $retour = $em->getRepository('AppBundle:GestionRetour')->find($content->get('id'));
+            $voyage = $em->getRepository('AppBundle:Voyage')->find($content->get('voyage'));
+            $login = $em->getRepository('AppBundle:User')->find($this->getUser()->getId());
+
+
+                $detailVoyage = new Detailvoyage();
+                $detailVoyage->setRetour($retour);
+                $detailVoyage->setLogin($login);
+                $detailVoyage->setVoyage($voyage);
+                $em->persist($detailVoyage);
+                $retour->setVoyage(true);
+                $em->flush();
+
+                $data = $detailVoyage->getId();
+
+
+
+            return new JsonResponse($data);
+        }
+
+    }
+
+    /**
+     * delete Package on detailVoyage entity.
+     *
+     * @Route("/supprpackage", name="detailvoyage_suppr_package")
+     * @Method({"POST"})
+     */
+    public function updatePackageAction(Request $request)
+    {
+
+        if ($request->isMethod('POST') && $request->isXmlHttpRequest())
+        {
+
+            $content = $request->request;
+            $em = $this->getDoctrine()->getManager();
+            $retour = $em->getRepository('AppBundle:GestionRetour')->find($content->get('id'));
+
+
+            $voyage = $em->getRepository('AppBundle:DetailVoyage')->find($content->get('name'));
+
+            $retour->setVoyage(false);
+            $em->remove($voyage);
+            $em->flush();
+
+            return new JsonResponse($em);
+        }
+
+    }
+
+
 
     /**
      * Finds and displays a detailVoyage entity.

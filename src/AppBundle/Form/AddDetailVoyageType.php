@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DetailVoyageType extends AbstractType
+class AddDetailVoyageType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -14,8 +14,6 @@ class DetailVoyageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateAjout')
-            ->add('logins')
             ->add('retours')
             ->add('voyages')
         ;

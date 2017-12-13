@@ -31,24 +31,31 @@ class DetailVoyage
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
-    private $logins;
+    private $login;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Voyage", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Voyage")
      */
-    private $voyages;
+    private $voyage;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\GestionRetour",mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour")
      */
-    private $retours;
+    private $retour;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setDateAjout(new \DateTime());
+    }
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -78,13 +85,53 @@ class DetailVoyage
     {
         return $this->dateAjout;
     }
+
     /**
-     * Constructor
+     * Set voyage
+     *
+     * @param integer $voyage
+     *
+     * @return DetailVoyage
      */
-    public function __construct()
+    public function setVoyage($voyage)
     {
-        $this->voyages = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->setDateAjout(new \DateTime());
+        $this->voyage = $voyage;
+
+        return $this;
+    }
+
+    /**
+     * Get voyage
+     *
+     * @return integer
+     */
+    public function getVoyage()
+    {
+        return $this->voyage;
+    }
+
+    /**
+     * Set retour
+     *
+     * @param integer $retour
+     *
+     * @return DetailVoyage
+     */
+    public function setRetour($retour)
+    {
+        $this->retour = $retour;
+
+        return $this;
+    }
+
+    /**
+     * Get retour
+     *
+     * @return integer
+     */
+    public function getRetour()
+    {
+        return $this->retour;
     }
 
     /**
@@ -112,60 +159,26 @@ class DetailVoyage
     }
 
     /**
-     * Add voyage
+     * Set login
      *
-     * @param \AppBundle\Entity\Voyage $voyage
+     * @param integer $login
      *
      * @return DetailVoyage
      */
-    public function addVoyage(\AppBundle\Entity\Voyage $voyage)
+    public function setLogin($login)
     {
-        $this->voyages[] = $voyage;
+        $this->login = $login;
 
         return $this;
     }
 
     /**
-     * Remove voyage
+     * Get login
      *
-     * @param \AppBundle\Entity\Voyage $voyage
+     * @return integer
      */
-    public function removeVoyage(\AppBundle\Entity\Voyage $voyage)
+    public function getLogin()
     {
-        $this->voyages->removeElement($voyage);
-    }
-
-    /**
-     * Get voyages
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getVoyages()
-    {
-        return $this->voyages;
-    }
-
-    /**
-     * Set retours
-     *
-     * @param \AppBundle\Entity\GestionRetour $retours
-     *
-     * @return DetailVoyage
-     */
-    public function setRetours(\AppBundle\Entity\GestionRetour $retours = null)
-    {
-        $this->retours = $retours;
-
-        return $this;
-    }
-
-    /**
-     * Get retours
-     *
-     * @return \AppBundle\Entity\GestionRetour
-     */
-    public function getRetours()
-    {
-        return $this->retours;
+        return $this->login;
     }
 }
