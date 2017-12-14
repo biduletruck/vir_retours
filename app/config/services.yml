@@ -35,6 +35,12 @@ services:
         arguments:
             - [barCodeGenerator, ['@?code']]
 
+    app.excel_service:
+        public: true
+        class: AppBundle\Service\ExcelService
+        arguments:
+            - [newExcel]
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

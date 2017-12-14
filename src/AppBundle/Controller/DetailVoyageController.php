@@ -114,7 +114,6 @@ class DetailVoyageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $retour = $em->getRepository('AppBundle:GestionRetour')->find($content->get('id'));
 
-
             $voyage = $em->getRepository('AppBundle:DetailVoyage')->find($content->get('name'));
 
             $retour->setVoyage(false);
@@ -123,6 +122,23 @@ class DetailVoyageController extends Controller
 
             return new JsonResponse($em);
         }
+
+    }
+
+    /**
+     * delete Package on detailVoyage entity.
+     *
+     * @Route("/exportpackage", name="detailvoyage_export_package")
+     */
+    public function exportExcelPackagesAction()
+    {
+        $excel = $this->container->get('app.excel_service');
+        $classeur = $excel->newExcel();
+        $feuille = $classeur->getActiveSheet();
+        $feuille->setCellValue('A1', 'Test de la mort !!!');
+
+       // return $excel->saveExcel($classeur, 'test001');
+        return $excel->savePdf($classeur);
 
     }
 
