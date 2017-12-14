@@ -60,7 +60,18 @@
             <div class="col-md-6">
                 <div class="panel panel-default" >
                     <div class="panel-heading">
-                        <h3 class="panel-title">Retours en attente</h3>
+
+                            <h3 class="panel-title">Retours en attente
+
+                            <a href="{{ path('voyage_export_xls_package', { 'id': voyage.id }) }}">
+                                <img src="{{ asset('img/icones/Excel-icon-16.png') }}" alt="iconeExcel">
+                            </a>
+                            <a href="{{ path('voyage_export_pdf_package', { 'id': voyage.id }) }}">
+                                <img src="{{ asset('img/icones/pdf-icon-16.png') }}" alt="iconePdf">
+                            </a>
+                            </h3>
+
+
                     </div>
                     <div class="panel-body" id="liste_retour">
                         {% block liste_retour %}

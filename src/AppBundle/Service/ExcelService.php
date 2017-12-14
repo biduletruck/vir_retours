@@ -13,6 +13,9 @@ namespace AppBundle\Service;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use Symfony\Component\HttpFoundation\Response;
 
 class ExcelService
@@ -24,22 +27,29 @@ class ExcelService
     }
 
 
-    public function saveExcel($spreadsheet, $title, $ext = '.xlsx')
+    public function saveExcel($spreadsheet, $title)
     {
         $writer = new Xlsx($spreadsheet);
-        $writer->
-        $writer->save($title.$ext);
-
+        $writer->save($title.'.xlsx');
         return new Response();
-
     }
 
-    public function savePdf($spreadsheet)
+    public function exportExcel($spreadsheet, $title)
+    {
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. $title .'.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+        exit();
+    }
+
+    public function exportPdf($spreadsheet, $title)
     {
         IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
-// Redirect output to a client’s web browser (PDF)
+
         header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment;filename="01simple.pdf"');
+        header('Content-Disposition: attachment;filename="'. $title .'.pdf"');
         header('Cache-Control: max-age=0');
         $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
         $writer->save('php://output');

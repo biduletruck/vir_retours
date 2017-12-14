@@ -2,10 +2,16 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\DetailVoyage;
 use AppBundle\Entity\Voyage;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Voyage controller.
@@ -145,5 +151,70 @@ class VoyageController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Export du voyage au format Excel
+     *
+     * @Route("/{id}/xls", name="voyage_export_xls_package")
+     * @Method({"GET", "POST"})
+     */
+    public function exportExcelVoyageAction(Voyage $voyage)
+    {
+        list($excel, $classeur) = $this->formatingExtract($voyage);
+        return $excel->exportExcel($classeur, 'truc');
+    }
+
+    /**
+     * Export du voyage au format Pdf
+     *
+     * @Route("/{id}/pdf", name="voyage_export_pdf_package")
+     * @Method({"GET", "POST"})
+     */
+    public function exportPdfVoyageAction(Voyage $voyage)
+    {
+        list($excel, $classeur) = $this->formatingExtract($voyage);
+        return $excel->exportPdf($classeur, 'truc');
+    }
+
+    /**
+     * @param Voyage $voyage
+     * @return array
+     */
+    private function formatingExtract(Voyage $voyage)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $packageInTravel = $em->getRepository('AppBundle:DetailVoyage')
+            ->findPackageInTravel($voyage->getId());
+
+        $excel = $this->container->get('app.excel_service');
+        $classeur = $excel->newExcel();
+        $feuille = $classeur->getActiveSheet();
+
+
+
+        /* @var $row DetailVoyage GestionRetour */
+        $feuille->SetCellValue('a1', 'Donneur d\'Ordre');
+        $feuille->SetCellValue('b1', 'Magasin');
+        $feuille->SetCellValue('c1', 'Numéro Sage');
+        $feuille->SetCellValue('d1', 'Destinataire');
+        $feuille->SetCellValue('e1', 'Emplacement');
+
+        $rowCount = 2;
+        foreach ($packageInTravel as $row) {
+            $feuille->SetCellValue('a' . $rowCount, $row->getRetour()->getDonneurOrdre()->getNomDonneurOrdre());
+            $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
+            $feuille->SetCellValue('c' . $rowCount, $row->getRetour()->getNumeroSage());
+            $feuille->SetCellValue('d' . $rowCount, $row->getRetour()->getNomDestinataire());
+            $feuille->SetCellValue('e' . $rowCount, $row->getRetour()->getEmplacement());
+            $rowCount++;
+        }
+
+        foreach(range('A','E') as $columnID) {
+            $feuille->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        return array($excel, $classeur);
     }
 }

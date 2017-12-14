@@ -14,6 +14,7 @@
                 <th>Dateretour</th>
                 <th>Statut</th>
                 <th>Actions</th>
+                <th>export</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,13 @@
                 <td>{% if voyage.dateRetour %}{{ voyage.dateRetour|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if voyage.statut %}Yes{% else %}No{% endif %}</td>
                 <td><a href="{{ path('voyage_edit', { 'id': voyage.id }) }}">edit</a></td>
+                <td><a href="{{ path('voyage_export_xls_package', { 'id': voyage.id }) }}">
+                        <img src="{{ asset('img/icones/Excel-icon-32.png') }}" alt="iconeExcel">
+                    </a>
+                    <a href="{{ path('voyage_export_pdf_package', { 'id': voyage.id }) }}">
+                        <img src="{{ asset('img/icones/pdf-icon-32.png') }}" alt="iconePdf">
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
