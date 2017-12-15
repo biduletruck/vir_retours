@@ -23,7 +23,7 @@
             </thead>
             <tbody >
             {% for key, gestionRetour in gestionRetours %}
-                <tr>
+                <tr {{ gestionRetour.voyage == false ? "" : "class='warning'" }}>
                     <td>{{ gestionRetour.numeroDonneurOrdre }}</td>
                     <td>{{ gestionRetour.donneurOrdre.nomDonneurOrdre }}</td>
                     <td>{{ gestionRetour.magasin.nomMagasin }}</td>
