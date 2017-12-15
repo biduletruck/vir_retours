@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\DetailVoyage;
+use AppBundle\Entity\GestionRetour;
 use AppBundle\Entity\Voyage;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -130,6 +131,16 @@ class VoyageController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $packageInTravel = $em->getRepository('AppBundle:DetailVoyage')
+                ->findPackageInTravel($voyage->getId());
+            /* @var $package DetailVoyage */
+            foreach ($packageInTravel as $package)
+            {
+                $em->getRepository('AppBundle:DetailVoyage')->deleteTravel($voyage->getId());
+                $package->getRetour()->setVoyage(false);
+            }
+
             $em->remove($voyage);
             $em->flush();
         }
@@ -146,6 +157,7 @@ class VoyageController extends Controller
      */
     private function createDeleteForm(Voyage $voyage)
     {
+
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('voyage_delete', array('id' => $voyage->getId())))
             ->setMethod('DELETE')
@@ -161,8 +173,10 @@ class VoyageController extends Controller
      */
     public function exportExcelVoyageAction(Voyage $voyage)
     {
-        list($excel, $classeur) = $this->formatingExtract($voyage);
-        return $excel->exportExcel($classeur, 'truc');
+        //ligne de départ
+        $rowCount = 1;
+        list($excel, $classeur, $titre) = $this->formatingExtract($voyage, $rowCount);
+        return $excel->exportExcel($classeur, $titre);
     }
 
     /**
@@ -173,15 +187,17 @@ class VoyageController extends Controller
      */
     public function exportPdfVoyageAction(Voyage $voyage)
     {
-        list($excel, $classeur) = $this->formatingExtract($voyage);
-        return $excel->exportPdf($classeur, 'truc');
+        //ligne de départ
+        $rowCount = 7;
+        list($excel, $classeur, $titre) = $this->formatingExtract($voyage, $rowCount);
+        return $excel->exportPdf($classeur, $titre);
     }
 
     /**
      * @param Voyage $voyage
      * @return array
      */
-    private function formatingExtract(Voyage $voyage)
+    private function formatingExtract(Voyage $voyage, $rowCount)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -191,17 +207,16 @@ class VoyageController extends Controller
         $excel = $this->container->get('app.excel_service');
         $classeur = $excel->newExcel();
         $feuille = $classeur->getActiveSheet();
+        $titre = $voyage->getNomVoyage();
 
+        /* @var $row DetailVoyage */
+        $feuille->SetCellValue('a' . $rowCount, 'Donneur d\'Ordre');
+        $feuille->SetCellValue('b' . $rowCount, 'Magasin');
+        $feuille->SetCellValue('c' . $rowCount, 'Numéro Sage');
+        $feuille->SetCellValue('d' . $rowCount, 'Destinataire');
+        $feuille->SetCellValue('e' . $rowCount, 'Emplacement');
+        $rowCount++;
 
-
-        /* @var $row DetailVoyage GestionRetour */
-        $feuille->SetCellValue('a1', 'Donneur d\'Ordre');
-        $feuille->SetCellValue('b1', 'Magasin');
-        $feuille->SetCellValue('c1', 'Numéro Sage');
-        $feuille->SetCellValue('d1', 'Destinataire');
-        $feuille->SetCellValue('e1', 'Emplacement');
-
-        $rowCount = 2;
         foreach ($packageInTravel as $row) {
             $feuille->SetCellValue('a' . $rowCount, $row->getRetour()->getDonneurOrdre()->getNomDonneurOrdre());
             $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
@@ -215,6 +230,6 @@ class VoyageController extends Controller
             $feuille->getColumnDimension($columnID)->setAutoSize(true);
         }
 
-        return array($excel, $classeur);
+        return array($excel, $classeur, $titre);
     }
 }

@@ -80,31 +80,29 @@ class DetailVoyageController extends Controller
             $voyage = $em->getRepository('AppBundle:Voyage')->find($content->get('voyage'));
             $login = $em->getRepository('AppBundle:User')->find($this->getUser()->getId());
 
+            $detailVoyage = new Detailvoyage();
+            $detailVoyage->setRetour($retour);
+            $detailVoyage->setLogin($login);
+            $detailVoyage->setVoyage($voyage);
+            $em->persist($detailVoyage);
+            /* @var $retour GestionRetour  */
+            $retour->setVoyage(true);
+            $em->flush();
 
-                $detailVoyage = new Detailvoyage();
-                $detailVoyage->setRetour($retour);
-                $detailVoyage->setLogin($login);
-                $detailVoyage->setVoyage($voyage);
-                $em->persist($detailVoyage);
-                $retour->setVoyage(true);
-                $em->flush();
-
-                $data = $detailVoyage->getId();
-
-
+            $data = $detailVoyage->getId();
 
             return new JsonResponse($data);
         }
-
+        return false;
     }
 
     /**
-     * delete Package on detailVoyage entity.
+     * remove Package on detailVoyage entity.
      *
      * @Route("/supprpackage", name="detailvoyage_suppr_package")
      * @Method({"POST"})
      */
-    public function updatePackageAction(Request $request)
+    public function removePackageAction(Request $request)
     {
 
         if ($request->isMethod('POST') && $request->isXmlHttpRequest())
@@ -113,7 +111,6 @@ class DetailVoyageController extends Controller
             $content = $request->request;
             $em = $this->getDoctrine()->getManager();
             $retour = $em->getRepository('AppBundle:GestionRetour')->find($content->get('id'));
-
             $voyage = $em->getRepository('AppBundle:DetailVoyage')->find($content->get('name'));
 
             $retour->setVoyage(false);
@@ -122,26 +119,8 @@ class DetailVoyageController extends Controller
 
             return new JsonResponse($em);
         }
-
+        return false;
     }
-
-    /**
-     * delete Package on detailVoyage entity.
-     *
-     * @Route("/exportpackage", name="detailvoyage_export_package")
-     */
-    public function exportExcelPackagesAction()
-    {
-        $excel = $this->container->get('app.excel_service');
-        $classeur = $excel->newExcel();
-        $feuille = $classeur->getActiveSheet();
-        $feuille->setCellValue('A1', 'Test de la mort !!!');
-
-       // return $excel->saveExcel($classeur, 'test001');
-        return $excel->savePdf($classeur);
-
-    }
-
 
 
     /**

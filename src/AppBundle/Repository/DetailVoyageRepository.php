@@ -24,7 +24,7 @@ class DetailVoyageRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-    public function findPackage($retour)
+    public function deletePackage($retour)
     {
         $query = $this->createQueryBuilder('d')
             ->delete('d')
@@ -33,7 +33,19 @@ class DetailVoyageRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery();
 
         $query->execute();
-
     }
+
+    public function deleteTravel($travel)
+    {
+        $query = $this->createQueryBuilder('d')
+            ->delete()
+            ->where('d.voyage = :voyage')
+            ->setParameter('voyage', $travel)
+            ->getQuery();
+
+        $query->execute();
+    }
+
+
 
 }

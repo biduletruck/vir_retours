@@ -16,12 +16,10 @@ class VoyageType extends AbstractType
     {
         $builder
             ->add('nomVoyage')
-            ->add('dateCreation')
             ->add('dateRetour')
             ->add('rattachement')
-            ->add('statut')
             ->add('agence')
-            ->add('createur');
+        ;
     }
     
     /**
