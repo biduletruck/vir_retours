@@ -42,7 +42,7 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             return $query->getResult();
         }
 
-    public function rechercheRetours($recherche, $idAgence)
+    public function rechercheRetours($recherche, $agence)
     {
         $query = $this->createQueryBuilder('g')
             ->select('g', 'm','d')
@@ -56,13 +56,13 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('g.agence = :agence')
             ->orderBy('g.dateEntreeEntrepot')
             ->setParameter('recherche', '%' . $recherche . '%')
-            ->setParameter('agence', $idAgence)
+            ->setParameter('agence', $agence)
             ->getQuery();
 
         return $query->getArrayResult();
     }
 
-    public function findStockForTravel($rattachement)
+    public function findStockForTravel($rattachement, $agence)
     {
 
         $query = $this->createQueryBuilder('g')
@@ -72,8 +72,11 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             ->join('d.rattachement', 'r')
             ->Where('r.nom = :rattachement')
             ->andWhere('g.voyage = 0')
+            ->andWhere('g.agence = :agence')
+            ->andWhere('g.dateSortieEntrepot IS NULL')
             ->orderBy('g.dateSortieEntrepot')
             ->setParameter('rattachement', $rattachement)
+            ->setParameter('agence', $agence)
             ->getQuery();
 
         return $query->getResult();

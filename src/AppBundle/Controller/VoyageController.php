@@ -81,7 +81,7 @@ class VoyageController extends Controller
 
 
         $stockForTravel = $em->getRepository('AppBundle:GestionRetour')
-            ->findStockForTravel($voyage->getRattachement()->getNom() );
+            ->findStockForTravel($voyage->getRattachement()->getNom(), $voyage->getAgence()->getId() );
 
 
 
