@@ -42,7 +42,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         {{ form_label(edit_form.numeroSage) }}
                         {{ form_errors(edit_form.numeroSage) }}
-                        {{ form_widget(edit_form.numeroSage) }}
+                        {{ form_widget(edit_form.numeroSage, { 'attr': {'maxlength': 9} }) }}
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <h4>evenement sage à venir</h4>
