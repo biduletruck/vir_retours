@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Voyage;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

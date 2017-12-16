@@ -49,4 +49,110 @@ class Emplacement
     private $login;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set numeroEmplacement
+     *
+     * @param string $numeroEmplacement
+     *
+     * @return Emplacement
+     */
+    public function setNumeroEmplacement($numeroEmplacement)
+    {
+        $this->numeroEmplacement = $numeroEmplacement;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroEmplacement
+     *
+     * @return string
+     */
+    public function getNumeroEmplacement()
+    {
+        return $this->numeroEmplacement;
+    }
+
+    /**
+     * Set codeSage
+     *
+     * @param string $codeSage
+     *
+     * @return Emplacement
+     */
+    public function setCodeSage($codeSage)
+    {
+        $this->codeSage = $codeSage;
+
+        return $this;
+    }
+
+    /**
+     * Get codeSage
+     *
+     * @return string
+     */
+    public function getCodeSage()
+    {
+        return $this->codeSage;
+    }
+
+    /**
+     * Set dateStockage
+     *
+     * @param \DateTime $dateStockage
+     *
+     * @return Emplacement
+     */
+    public function setDateStockage($dateStockage)
+    {
+        $this->dateStockage = $dateStockage;
+
+        return $this;
+    }
+
+    /**
+     * Get dateStockage
+     *
+     * @return \DateTime
+     */
+    public function getDateStockage()
+    {
+        return $this->dateStockage;
+    }
+
+    /**
+     * Set login
+     *
+     * @param \AppBundle\Entity\User $login
+     *
+     * @return Emplacement
+     */
+    public function setLogin(\AppBundle\Entity\User $login = null)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get login
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
 }
