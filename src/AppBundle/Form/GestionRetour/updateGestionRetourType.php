@@ -55,11 +55,6 @@ class updateGestionRetourType extends AbstractType
                 'html5' => true,
                 'required' => false,
             ))
-            ->add('emplacement', EntityType::class, array(
-                'class' => 'AppBundle:Emplacement',
-                'choice_label' => 'nomEmplacement',
-                'placeholder' => 'Choisir emplacement',
-            ))
 
             ->add('commentaire')
         ;

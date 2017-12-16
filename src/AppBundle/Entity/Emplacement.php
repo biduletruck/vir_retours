@@ -24,80 +24,29 @@ class Emplacement
     /**
      * @var string
      *
-     * @ORM\Column(name="nomEmplacement", type="string", length=255, unique=true)
+     * @ORM\Column(name="numeroEmplacement", type="string", length=255, unique=false)
      */
-    private $nomEmplacement;
+    private $numeroEmplacement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codeBarreEmplacement", type="string", length=255, unique=true)
+     * @ORM\Column(name="codeSage", type="string", length=255, unique=false)
      */
-    private $codeBarreEmplacement;
-
-
-
+    private $codeSage;
 
     /**
-     * Get id
+     * @var \DateTime
      *
-     * @return int
+     * @ORM\Column(name="dateStockage", type="date", nullable=true)
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $dateStockage;
 
     /**
-     * Set nomEmplacement
-     *
-     * @param string $nomEmplacement
-     *
-     * @return Emplacement
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+
      */
-    public function setNomEmplacement($nomEmplacement)
-    {
-        $this->nomEmplacement = $nomEmplacement;
+    private $login;
 
-        return $this;
-    }
 
-    /**
-     * Get nomEmplacement
-     *
-     * @return string
-     */
-    public function getNomEmplacement()
-    {
-        return $this->nomEmplacement;
-    }
-
-    /**
-     * Set codeBarreEmplacement
-     *
-     * @param string $codeBarreEmplacement
-     *
-     * @return Emplacement
-     */
-    public function setCodeBarreEmplacement($codeBarreEmplacement)
-    {
-        $this->codeBarreEmplacement = $codeBarreEmplacement;
-
-        return $this;
-    }
-
-    /**
-     * Get codeBarreEmplacement
-     *
-     * @return string
-     */
-    public function getCodeBarreEmplacement()
-    {
-        return $this->codeBarreEmplacement;
-    }
-
-    public function __toString()
-    {
-        return $this->nomEmplacement;
-    }
 }

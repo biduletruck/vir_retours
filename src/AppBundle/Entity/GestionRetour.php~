@@ -133,11 +133,6 @@ class GestionRetour
      */
     private $donneurOrdre;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Etat")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $etat;
 
     /**
      * @var bool
@@ -578,29 +573,7 @@ class GestionRetour
         return $this->magasin;
     }
 
-    /**
-     * Set etat
-     *
-     * @param \AppBundle\Entity\Etat $etat
-     *
-     * @return GestionRetour
-     */
-    public function setEtat(\AppBundle\Entity\Etat $etat = null)
-    {
-        $this->etat = $etat;
 
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return \AppBundle\Entity\Etat
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
 
     /**
      * Set donneurOrdre
