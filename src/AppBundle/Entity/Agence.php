@@ -28,7 +28,6 @@ class Agence
      */
     private $nomAgence;
 
-
     /**
      * Get id
      *
@@ -68,4 +67,45 @@ class Agence
         return $this->nomAgence;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->magasins = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add magasin
+     *
+     * @param \AppBundle\Entity\Magasin $magasin
+     *
+     * @return Agence
+     */
+    public function addMagasin(\AppBundle\Entity\Magasin $magasin)
+    {
+        $this->magasins[] = $magasin;
+
+        return $this;
+    }
+
+    /**
+     * Remove magasin
+     *
+     * @param \AppBundle\Entity\Magasin $magasin
+     */
+    public function removeMagasin(\AppBundle\Entity\Magasin $magasin)
+    {
+        $this->magasins->removeElement($magasin);
+    }
+
+    /**
+     * Get magasins
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMagasins()
+    {
+        return $this->magasins;
+    }
 }

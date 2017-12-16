@@ -142,7 +142,7 @@ class GestionRetour
     /**
      * @var bool
      *
-     * @ORM\Column(name="statut", type="boolean")
+     * @ORM\Column(name="voyage", type="boolean")
      */
     private $voyage;
 
@@ -156,6 +156,7 @@ class GestionRetour
     public function __construct()
     {
         $this->setDateEntreeEntrepot(new \DateTime()) ; // Date du jour
+        $this->setVoyage(0);
     }
 
 
@@ -625,4 +626,28 @@ class GestionRetour
         return $this->donneurOrdre;
     }
 
+
+    /**
+     * Set voyage
+     *
+     * @param boolean $voyage
+     *
+     * @return GestionRetour
+     */
+    public function setVoyage($voyage)
+    {
+        $this->voyage = $voyage;
+
+        return $this;
+    }
+
+    /**
+     * Get voyage
+     *
+     * @return boolean
+     */
+    public function getVoyage()
+    {
+        return $this->voyage;
+    }
 }

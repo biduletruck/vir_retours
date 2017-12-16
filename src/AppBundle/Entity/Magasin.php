@@ -36,6 +36,11 @@ class  Magasin
     private $departementMagasin;
 
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Agence")
+     */
+    private $agences;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DonneurOrdre", inversedBy="magasins")
      */
     private $donneurOrdres;
@@ -158,5 +163,63 @@ class  Magasin
         $this->donneurOrdres = $donneurOrdres;
 
         return $this;
+    }
+
+    /**
+     * Add agence
+     *
+     * @param \AppBundle\Entity\Agence $agence
+     *
+     * @return Magasin
+     */
+    public function addAgence(\AppBundle\Entity\Agence $agence)
+    {
+        $this->agences[] = $agence;
+
+        return $this;
+    }
+
+    /**
+     * Remove agence
+     *
+     * @param \AppBundle\Entity\Agence $agence
+     */
+    public function removeAgence(\AppBundle\Entity\Agence $agence)
+    {
+        $this->agences->removeElement($agence);
+    }
+
+    /**
+     * Get agences
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAgences()
+    {
+        return $this->agences;
+    }
+
+    /**
+     * Set agence
+     *
+     * @param \AppBundle\Entity\Agence $agence
+     *
+     * @return Magasin
+     */
+    public function setAgence(\AppBundle\Entity\Agence $agence = null)
+    {
+        $this->agence = $agence;
+
+        return $this;
+    }
+
+    /**
+     * Get agence
+     *
+     * @return \AppBundle\Entity\Agence
+     */
+    public function getAgence()
+    {
+        return $this->agence;
     }
 }

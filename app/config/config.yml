@@ -84,7 +84,7 @@ fos_user:
         sender_name: "%mailer_user%"
 
 easy_admin:
-    site_name: 'VIR - Admin Retours'
+    site_name: 'VIR - Admin REVIRSE'
     design:
         menu:
             - { label: 'Nos Agences', entity: 'Agence'}

@@ -71,11 +71,6 @@ class GestionRetourType extends AbstractType
                 'choice_label' => 'nomEmplacement',
                 'placeholder' => 'Choisir emplacement',
             ))
-            ->add('etat', EntityType::class, array(
-                'class' => 'AppBundle:Etat',
-                'choice_label' => 'nomEtat',
-                'placeholder' => 'Choisir un état',
-            ))
             ->add('commentaire')
         ;
     }
