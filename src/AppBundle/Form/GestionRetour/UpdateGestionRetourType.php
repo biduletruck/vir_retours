@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class updateGestionRetourType extends AbstractType
+class UpdateGestionRetourType extends AbstractType
 {
     /**
      * {@inheritdoc}

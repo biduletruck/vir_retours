@@ -1,17 +1,13 @@
 {% block colis %}
-
-
+    <tbody>
     {% for disponibilite in disponibilites %}
         <tr id="add{{ disponibilite.id }}">
             <td id="msg{{ disponibilite.id }}">
-                <button type="button" class="btn btn-xs btn-primary" name="add" id="{{ disponibilite.id }}"> Ajouter</button>
+            <button type="button" class="btn btn-xs btn-primary" name="add" id="{{ disponibilite.id }}"> Ajouter</button>
             </td>
             <td>{{ disponibilite.numeroSage }}</td>
             <td>{{ disponibilite.nombreColis }}</td>
-
         </tr>
     {% endfor %}
-
-
-
+    </tbody>
 {% endblock %}

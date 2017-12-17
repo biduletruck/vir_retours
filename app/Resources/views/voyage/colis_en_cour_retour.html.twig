@@ -1,18 +1,14 @@
 {% block liste_retour %}
+    <tbody>
     {% for retour in listing_retour %}
-
-       <tr id="suppr{{ retour.retour.id }}" class="{{ retour.id }}">
-           <td id="msg{{ retour.id }}">
-            <button type="button" class="btn btn-xs btn-danger" name="suppr" id="{{ retour.retour.id }}"> Supprimer</button>
+        <tr id="suppr{{ retour.retour.id }}" class="{{ retour.id }}">
+            <td id="msg{{ retour.id }}">
+                <button type="button" class="btn btn-xs btn-danger" name="suppr" id="{{ retour.retour.id }}"> Supprimer</button>
             </td>
-            <td>
-                {{ retour.retour.numeroSage }}
-            </td>
-            <td>
-                {{ retour.retour.nombreColis }}
-            </td>
-       </tr>
-
+            <td>{{ retour.retour.numeroSage }}</td>
+            <td>{{ retour.retour.nombreColis }}</td>
+        </tr>
     {% endfor %}
+    </tbody>
 {% endblock %}
 

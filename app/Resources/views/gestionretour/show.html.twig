@@ -9,7 +9,7 @@
     </script>
     {% endblock %}
 {% block body %}
-{{ dump(gestionRetour) }}
+
     <div  class="page-header" >
         <h1>Détail commande N° {{ gestionRetour.numeroSage }}</h1>
     </div>
@@ -180,10 +180,30 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Stockage des colis</h3>
             </div>
-            <div class="panel-body">
-                 <div class="col-xs-12 col-sm-12 col-md-12">
-                 </div>
-            </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                    {% if gestionRetour.emplacement is defined  %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Emplacement</th>
+                                    <th>Agent</th>
+                                    <th>Date de stockage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for retour in gestionRetour.emplacement %}
+                                <tr>
+                                    <td>{{ retour.numeroEmplacement | rack }}</td>
+                                    <td>{{ retour.login  }}</td>
+                                    <td>{{ retour.dateStockage |date('d-m-Y') }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                    </div>
+                </div>
         </div>
     </div>
 

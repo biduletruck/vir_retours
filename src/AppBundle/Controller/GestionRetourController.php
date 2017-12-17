@@ -231,7 +231,7 @@ class GestionRetourController extends Controller
     public function editAction(Request $request, GestionRetour $gestionRetour)
     {
         $deleteForm = $this->createDeleteForm($gestionRetour);
-        $editForm = $this->createForm('AppBundle\Form\GestionRetour\updateGestionRetourType', $gestionRetour);
+        $editForm = $this->createForm('AppBundle\Form\GestionRetour\UpdateGestionRetourType', $gestionRetour);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
