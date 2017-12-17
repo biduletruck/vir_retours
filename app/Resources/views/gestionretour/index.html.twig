@@ -38,8 +38,10 @@
                                     <li>{{ retour.numeroEmplacement | rack }}</li>
                                 {% endfor %}
                             </ul>
-                        {% endif %}</td>
-                    <td>{% if gestionRetour.donneurOrdre.nomDonneurOrdre == 'IKEA' %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if gestionRetour.donneurOrdre.nomDonneurOrdre == 'IKEA' %}
 
                                 <a href="{{ path('update_dsa', { 'id': gestionRetour.id }) }}"><span class="label label-info" >dsa</span></a>
 

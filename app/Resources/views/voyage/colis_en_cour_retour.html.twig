@@ -1,9 +1,18 @@
 {% block liste_retour %}
     {% for retour in listing_retour %}
-        <div class="col-md12" id="suppr{{ retour.retour.id }}" name="{{ retour.id }}">
+
+       <tr id="suppr{{ retour.retour.id }}" class="{{ retour.id }}">
+           <td id="msg{{ retour.id }}">
             <button type="button" class="btn btn-xs btn-danger" name="suppr" id="{{ retour.retour.id }}"> Supprimer</button>
-            <span id="msg{{ retour.id }}">{{ retour.retour.magasin.nomMagasin }} / {{ retour.retour.nomDestinataire }}  / {{ retour.id }} / {{ retour.retour.id }} </span>
-        </div>
+            </td>
+            <td>
+                {{ retour.retour.numeroSage }}
+            </td>
+            <td>
+                {{ retour.retour.nombreColis }}
+            </td>
+       </tr>
+
     {% endfor %}
 {% endblock %}
 

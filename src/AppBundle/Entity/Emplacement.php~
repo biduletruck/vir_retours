@@ -49,7 +49,7 @@ class Emplacement
     private $login;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour", inversedBy="emplacement", fetch="EXTRA_LAZY")
 
      */
     private $retour;
@@ -160,5 +160,34 @@ class Emplacement
     public function getLogin()
     {
         return $this->login;
+    }
+
+    /**
+     * Set retour
+     *
+     * @param \AppBundle\Entity\GestionRetour $retour
+     *
+     * @return Emplacement
+     */
+    public function setRetour(\AppBundle\Entity\GestionRetour $retour = null)
+    {
+        $this->retour = $retour;
+
+        return $this;
+    }
+
+    /**
+     * Get retour
+     *
+     * @return \AppBundle\Entity\GestionRetour
+     */
+    public function getRetour()
+    {
+        return $this->retour;
+    }
+
+    public function __toString()
+    {
+        return $this->retour;
     }
 }

@@ -76,6 +76,26 @@ class GestionRetourController extends Controller
         ));
     }
 
+    /**
+     * Export recherche
+     *
+     * @Route("/recherche/xls", name="retours_recherche_export_xls")
+     * @param Request $request
+     * @Method("POST")
+     *
+     * @return array
+     */
+    public function exportExcelRecherche(Request $request)
+    {
+        $res = $request->request->get('form');
+        $em = $this->getDoctrine()->getManager();
+        $gestionRetours = $em->getRepository('AppBundle:GestionRetour')->rechercheRetours($res['recherche'],$this->getUser()->getAgence());
+
+        return $this->render('gestionretour/recherche_colis.html.twig', array(
+            'gestionRetours' => $gestionRetours,
+        ));
+    }
+
 
     /**
      * Creates a new gestionRetour entity.

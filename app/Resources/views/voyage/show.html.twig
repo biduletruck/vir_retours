@@ -49,10 +49,18 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Retours disponible</h3>
                     </div>
-                    <div class="panel-body" id="liste_dispo">
-                        {% block colis %}
-                            {% include ":voyage:colis_attente_retour.html.twig" %}
-                        {% endblock %}
+                    <div class="panel-body">
+                        <table class="table table-hover" id="liste_dispo">
+                            <tr class="info">
+                                <th>Action</th>
+                                <th>Numéro Sage</th>
+                                <th>Nombre Colis</th>
+                            </tr>
+                            {% block colis %}
+
+                                {% include ":voyage:colis_attente_retour.html.twig" %}
+                            {% endblock %}
+                        </table>
                     </div>
                 </div>
             </div>
@@ -73,10 +81,17 @@
 
 
                     </div>
-                    <div class="panel-body" id="liste_retour">
-                        {% block liste_retour %}
-                            {% include ":voyage:colis_en_cour_retour.html.twig" %}
-                        {% endblock %}
+                    <div class="panel-body">
+                        <table class="table table-hover" id="liste_retour">
+                            <tr class="info">
+                                <th>Action</th>
+                                <th>Numéro Sage</th>
+                                <th>Nombre Colis</th>
+                            </tr>
+                            {% block liste_retour %}
+                                {% include ":voyage:colis_en_cour_retour.html.twig" %}
+                            {% endblock %}
+                        </table>
                     </div>
                 </div>
             </div>
@@ -91,7 +106,7 @@
     <script>
         $("button").click(function(e){
             var idClicked = e.target.id;
-            var nameClicked = $(this).parent().attr('name');
+            var nameClicked = $(this).parent().parent().attr('class');
 
 
             if(e.target.name === "add")
@@ -110,7 +125,7 @@
                     {
 
                         $("#" + idClicked).attr("class" ,"btn btn-xs btn-danger").attr("name" ,"suppr").html("Supprimer");
-                        $("#add" + idClicked).hide().appendTo("#liste_retour").slideDown().attr("id" ,"suppr"+ idClicked).attr("name" ,data);
+                        $("#add" + idClicked).hide().appendTo("#liste_retour").slideDown().attr("id" ,"suppr"+ idClicked).attr("class" ,data);
 
                     }
                 });
@@ -125,7 +140,7 @@
                     dataType: 'json',
                     data: {
                         "id":  idClicked,
-                        "name": nameClicked,
+                        "class": nameClicked,
                         "voyage": {{ voyage.id }}
                     },
                     async: true,
@@ -133,7 +148,7 @@
                     {
 
                         $("#" + idClicked).attr("class" ,"btn btn-xs btn-primary").attr("name" ,"add").html("Ajouter");
-                        $("#suppr" + idClicked).hide().appendTo("#liste_dispo").slideDown().attr("id" ,"add"+ idClicked).attr("id" ,"add"+ idClicked).attr("name" ,"");
+                        $("#suppr" + idClicked).hide().appendTo("#liste_dispo").slideDown().attr("id" ,"add"+ idClicked).attr("id" ,"add"+ idClicked).attr("class" ,"");
 
                     }
                 });

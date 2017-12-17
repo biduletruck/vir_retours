@@ -111,7 +111,7 @@ class DetailVoyageController extends Controller
             $content = $request->request;
             $em = $this->getDoctrine()->getManager();
             $retour = $em->getRepository('AppBundle:GestionRetour')->find($content->get('id'));
-            $voyage = $em->getRepository('AppBundle:DetailVoyage')->find($content->get('name'));
+            $voyage = $em->getRepository('AppBundle:DetailVoyage')->find($content->get('class'));
 
             $retour->setVoyage(false);
             $em->remove($voyage);

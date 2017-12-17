@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\DetailVoyage;
-use AppBundle\Entity\GestionRetour;
+use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Voyage;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -47,7 +47,7 @@ class VoyageController extends Controller
     public function newAction(Request $request)
     {
         $voyage = new Voyage();
-        $form = $this->createForm('AppBundle\Form\VoyageType', $voyage);
+        $form = $this->createForm('AppBundle\Form\Voyage\VoyageType', $voyage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -102,7 +102,7 @@ class VoyageController extends Controller
     public function editAction(Request $request, Voyage $voyage)
     {
         $deleteForm = $this->createDeleteForm($voyage);
-        $editForm = $this->createForm('AppBundle\Form\VoyageType', $voyage);
+        $editForm = $this->createForm('AppBundle\Form\Voyage\VoyageType', $voyage);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -176,7 +176,7 @@ class VoyageController extends Controller
         //ligne de départ
         $rowCount = 1;
         list($excel, $classeur, $titre) = $this->formatingExtract($voyage, $rowCount);
-        return $excel->exportExcel($classeur, $titre);
+       return $excel->exportExcel($classeur, $titre);
     }
 
     /**
@@ -218,12 +218,37 @@ class VoyageController extends Controller
         $rowCount++;
 
         foreach ($packageInTravel as $row) {
+
+        /* @var $ret \AppBundle\Entity\Emplacement */
+        $empl = $row->getRetour();
+        $v = [];
+            foreach ($empl->getEmplacement() as $ret)
+            {
+                $v[] = $ret->getNumeroEmplacement();
+
+            }
+
+
+            $comma_separated = implode(",", $v);
+
+            $v = str_replace(",","\n",$comma_separated); // lastname,email,phone
+
+
+
+
+
+
+
+
+
+
+
             $feuille->SetCellValue('a' . $rowCount, $row->getRetour()->getDonneurOrdre()->getNomDonneurOrdre());
             $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
             $feuille->SetCellValue('c' . $rowCount, $row->getRetour()->getNumeroSage());
             $feuille->SetCellValue('d' . $rowCount, $row->getRetour()->getNomDestinataire());
-            $feuille->SetCellValue('e' . $rowCount, $row->getRetour()->getEmplacement());
-            $rowCount++;
+            $feuille->SetCellValue('e' . $rowCount, $v);
+           $rowCount++;
         }
 
         foreach(range('A','E') as $columnID) {

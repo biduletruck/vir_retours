@@ -118,7 +118,7 @@ class GestionRetour
     private $dateSortieEntrepot;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Emplacement",mappedBy="retour")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Emplacement",mappedBy="retour", cascade={"persist"})
 
      */
     private $emplacement;
@@ -618,5 +618,29 @@ class GestionRetour
     public function getDonneurOrdre()
     {
         return $this->donneurOrdre;
+    }
+
+    /**
+     * Add emplacement
+     *
+     * @param \AppBundle\Entity\Emplacement $emplacement
+     *
+     * @return GestionRetour
+     */
+    public function addEmplacement(\AppBundle\Entity\Emplacement $emplacement)
+    {
+        $this->emplacement[] = $emplacement;
+
+        return $this;
+    }
+
+    /**
+     * Remove emplacement
+     *
+     * @param \AppBundle\Entity\Emplacement $emplacement
+     */
+    public function removeEmplacement(\AppBundle\Entity\Emplacement $emplacement)
+    {
+        $this->emplacement->removeElement($emplacement);
     }
 }

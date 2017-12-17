@@ -1,9 +1,17 @@
 {% block colis %}
-        {% for disponibilite in disponibilites %}
-            <div class="col-md12" id="add{{ disponibilite.id }}">
-                <button type="button" class="btn btn-xs btn-primary" name="add" id="{{ disponibilite.id }}"> Ajouter</button>
-                <span id="msg{{ disponibilite.id }}">{{ disponibilite.magasin.nomMagasin }} / {{ disponibilite.nomDestinataire }} </span>
-            </div>
-        {% endfor %}
-{% endblock %}
 
+
+    {% for disponibilite in disponibilites %}
+        <tr id="add{{ disponibilite.id }}">
+            <td id="msg{{ disponibilite.id }}">
+                <button type="button" class="btn btn-xs btn-primary" name="add" id="{{ disponibilite.id }}"> Ajouter</button>
+            </td>
+            <td>{{ disponibilite.numeroSage }}</td>
+            <td>{{ disponibilite.nombreColis }}</td>
+
+        </tr>
+    {% endfor %}
+
+
+
+{% endblock %}
