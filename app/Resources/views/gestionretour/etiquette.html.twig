@@ -10,7 +10,6 @@
 <style type="text/css">
 
 
-
 </style>
 <body>
     <div class="container-fluid">
@@ -25,7 +24,7 @@
                             <td class="tg-destinataire" colspan="4">{{ gestionRetour.nomDestinataire |truncate(20) |upper |raw  }}</td>
                         </tr>
                         <tr>
-                            <td class="tg-do" colspan="4">{{ gestionRetour.donneurOrdre.nomDonneurOrdre }}</td>
+                            <td class="tg-do" colspan="4">{{ gestionRetour.magasin.nomMagasin }}</td>
                         </tr>
                         <tr>
                             <td class="tg-codeBarre div div" colspan="3" rowspan="1">{{ codeSage |raw }}</td>
