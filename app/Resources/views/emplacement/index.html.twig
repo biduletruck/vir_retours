@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Emplacements list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numeroemplacement</th>
+                <th>Codesage</th>
+                <th>Datestockage</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for emplacement in emplacements %}
+            <tr>
+                <td><a href="{{ path('emplacement_show', { 'id': emplacement.id }) }}">{{ emplacement.id }}</a></td>
+                <td>{{ emplacement.numeroEmplacement }}</td>
+                <td>{{ emplacement.codeSage }}</td>
+                <td>{% if emplacement.dateStockage %}{{ emplacement.dateStockage|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('emplacement_show', { 'id': emplacement.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('emplacement_edit', { 'id': emplacement.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('emplacement_new') }}">Create a new emplacement</a>
+        </li>
+    </ul>
+{% endblock %}

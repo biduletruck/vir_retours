@@ -24,14 +24,14 @@ class Emplacement
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroEmplacement", type="string", length=255, unique=false)
+     * @ORM\Column(name="numeroEmplacement", type="string", length=255, unique=false, nullable=true)
      */
     private $numeroEmplacement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codeSage", type="string", length=255, unique=false)
+     * @ORM\Column(name="codeSage", type="string", length=255, unique=false, nullable=false)
      */
     private $codeSage;
 
@@ -47,6 +47,12 @@ class Emplacement
 
      */
     private $login;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour", inversedBy="emplacement")
+
+     */
+    private $retour;
 
 
 
@@ -154,5 +160,34 @@ class Emplacement
     public function getLogin()
     {
         return $this->login;
+    }
+
+    /**
+     * Set retour
+     *
+     * @param \AppBundle\Entity\GestionRetour $retour
+     *
+     * @return Emplacement
+     */
+    public function setRetour(\AppBundle\Entity\GestionRetour $retour = null)
+    {
+        $this->retour = $retour;
+
+        return $this;
+    }
+
+    /**
+     * Get retour
+     *
+     * @return \AppBundle\Entity\GestionRetour
+     */
+    public function getRetour()
+    {
+        return $this->retour;
+    }
+
+    public function __toString()
+    {
+        return $this->retour;
     }
 }

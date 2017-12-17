@@ -6,7 +6,7 @@
  * Time: 16:12
  */
 
-namespace AppBundle\Form\User;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

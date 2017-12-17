@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Emplacement</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ emplacement.id }}</td>
+            </tr>
+            <tr>
+                <th>Numeroemplacement</th>
+                <td>{{ emplacement.numeroEmplacement }}</td>
+            </tr>
+            <tr>
+                <th>Codesage</th>
+                <td>{{ emplacement.codeSage }}</td>
+            </tr>
+            <tr>
+                <th>Datestockage</th>
+                <td>{% if emplacement.dateStockage %}{{ emplacement.dateStockage|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('emplacement_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('emplacement_edit', { 'id': emplacement.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

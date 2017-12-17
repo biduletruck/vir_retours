@@ -2129,7 +2129,7 @@ function ImageWrapper(size, data, ArrayType, initialize) {
 
 /**
  * tests if a position is within the image with a given offset
- * @param imgRef {x, y} The location to test
+ * @param imgRef {x, y} The location to scanner
  * @param border Number the padding value in pixel
  * @returns {Boolean} true if location inside the image's border, false otherwise
  * @see cvd/image.h

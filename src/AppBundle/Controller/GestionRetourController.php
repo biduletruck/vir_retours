@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Emplacement;
 use AppBundle\Entity\GestionRetour;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -86,15 +87,30 @@ class GestionRetourController extends Controller
     {
         $gestionRetour = new Gestionretour();
 
-        $form = $this->createForm('AppBundle\Form\AddGestionRetourType', $gestionRetour);
+        $form = $this->createForm('AppBundle\Form\GestionRetour\AddGestionRetourType', $gestionRetour);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             $em = $this->getDoctrine()->getManager();
             $gestionRetour->setAgence($this->getUser()->getAgence());
+            $nbSupport = $gestionRetour->getNombreSupport();
+            $numeroSage = $gestionRetour->getNumeroSage();
+            $emplacement = [];
+
             $em->persist($gestionRetour);
+
+            for ($i=0; $i < $nbSupport; $i++)
+             {
+                 $createEmplacement = new Emplacement();
+                 $createEmplacement->setCodeSage($numeroSage);
+                 $createEmplacement->setRetour($gestionRetour);
+
+                 $em->persist($createEmplacement);
+             }
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'La fiche retour à été correctement créée');
@@ -119,7 +135,7 @@ class GestionRetourController extends Controller
         if (strpos($gestionRetour->getDonneurOrdre()->getNomDonneurOrdre(), "IKEA") !== false)
         {
             $deleteForm = $this->createDeleteForm($gestionRetour);
-            $editForm = $this->createForm('AppBundle\Form\DsaGestionRetourType', $gestionRetour);
+            $editForm = $this->createForm('AppBundle\Form\GestionRetour\DsaGestionRetourType', $gestionRetour);
             $editForm->handleRequest($request);
 
             if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -195,7 +211,7 @@ class GestionRetourController extends Controller
     public function editAction(Request $request, GestionRetour $gestionRetour)
     {
         $deleteForm = $this->createDeleteForm($gestionRetour);
-        $editForm = $this->createForm('AppBundle\Form\updateGestionRetourType', $gestionRetour);
+        $editForm = $this->createForm('AppBundle\Form\GestionRetour\updateGestionRetourType', $gestionRetour);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

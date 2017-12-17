@@ -118,7 +118,7 @@ class GestionRetour
     private $dateSortieEntrepot;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Emplacement")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Emplacement",mappedBy="retour")
 
      */
     private $emplacement;

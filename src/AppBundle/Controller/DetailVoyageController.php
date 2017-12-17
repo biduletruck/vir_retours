@@ -45,7 +45,7 @@ class DetailVoyageController extends Controller
     public function newAction(Request $request)
     {
         $detailVoyage = new Detailvoyage();
-        $form = $this->createForm('AppBundle\Form\DetailVoyageType', $detailVoyage);
+        $form = $this->createForm('AppBundle\Form\Voyage\VoyageType', $detailVoyage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -148,7 +148,7 @@ class DetailVoyageController extends Controller
     public function editAction(Request $request, DetailVoyage $detailVoyage)
     {
         $deleteForm = $this->createDeleteForm($detailVoyage);
-        $editForm = $this->createForm('AppBundle\Form\DetailVoyageType', $detailVoyage);
+        $editForm = $this->createForm('AppBundle\Form\Voyage\DetailVoyageType', $detailVoyage);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
