@@ -643,4 +643,9 @@ class GestionRetour
     {
         $this->emplacement->removeElement($emplacement);
     }
+
+    public function __toString()
+    {
+        return $this->nomDestinataire;
+    }
 }
