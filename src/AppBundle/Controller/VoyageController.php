@@ -209,6 +209,15 @@ class VoyageController extends Controller
         $feuille = $classeur->getActiveSheet();
         $titre = $voyage->getNomVoyage();
 
+        //mise en forme
+        foreach(range('A','E') as $columnID) {
+            $feuille->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        $classeur->getDefaultStyle()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $classeur->getDefaultStyle()->getAlignment()->setVertical(Alignment::HORIZONTAL_CENTER);
+
+        //création des en-tete
         /* @var $row DetailVoyage */
         $feuille->SetCellValue('a' . $rowCount, 'Donneur d\'Ordre');
         $feuille->SetCellValue('b' . $rowCount, 'Magasin');
@@ -217,42 +226,23 @@ class VoyageController extends Controller
         $feuille->SetCellValue('e' . $rowCount, 'Emplacement');
         $rowCount++;
 
+        // Remlissage des cellules avec les valeurs
         foreach ($packageInTravel as $row) {
 
-        /* @var $ret \AppBundle\Entity\Emplacement */
-        $empl = $row->getRetour();
-        $v = [];
-            foreach ($empl->getEmplacement() as $ret)
+            $values = $row->getRetour()->getEmplacement();
+            $emplacements = [];
+            foreach ($values as $value)
             {
-                $v[] = $ret->getNumeroEmplacement();
+                $emplacements[] = $value->getNumeroEmplacement();
 
             }
-
-
-            $comma_separated = implode(",", $v);
-
-            $v = str_replace(",","\n",$comma_separated); // lastname,email,phone
-
-
-
-
-
-
-
-
-
-
 
             $feuille->SetCellValue('a' . $rowCount, $row->getRetour()->getDonneurOrdre()->getNomDonneurOrdre());
             $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
             $feuille->SetCellValue('c' . $rowCount, $row->getRetour()->getNumeroSage());
             $feuille->SetCellValue('d' . $rowCount, $row->getRetour()->getNomDestinataire());
-            $feuille->SetCellValue('e' . $rowCount, $v);
+            $feuille->SetCellValue('e' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
            $rowCount++;
-        }
-
-        foreach(range('A','E') as $columnID) {
-            $feuille->getColumnDimension($columnID)->setAutoSize(true);
         }
 
         return array($excel, $classeur, $titre);

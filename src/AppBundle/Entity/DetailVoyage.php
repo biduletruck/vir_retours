@@ -29,6 +29,21 @@ class DetailVoyage
     private $dateAjout;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="chargement", type="boolean")
+     */
+    private $chargement;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="dechargement", type="boolean")
+     */
+    private $dechargement;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
     private $login;
@@ -49,8 +64,9 @@ class DetailVoyage
     public function __construct()
     {
         $this->setDateAjout(new \DateTime());
+        $this->setChargement(false);
+        $this->setDechargement(false);
     }
-
 
     /**
      * Get id
@@ -180,5 +196,53 @@ class DetailVoyage
     public function getLogin()
     {
         return $this->login;
+    }
+
+    /**
+     * Set chargement
+     *
+     * @param boolean $chargement
+     *
+     * @return DetailVoyage
+     */
+    public function setChargement($chargement)
+    {
+        $this->chargement = $chargement;
+
+        return $this;
+    }
+
+    /**
+     * Get chargement
+     *
+     * @return boolean
+     */
+    public function getChargement()
+    {
+        return $this->chargement;
+    }
+
+    /**
+     * Set dechargement
+     *
+     * @param boolean $dechargement
+     *
+     * @return DetailVoyage
+     */
+    public function setDechargement($dechargement)
+    {
+        $this->dechargement = $dechargement;
+
+        return $this;
+    }
+
+    /**
+     * Get dechargement
+     *
+     * @return boolean
+     */
+    public function getDechargement()
+    {
+        return $this->dechargement;
     }
 }

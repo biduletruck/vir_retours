@@ -21,7 +21,7 @@
             </thead>
             <tbody >
             {% for key, gestionRetour in gestionRetours %}
-                <tr {{ gestionRetour.dateReponseDemandeDsa is empty ? "" : "class='danger'" }}>
+                <tr {{ gestionRetour.voyage == false ? "" : "class='warning'" }} {{ gestionRetour.dateReponseDemandeDsa is empty ? "" : "class='danger'" }}>
                     <td><a class="btn btn-small btn-info" href="{{ path('retours_show', { 'id': gestionRetour.id }) }}">{{ gestionRetour.numeroSage }}</a></td>
                     <td>{{ gestionRetour.donneurOrdre.nomDonneurOrdre }}</td>
                     <td>{{ gestionRetour.numeroDonneurOrdre }}</td>

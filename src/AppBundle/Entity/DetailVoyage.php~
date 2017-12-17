@@ -29,6 +29,21 @@ class DetailVoyage
     private $dateAjout;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="chargement", type="boolean")
+     */
+    private $chargement;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="dechargement", type="boolean")
+     */
+    private $dechargement;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
     private $login;

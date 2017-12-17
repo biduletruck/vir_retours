@@ -8,8 +8,6 @@
 
 namespace AppBundle\Service;
 
-//require 'vendor/autoload.php';
-
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -17,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ExcelService
 {
-
 
     public function newExcel()
     {

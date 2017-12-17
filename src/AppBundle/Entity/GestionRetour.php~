@@ -118,7 +118,7 @@ class GestionRetour
     private $dateSortieEntrepot;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Emplacement",mappedBy="retour" , fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Emplacement",mappedBy="retour", cascade={"persist"})
 
      */
     private $emplacement;

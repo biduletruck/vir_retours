@@ -63,7 +63,7 @@ class DetailVoyageController extends Controller
     }
 
     /**
-     * Creates a add Package on detailVoyage entity.
+     * Add Package on detailVoyage entity.
      *
      * @Route("/addpackage", name="detailvoyage_add_package")
      * @Method({"POST"})

@@ -49,7 +49,7 @@ class Emplacement
     private $login;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour", inversedBy="emplacement", fetch="EXTRA_LAZY")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\GestionRetour", inversedBy="emplacement")
 
      */
     private $retour;
