@@ -1,5 +1,6 @@
 {
-    "name": "yann/vir_retours",
+    "name": "yann/revirse",
+    "description" : "Application de gestion des retours pour VIR Transport",
     "license": "proprietary",
     "type": "project",
     "autoload": {
