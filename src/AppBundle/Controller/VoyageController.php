@@ -2,17 +2,21 @@
 
 namespace AppBundle\Controller;
 
+use A;
 use AppBundle\Entity\DetailVoyage;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Voyage;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use const true;
 
 /**
  * Voyage controller.
@@ -162,7 +166,7 @@ class VoyageController extends Controller
             ->setAction($this->generateUrl('voyage_delete', array('id' => $voyage->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
 
     /**
@@ -173,10 +177,9 @@ class VoyageController extends Controller
      */
     public function exportExcelVoyageAction(Voyage $voyage)
     {
-        //ligne de départ
-        $rowCount = 1;
-        list($excel, $classeur, $titre) = $this->formatingExtract($voyage, $rowCount);
-       return $excel->exportExcel($classeur, $titre);
+        list($excel, $classeur, $titre) = $this->formatingExtract($voyage);
+        return $excel->exportExcel($classeur, $titre);
+        //return $excel->newExcelFromModel( $titre);
     }
 
     /**
@@ -187,9 +190,7 @@ class VoyageController extends Controller
      */
     public function exportPdfVoyageAction(Voyage $voyage)
     {
-        //ligne de départ
-        $rowCount = 7;
-        list($excel, $classeur, $titre) = $this->formatingExtract($voyage, $rowCount);
+        list($excel, $classeur, $titre) = $this->formatingExtract($voyage);
         return $excel->exportPdf($classeur, $titre);
     }
 
@@ -197,7 +198,7 @@ class VoyageController extends Controller
      * @param Voyage $voyage
      * @return array
      */
-    private function formatingExtract(Voyage $voyage, $rowCount)
+    private function formatingExtract(Voyage $voyage)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -205,45 +206,52 @@ class VoyageController extends Controller
             ->findPackageInTravel($voyage->getId());
 
         $excel = $this->container->get('app.excel_service');
-        $classeur = $excel->newExcel();
+        $classeur = $excel->newExcelFromModel();
         $feuille = $classeur->getActiveSheet();
         $titre = $voyage->getNomVoyage();
 
-        //mise en forme
-        foreach(range('A','E') as $columnID) {
-            $feuille->getColumnDimension($columnID)->setAutoSize(true);
-        }
+        //Type de retour + rattachement
+        $feuille->SetCellValue('C2', "Liste des retours vers " .  $voyage->getRattachement()->getNom());
+        $feuille->SetCellValue('G6', $titre);
+        $feuille->SetCellValue('D6', Date::PHPToExcel($voyage->getDateRetour()));
+        $feuille->getStyle('D6')
+            ->getNumberFormat()
+            ->setFormatCode(NumberFormat::FORMAT_DATE_DDMMYYYY);
 
-        $classeur->getDefaultStyle()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $classeur->getDefaultStyle()->getAlignment()->setVertical(Alignment::HORIZONTAL_CENTER);
-
-        //création des en-tete
-        /* @var $row DetailVoyage */
-        $feuille->SetCellValue('a' . $rowCount, 'Donneur d\'Ordre');
-        $feuille->SetCellValue('b' . $rowCount, 'Magasin');
-        $feuille->SetCellValue('c' . $rowCount, 'Numéro Sage');
-        $feuille->SetCellValue('d' . $rowCount, 'Destinataire');
-        $feuille->SetCellValue('e' . $rowCount, 'Emplacement');
-        $rowCount++;
+        $rowCount = 10; //ligne de départ
 
         // Remlissage des cellules avec les valeurs
-        foreach ($packageInTravel as $row) {
+        foreach ($packageInTravel as $row)
+        {
+            $range = 'B' . $rowCount . ':H' . $rowCount;
 
             $values = $row->getRetour()->getEmplacement();
             $emplacements = [];
             foreach ($values as $value)
             {
                 $emplacements[] = $value->getNumeroEmplacement();
-
             }
 
-            $feuille->SetCellValue('a' . $rowCount, $row->getRetour()->getDonneurOrdre()->getNomDonneurOrdre());
-            $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
-            $feuille->SetCellValue('c' . $rowCount, $row->getRetour()->getNumeroSage());
-            $feuille->SetCellValue('d' . $rowCount, $row->getRetour()->getNomDestinataire());
-            $feuille->SetCellValue('e' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
-           $rowCount++;
+            $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getDonneurOrdre()->getNomDonneurOrdre());
+            $feuille->SetCellValue('c' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
+            $feuille->SetCellValue('d' . $rowCount, $row->getRetour()->getNumeroSage());
+            $feuille->SetCellValue('e' . $rowCount, $row->getRetour()->getNomDestinataire());
+            $feuille->SetCellValue('f' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
+            $feuille->SetCellValue('g' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
+            $feuille->SetCellValue('h' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
+            $feuille->getRowDimension($rowCount)->getRowHeight(Alignment::HORIZONTAL_JUSTIFY);
+
+         //   $feuille->getStyle($range)->applyFromArray($excel->alernateStyle($rowCount));
+            $rowCount++;
+
         }
+
+        $feuille->getStyle('A10:H'.($rowCount-1))->getAlignment()->setWrapText(true);
+
+
+
+
+
 
         return array($excel, $classeur, $titre);
     }

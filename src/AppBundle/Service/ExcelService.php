@@ -12,15 +12,25 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\Response;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 
 class ExcelService
 {
 
     public function newExcel()
     {
-      return $spreadsheet = new Spreadsheet();
+        return $spreadsheet = new Spreadsheet();
     }
 
+
+    public function newExcelFromModel()
+    {
+        return \PhpOffice\PhpSpreadsheet\IOFactory::load('modelBaseVir.xlsx');
+
+    }
 
     public function saveExcel($claseur, $title)
     {
@@ -29,24 +39,11 @@ class ExcelService
         return new Response();
     }
 
-    public function newExcelFromModel($claseur, $title)
-    {
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('/model/baseModelVir.xlsx');
-
-        $worksheet = $spreadsheet->getActiveSheet();
-
-        $worksheet->getCell('A1')->setValue('John');
-        $worksheet->getCell('A2')->setValue('Smith');
-
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
-        $writer->save('write.xls');
-    }
-
     public function exportExcel($claseur, $title)
     {
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($claseur, "Xlsx");
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'. $title .'.xls"');
+        header('Content-Disposition: attachment;filename="'. $title .'.xlsx"');
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
         exit();
@@ -63,5 +60,31 @@ class ExcelService
         $writer->save('php://output');
     }
 
-
+    public function alernateStyle($rowCount)
+    {
+        //Style des celules;
+        $color = ($rowCount % 2) == 0 ? 'c6e2ff' : '63b8ff';
+        $style = [
+            'alignment' => [
+              //  'shrinkToFit'       =>true,
+                'horizontal'        => Alignment::HORIZONTAL_CENTER,
+                'vertical'          => Alignment::VERTICAL_CENTER,
+                'readOrder'         => Alignment::READORDER_RTL,
+              //  'wrapText'          => true,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle'   => Border::BORDER_THIN,
+                    'color'         => array('rgb' => 'FFFFFF')
+                ],
+            ],
+            'fill' => [
+                'fillType'          => Fill::FILL_SOLID,
+                'color' => [
+                    'argb'          => $color,
+                ],
+            ],
+        ];
+        return $style;
+    }
 }
