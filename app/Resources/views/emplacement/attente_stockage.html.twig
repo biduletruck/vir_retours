@@ -1,0 +1,14 @@
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Stockage</h1>
+
+    {{ form_start(form, {'attr': {'class': 'navbar-form navbar-right', 'action': path('attente_stockage_recherche') }}) }}
+
+    {{ form_widget(form.recherche, {'attr': {'class': 'form-control search-query',  'placeholder': "Rechercher un colis"}}) }}
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -67,9 +67,25 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery();
 
         return $query->getResult();
-
-
     }
 
+    public function stockageEnAttente($numeroColis, $idAgence)
+    {
+        $query = $this->createQueryBuilder('g')
+            ->select('g', 'm','d','e')
+            ->join('g.magasin', 'm')
+            ->join('g.donneurOrdre', 'd')
+            ->join('g.emplacement', 'e')
+            ->where('g.dateSortieEntrepot IS NULL')
+            ->andWhere('g.agence = :agence')
+            ->andWhere('g.numeroSage = :numColis')
+            ->orderBy('g.dateSortieEntrepot')
+            ->setParameter('agence', $idAgence)
+            ->setParameter('numColis', $numeroColis)
+            ->orderBy('g.id', 'DESC')
+            ->getQuery();
+
+        return $query->getSingleResult();
+    }
 
 }

@@ -179,7 +179,6 @@ class VoyageController extends Controller
     {
         list($excel, $classeur, $titre) = $this->formatingExtract($voyage);
         return $excel->exportExcel($classeur, $titre);
-        //return $excel->newExcelFromModel( $titre);
     }
 
     /**
@@ -210,6 +209,7 @@ class VoyageController extends Controller
         $feuille = $classeur->getActiveSheet();
         $titre = $voyage->getNomVoyage();
 
+
         //Type de retour + rattachement
         $feuille->SetCellValue('C2', "Liste des retours vers " .  $voyage->getRattachement()->getNom());
         $feuille->SetCellValue('G6', $titre);
@@ -224,29 +224,30 @@ class VoyageController extends Controller
         foreach ($packageInTravel as $row)
         {
             $range = 'B' . $rowCount . ':H' . $rowCount;
-
             $values = $row->getRetour()->getEmplacement();
             $emplacements = [];
             foreach ($values as $value)
             {
                 $emplacements[] = $value->getNumeroEmplacement();
             }
-
-            $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getDonneurOrdre()->getNomDonneurOrdre());
-            $feuille->SetCellValue('c' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
-            $feuille->SetCellValue('d' . $rowCount, $row->getRetour()->getNumeroSage());
-            $feuille->SetCellValue('e' . $rowCount, $row->getRetour()->getNomDestinataire());
-            $feuille->SetCellValue('f' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
+            $feuille->SetCellValue('b' . $rowCount, $row->getRetour()->getMagasin()->getNomMagasin());
+            $feuille->SetCellValue('c' . $rowCount, $row->getRetour()->getNumeroSage());
+            $feuille->SetCellValue('d' . $rowCount, $row->getRetour()->getNomDestinataire());
+            $feuille->SetCellValue('e' . $rowCount, $row->getRetour()->getNombreColis());
+            $feuille->SetCellValue('f' . $rowCount, $row->getRetour()->getNombreSupport());
             $feuille->SetCellValue('g' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
-            $feuille->SetCellValue('h' . $rowCount, $this->container->get('app.emplacement_service')->transformArrayRack($emplacements));
-            $feuille->getRowDimension($rowCount)->getRowHeight(Alignment::HORIZONTAL_JUSTIFY);
-
-         //   $feuille->getStyle($range)->applyFromArray($excel->alernateStyle($rowCount));
+            $feuille->SetCellValue('h' . $rowCount, $row->getRetour()->getMotifRetour()->getNomMotifRetour());
+            $feuille->getStyle($range)->applyFromArray($excel->alernateStyle($rowCount));
             $rowCount++;
-
         }
 
-        $feuille->getStyle('A10:H'.($rowCount-1))->getAlignment()->setWrapText(true);
+        //insert des signatures
+        $rowCount += 5;
+
+        $feuille->setCellValue('a' . $rowCount, "Signature Agence : " . $voyage->getAgence()->getNomAgence()
+             //   ->setCellValue('')
+        );
+        $feuille->getStyle('a' . $rowCount)->getFont()->setSize(14);
 
 
 

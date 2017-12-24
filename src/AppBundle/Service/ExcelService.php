@@ -41,6 +41,7 @@ class ExcelService
 
     public function exportExcel($claseur, $title)
     {
+
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($claseur, "Xlsx");
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'. $title .'.xlsx"');
@@ -51,6 +52,7 @@ class ExcelService
 
     public function exportPdf($claseur, $title)
     {
+        $claseur->getActiveSheet()->setShowGridLines(false);
         IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
         header('Content-Type: application/pdf');
@@ -58,7 +60,10 @@ class ExcelService
         header('Cache-Control: max-age=0');
         $writer = IOFactory::createWriter($claseur, 'Pdf');
         $writer->save('php://output');
+        exit();
     }
+
+
 
     public function alernateStyle($rowCount)
     {
@@ -66,11 +71,9 @@ class ExcelService
         $color = ($rowCount % 2) == 0 ? 'c6e2ff' : '63b8ff';
         $style = [
             'alignment' => [
-              //  'shrinkToFit'       =>true,
                 'horizontal'        => Alignment::HORIZONTAL_CENTER,
                 'vertical'          => Alignment::VERTICAL_CENTER,
-                'readOrder'         => Alignment::READORDER_RTL,
-              //  'wrapText'          => true,
+                'wrapText'          => true,
             ],
             'borders' => [
                 'allBorders' => [

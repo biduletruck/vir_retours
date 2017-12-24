@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Mise en rayon</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+            <input type="text" name="numeroColis" id="numeroColis" value="" placeholder="Scanner le code barre du colis" required>
+
+            <button type="submit" id="rechercheColis" name="rechercheColis"> Rechercher</button>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+        $("button").click(function(e){
+            e.preventDefault();
+            var idClicked = e.target.id;
+            var nameClicked = $("#numeroColis").val();
+            console.log(nameClicked);
+
+            if (nameClicked === '' || nameClicked === null)
+            {
+                alert('il faut un numéro');
+            }
+
+
+
+/*
+            if(e.target.name === "add")
+            {
+
+                $.ajax({
+                    url: "{{ path('detailvoyage_add_package') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        "id":  idClicked,
+                        "voyage": "",
+                    async: true,
+                    success: function (data)
+                    {
+
+                        $("#" + idClicked).attr("class" ,"btn btn-xs btn-danger").attr("name" ,"suppr").html("Supprimer");
+                        $("#add" + idClicked).hide().appendTo("#liste_retour").slideDown().attr("id" ,"suppr"+ idClicked).attr("class" ,data);
+
+                    }
+                });
+
+            }
+*/
+
+        });
+
+    </script>
+{% endblock %}
