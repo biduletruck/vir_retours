@@ -202,6 +202,7 @@ class GestionRetourController extends Controller
         ));
     }
 
+
     /**
      * Finds and displays a gestionRetour entity.
      *
@@ -244,6 +245,51 @@ class GestionRetourController extends Controller
             'gestionRetour' => $gestionRetour,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     *
+     * @Route("/findone", name="retours_one")
+     * @Method({"GET", "POST"})
+     */
+    public function findOneAction(Request $request)
+    {
+
+
+        $form = $this->createForm('AppBundle\Form\GestionRetour\FindOneGestionRetourType');
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+/*
+
+            $em = $this->getDoctrine()->getManager();
+            $gestionRetour->setAgence($this->getUser()->getAgence());
+            $nbSupport = $gestionRetour->getNombreSupport();
+            $numeroSage = $gestionRetour->getNumeroSage();
+
+            $em->persist($gestionRetour);
+
+            for ($i=0; $i < $nbSupport; $i++)
+            {
+                $createEmplacement = new Emplacement();
+                $createEmplacement->setCodeSage($numeroSage);
+                $createEmplacement->setRetour($gestionRetour);
+
+                $em->persist($createEmplacement);
+            }
+
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'La fiche retour à été correctement créée');
+            return $this->redirectToRoute('retours_show', array('id' => $gestionRetour->getId()));
+       */
+        }
+
+        return $this->render('gestionretour/stockage.html.twig', array(
+
+            'form' => $form->createView(),
         ));
     }
 

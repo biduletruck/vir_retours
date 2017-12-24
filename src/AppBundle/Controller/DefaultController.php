@@ -46,7 +46,7 @@ class DefaultController extends Controller
      * @Route("/addpackage", name="detailvoyage_add_package")
      * @Method({"POST"})
      */
-    public function trouveEmplacements(Request $request)
+ /*   public function trouveEmplacements(Request $request)
     {
         if ($request->isMethod('POST') && $request->isXmlHttpRequest())
         {

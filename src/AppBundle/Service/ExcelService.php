@@ -47,6 +47,7 @@ class ExcelService
         header('Content-Disposition: attachment;filename="'. $title .'.xlsx"');
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
+        exit();
     }
 
     public function exportPdf($claseur, $title)
