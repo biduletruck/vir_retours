@@ -87,5 +87,4 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getSingleResult();
     }
-
 }

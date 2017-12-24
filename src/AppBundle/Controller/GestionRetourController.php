@@ -118,7 +118,6 @@ class GestionRetourController extends Controller
             $gestionRetour->setAgence($this->getUser()->getAgence());
             $nbSupport = $gestionRetour->getNombreSupport();
             $numeroSage = $gestionRetour->getNumeroSage();
-            $emplacement = [];
 
             $em->persist($gestionRetour);
 

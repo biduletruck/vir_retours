@@ -18,7 +18,7 @@ class RackExtension extends \Twig_Extension
         return array(new \Twig_SimpleFilter('rack', array($this, 'transformRack')));
     }
 
-    function transformRack($emplacement)
+    public function transformRack($emplacement)
     {
         $position = "En attente";
 
@@ -39,5 +39,4 @@ class RackExtension extends \Twig_Extension
     {
         return 'rack_extension';
     }
-
 }
