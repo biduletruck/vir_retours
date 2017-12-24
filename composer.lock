@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "326b52d63fa20e4f6d00f0492bb8581e",
+    "content-hash": "6275ed0d831c650472f4247bc12150ac",
     "packages": [
         {
             "name": "bitgrave/barcode-bundle",
