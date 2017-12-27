@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="col-xs-12 col-sm-6 col-md-6 " id="divNumeroSage">
                             {{ form_label(form.numeroSage) }}
                             {{ form_errors(form.numeroSage) }}
                             {{ form_widget(form.numeroSage, { 'attr': {'maxlength': 9} }) }}
@@ -131,6 +131,7 @@
         <script>
 
 
+
         var $donneurOrdre = $('#appbundle_addgestionretour_donneurOrdre');
         // When sport gets selected ...
         $donneurOrdre.change(function() {
@@ -153,6 +154,41 @@
                     // Position field now displays the appropriate positions.
                 }
             });
+        });
+
+        $("#appbundle_addgestionretour_numeroSage").focusout(function(){
+             var nameClicked = $('#appbundle_addgestionretour_numeroSage').val();
+             if ( (nameClicked !== null) && (nameClicked !== ''))
+             {
+               // console.log(nameClicked + ' non vide')
+                $.ajax({
+                    url: "{{ path('siRetourExist') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+
+                        "retour": nameClicked
+                    },
+                    async: true,
+                    success: function (data)
+                    {
+                        if(data === '0' )
+                        {
+                            $('Button').prop('disabled', false);
+                            $("#divNumeroSage").removeClass('has-error');
+                            $("#divNumeroSage").addClass('has-success');
+                        }
+                        else
+                        {
+                             alert('colis déjà en stock !!!!');
+                            $('Button').prop('disabled', true);
+                            $("#divNumeroSage").removeClass('has-success');
+                            $("#divNumeroSage").addClass('has-error');
+                        }
+                    }
+                });
+             }
+
         });
     </script>
 {% endblock %}

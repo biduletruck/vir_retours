@@ -2,8 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Emplacement;
+use AppBundle\Entity\GestionRetour;
+use function dump;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -31,7 +35,7 @@ class DefaultController extends Controller
 
 
     /**
-     * Rechercher un colis à staocker.
+     * Rechercher un colis à stocker.
      *
      * @Route("/stockage", name="emplacement_stockage")
      */
@@ -43,56 +47,85 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/addpackage", name="detailvoyage_add_package")
-     * @Method({"POST"})
+     * Rechercher un colis à stocker.
+     *
+     * @Route("/find_stock", name="find_stock")
      */
- /*   public function trouveEmplacements(Request $request)
+    public function findOneAction(Request $request)
     {
-        if ($request->isMethod('POST') && $request->isXmlHttpRequest())
-        {
-            
+        $form = $this->createForm('AppBundle\Form\GestionRetour\FindOneGestionRetourType');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            /* @var $result GestionRetour */
+            $results = $em->getRepository('AppBundle:GestionRetour')->stockageEnAttente($form->getData()->getNumeroSage(),$this->getUser()->getAgence());
+
+            $truc =[];
+            foreach ($results as $result)
+            {
+                foreach ( $result->getEmplacement() as $pace)
+                {
+                    $form2 = $this->createForm('AppBundle\Form\Emplacement\AddNewRetourType',$pace);
+                    $truc[] = $form2->createView();
+                }
+
+                return $this->render('gestionretour/stockage.html.twig', array(
+                    'form' => $form->getData(),
+                    'result' => $truc,
+                    'results' => $results[0],
+                ));
+            }
         }
 
+    return $this->render('gestionretour/stockage.html.twig', array(
+        'form' => $form->createView(),
+        ));
     }
 
-
     /**
-     * Add Package on detailVoyage entity.
-     *
-     * @Route("/addpackage", name="detailvoyage_add_package")
-     * @Method({"POST"})
-     */
-
-    /*
-    public function addPackageAction(Request $request)
+    * Add Package on detailVoyage entity.
+    *
+    * @Route("/stock_rack", name="add_in_rack")
+    */
+    public function addPackageInRackAction(Request $request)
     {
 
         if ($request->isMethod('POST') && $request->isXmlHttpRequest())
         {
-
             $content = $request->request;
             $em = $this->getDoctrine()->getManager();
-            $retour = $em->getRepository('AppBundle:GestionRetour')->find($content->get('id'));
-            $voyage = $em->getRepository('AppBundle:Voyage')->find($content->get('voyage'));
-            $login = $em->getRepository('AppBundle:User')->find($this->getUser()->getId());
-
-            $detailVoyage = new Detailvoyage();
-            $detailVoyage->setRetour($retour);
-            $detailVoyage->setLogin($login);
-            $detailVoyage->setVoyage($voyage);
-            $em->persist($detailVoyage);
-
-            $retour->setVoyage(true);
+            /* @var $emplacement Emplacement  */
+            $emplacement = $em->getRepository('AppBundle:Emplacement')->find($content->get('id'));
+            $emplacement->setDateStockage(new \DateTime());
+            $emplacement->setLogin($em->getRepository('AppBundle:User')->find($this->getUser()->getId()));
+            $emplacement->setNumeroEmplacement($content->get('emplacement'));
             $em->flush();
-
-            $data = $detailVoyage->getId();
-
-            return new JsonResponse($data);
+            return new JsonResponse();
         }
         return false;
     }
 
-*/
+    /**
+     * Add Package on detailVoyage entity.
+     *
+     * @Route("/siRetourExiste", name="siRetourExist")
+     */
+    public function siRetourExisteAction(Request $request)
+    {
+
+        if ($request->isMethod('POST') && $request->isXmlHttpRequest())
+        {
+            $content = $request->request;
+            $em = $this->getDoctrine()->getManager();
+            /* @var $emplacement Emplacement  */
+            $retourExiste = $em->getRepository('AppBundle:GestionRetour')->siRetourExiste($content->get('retour'));
+
+            return new JsonResponse($retourExiste);
+        }
+        return false;
+    }
+
 
 
 

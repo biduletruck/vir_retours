@@ -1,5 +1,139 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ dump() }}
+    <div class="page-header">
+        <H1>Mise en Rack d'un retour client</H1>
+    </div>
+    {% if result is not defined  %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3" id="divNumeroSage">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Indiquer le N° du retour (code Sage)</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+
+                        {{ form_row(form.numeroSage, { 'attr': {'maxlength': 9} }) }}
+                        <button type="submit" id="rechercher_colis" class="btn btn-primary btn-block"> Rechercher </button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if result is defined  %}
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Colis N° {{ results.numeroSage}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Destinataire</th>
+                                    <td>{{ results.nomDestinataire}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre de colis</th>
+                                    <td>{{ results.nombreColis}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre de support</th>
+                                    <td>{{ results.nombreSupport}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-7">
+            {% for res in result %}
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                {{ form_start(res, {'attr': {'id': 'num_' ~ results.emplacement[loop.index0].id, 'class': ''}}) }}
+                                {{ form_errors(res) }}
+                                {{ form_widget(res) }}
+                                <button type="submit" class="btn btn-primary  btn-block" name="btn_submit_emplacement" id="{{ results.emplacement[loop.index0].id }}">Mettre à jour</button>
+                                {{ form_end(res) }}
+                            </div>
+                        </div>
+            {% endfor %}
+                </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+             $('#rechercher_colis').prop('disabled', true);
+            $("button[name='btn_submit_emplacement']").click(function(e){
+                e.preventDefault();
+                var idClicked = e.target.id;
+                var nameClicked = $('#num_' + idClicked).find('input[id="appbundle_emplacement_numeroEmplacement"]').val();
+
+                if (nameClicked === '' || nameClicked === null)
+                {
+                    alert('il faut un numéro');
+                }
+                else
+                {
+                    $.ajax({
+                        url: "{{ path('add_in_rack') }}",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {
+                            "id":  idClicked,
+                            "emplacement": nameClicked
+                        },
+                        async: true,
+                        success: function ()
+                        {
+                            alert('Mise à jour OK');
+                        }
+                    });
+                }
+
+            });
+
+            $("#appbundle_gestionretour_numeroSage").focusout(function(){
+                $('#rechercher_colis').prop('disabled', true);
+                var nameClicked = $('#appbundle_gestionretour_numeroSage').val();
+                if ( (nameClicked !== null) && (nameClicked !== ''))
+                {
+                    $.ajax({
+                        url: "{{ path('siRetourExist') }}",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {
+
+                            "retour": nameClicked
+                        },
+                        async: true,
+                        success: function (data)
+                        {
+                            if(data === '1' )
+                            {
+                                $("#divNumeroSage").removeClass('has-error');
+                                $("#divNumeroSage").addClass('has-success');
+                                $('#rechercher_colis').prop('disabled', false);
+                            }
+                            else
+                            {
+                                $("#divNumeroSage").removeClass('has-success');
+                                $("#divNumeroSage").addClass('has-error');
+
+                            }
+                        }
+                    });
+                }
+
+            });
+    </script>
 {% endblock %}

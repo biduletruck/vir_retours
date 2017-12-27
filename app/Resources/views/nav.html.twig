@@ -21,6 +21,7 @@
                     <ul class="nav navbar-nav">
                         <li {% if app.request.attributes.get('_route') == 'retours_new' %}class="active"{% endif %}><a href="{{ path('retours_new') }}">Ajouter un retour</a></li>
                         <li {% if app.request.attributes.get('_route') == 'retours_index' %}class="active"{% endif %}><a href="{{ path('retours_index') }}">Listing des retours</a></li>
+                        <li {% if app.request.attributes.get('_route') == 'find_stock' %}class="active"{% endif %}><a href="{{ path('find_stock') }}">Mise en rack</a></li>
                     {% if is_granted("ROLE_EXPLOITANT") %}
                         <li {% if app.request.attributes.get('_route') == 'voyage_index' %}class="active"{% endif %}><a href="{{ path('voyage_index') }}">Voyages</a></li>
                     {% endif %}

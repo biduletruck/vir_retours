@@ -251,7 +251,7 @@ class GestionRetourController extends Controller
     /**
      *
      * @Route("/findone", name="retours_one")
-     * @Method({"GET", "POST"})
+     * @Method("POST")
      */
     public function findOneAction(Request $request)
     {

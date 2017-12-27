@@ -85,6 +85,18 @@ class GestionRetourRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('g.id', 'DESC')
             ->getQuery();
 
-        return $query->getSingleResult();
+        return $query->getResult();
+    }
+
+    public function siRetourExiste($recherche)
+    {
+        $query = $this->createQueryBuilder('g')
+            ->select('count(g)')
+            ->where('g.numeroSage LIKE :recherche')
+            ->andWhere('g.dateSortieEntrepot IS NULL')
+            ->setParameter('recherche', '%' . $recherche . '%')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
     }
 }
