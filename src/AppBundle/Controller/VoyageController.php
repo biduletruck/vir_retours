@@ -69,12 +69,34 @@ class VoyageController extends Controller
     }
 
     /**
+ * Finds and displays a voyage entity.
+ *
+ * @Route("/{id}", name="voyage_show")
+ * @Method("GET")
+ */
+    public function showAction(Voyage $voyage)
+    {
+        $deleteForm = $this->createDeleteForm($voyage);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $packageInTravel = $em->getRepository('AppBundle:DetailVoyage')
+            ->findPackageInTravel($voyage->getId());
+
+        return $this->render('voyage/show.html.twig', array(
+            'voyage' => $voyage,
+            'listing_retour' => $packageInTravel,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
      * Finds and displays a voyage entity.
      *
-     * @Route("/{id}", name="voyage_show")
+     * @Route("/{id}/create", name="voyage_create_retour")
      * @Method("GET")
      */
-    public function showAction(Voyage $voyage)
+    public function createRetourAction(Voyage $voyage)
     {
         $deleteForm = $this->createDeleteForm($voyage);
 
@@ -89,7 +111,7 @@ class VoyageController extends Controller
 
 
 
-        return $this->render('voyage/show.html.twig', array(
+        return $this->render('voyage/create_retour.html.twig', array(
             'voyage' => $voyage,
             'disponibilites' => $stockForTravel,
             'listing_retour' => $packageInTravel,
@@ -248,11 +270,6 @@ class VoyageController extends Controller
              //   ->setCellValue('')
         );
         $feuille->getStyle('a' . $rowCount)->getFont()->setSize(14);
-
-
-
-
-
 
         return array($excel, $classeur, $titre);
     }

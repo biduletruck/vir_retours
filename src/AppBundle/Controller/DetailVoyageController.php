@@ -6,6 +6,7 @@ use AppBundle\Entity\DetailVoyage;
 use AppBundle\Entity\GestionRetour;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Voyage;
+use function isTrue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -122,6 +123,52 @@ class DetailVoyageController extends Controller
         return false;
     }
 
+    /**
+ *
+ * @Route("/loading", name="detailvoyage_loading_package")
+ */
+    public function updateLoadingPackageAction(Request $request)
+    {
+
+        if ($request->isMethod('POST') && $request->isXmlHttpRequest())
+        {
+            /* @var $voyage DetailVoyage  */
+            $content = $request->request;
+            $em = $this->getDoctrine()->getManager();
+            $voyage = $em->getRepository('AppBundle:DetailVoyage')->find($content->get('id'));
+            $voyage->setChargement($content->get('status') === 'true' ? 1 : 0);
+            $em->persist($voyage);
+            $em->flush();
+
+            return new JsonResponse(array(
+                        'status' => $content->get('status'),
+                        'key' => $content->get('id')
+            ));
+        }
+        return false;
+    }
+
+    /**
+ *
+ * @Route("/donwloading", name="detailvoyage_donwloading_package")
+ */
+    public function updateDonwloadingPackageAction(Request $request)
+    {
+
+        if ($request->isMethod('POST') && $request->isXmlHttpRequest())
+        {
+            /* @var $voyage DetailVoyage  */
+            $content = $request->request;
+            $em = $this->getDoctrine()->getManager();
+            $voyage = $em->getRepository('AppBundle:DetailVoyage')->find($content->get('id'));
+            $voyage->setDechargement($content->get('status') === 'true' ? 1 : 0);
+            $em->persist($voyage);
+            $em->flush();
+
+            return new JsonResponse($content->get('status'),$content->get('id'));
+        }
+        return false;
+    }
 
     /**
      * Finds and displays a detailVoyage entity.

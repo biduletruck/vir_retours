@@ -44,7 +44,28 @@
 
     <div class="row">
         <div class="col-md-12">
+            <div class="col-md-6">
+                <div class=" panel panel-default"  >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Retours disponible</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="liste_dispo">
+                            <thead>
+                                <tr class="info">
+                                    <th>Action</th>
+                                    <th>Numéro Sage</th>
+                                    <th>Nombre Colis</th>
+                                </tr>
+                            </thead>
+                            {% block colis %}
 
+                                {% include ":voyage:colis_attente_retour.html.twig" %}
+                            {% endblock %}
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-6">
                 <div class="panel panel-default" >
@@ -66,14 +87,13 @@
                         <table class="table table-hover" id="liste_retour">
                             <thead>
                                 <tr class="info">
+                                    <th>Action</th>
                                     <th>Numéro Sage</th>
                                     <th>Nombre Colis</th>
-                                    <th>Chargement</th>
-                                    <th>Déchargement</th>
                                 </tr>
                             </thead>
                             {% block liste_retour %}
-                                {% include ":voyage:colis_en_cour_retour_transit.html.twig" %}
+                                {% include ":voyage:colis_en_cour_retour.html.twig" %}
                             {% endblock %}
                         </table>
                     </div>
@@ -88,55 +108,51 @@
 {% block javascripts %}
 
     <script>
-
-        $("input").change(function(e) {
+        $("button").click(function(e){
             var idClicked = e.target.id;
-            var statusClicked = $(this).prop('checked');
-            if(e.target.name === "charge")
+            var nameClicked = $(this).parent().parent().attr('class');
+
+            if(e.target.name === "add")
             {
+
                 $.ajax({
-                    url: "{{ path('detailvoyage_loading_package') }}",
+                    url: "{{ path('detailvoyage_add_package') }}",
                     type: "POST",
                     dataType: 'json',
                     data: {
-                        "id":  idClicked.substr(7),
-                        "status": statusClicked
+                        "id":  idClicked,
+                        "voyage": {{ voyage.id }}
                     },
                     async: true,
                     success: function (data)
                     {
-                        var status = JSON.stringify(data);
-                        console.log(status);
-                        if(data.status === 'true')
-                        {
-                            $('#decharge-' + data.key).bootstrapToggle('enable');
-                        }
-                        else if(data.status === 'false')
-                        {
-                            $('#decharge-' + data.key).bootstrapToggle('disable');
-                        }
+                        $("#" + idClicked).attr("class" ,"btn btn-xs btn-danger").attr("name" ,"suppr").html("Supprimer");
+                        $("#add" + idClicked).hide().appendTo("#liste_retour").slideDown().attr("id" ,"suppr"+ idClicked).attr("class" ,data);
                     }
                 });
+
             }
-            else if (e.target.name === "decharge")
+            else if(e.target.name === "suppr")
             {
+
                 $.ajax({
-                    url: "{{ path('detailvoyage_donwloading_package') }}",
+                    url: "{{ path('detailvoyage_suppr_package') }}",
                     type: "POST",
                     dataType: 'json',
                     data: {
-                        "id":  idClicked.substr(9),
-                        "status": statusClicked
+                        "id":  idClicked,
+                        "class": nameClicked,
+                        "voyage": {{ voyage.id }}
                     },
                     async: true,
                     success: function (data)
                     {
-                        console.log(JSON.stringify(data));
+                        $("#" + idClicked).attr("class" ,"btn btn-xs btn-primary").attr("name" ,"add").html("Ajouter");
+                        $("#suppr" + idClicked).hide().appendTo("#liste_dispo").slideDown().attr("id" ,"add"+ idClicked).attr("id" ,"add"+ idClicked).attr("class" ,"");
                     }
                 });
             }
         });
-
 
     </script>
 {% endblock %}

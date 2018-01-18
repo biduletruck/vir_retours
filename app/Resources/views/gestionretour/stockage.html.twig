@@ -26,6 +26,7 @@
     {% if result is defined  %}
 
         <div class="row">
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="col-xs-12 col-sm-12 col-md-5">
                     <div class="panel panel-default">
@@ -54,14 +55,192 @@
             {% for res in result %}
                         <div class="panel panel-default">
                             <div class="panel-body">
+
                                 {{ form_start(res, {'attr': {'id': 'num_' ~ results.emplacement[loop.index0].id, 'class': ''}}) }}
                                 {{ form_errors(res) }}
                                 {{ form_widget(res) }}
-                                <button type="submit" class="btn btn-primary  btn-block" name="btn_submit_emplacement" id="{{ results.emplacement[loop.index0].id }}">Mettre à jour</button>
+                                <button type="button"  class="btn btn-info" data-toggle="modal" data-target="#myModal{{ results.emplacement[loop.index0].id }}">Mise à jour manuelle</button>
+                                <button type="submit" class="btn btn-primary" name="btn_submit_emplacement" id="{{ results.emplacement[loop.index0].id }}">Mise à jour scan</button>
                                 {{ form_end(res) }}
                             </div>
                         </div>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal{{ results.emplacement[loop.index0].id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Choisir un emplacement</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <label for="rack"> Rack : </label>
+                                            <select class="form-control" name="rack" id="rack" required="required">
+                                                <option value=""></option>
+                                                <option value="ERAA">A</option>
+                                                <option value="ERAB">B</option>
+                                                <option value="ERAC">C</option>
+                                                <option value="ERAD">D</option>
+                                                <option value="ERAE">E</option>
+                                                <option value="ERAF">F</option>
+                                                <option value="ERAG">G</option>
+                                                <option value="ERAH">H</option>
+                                                <option value="ERAI">I</option>
+                                                <option value="ERAJ">J</option>
+                                                <option value="ERAK">K</option>
+                                                <option value="ERAL">L</option>
+                                                <option value="ERAM">M</option>
+                                                <option value="ERAN">N</option>
+                                                <option value="ERAO">O</option>
+                                                <option value="ERAP">P</option>
+                                                <option value="ERAQ">Q</option>
+                                                <option value="ERAR">R</option>
+                                                <option value="ERAS">S</option>
+                                                <option value="ERAT">T</option>
+                                                <option value="ERAU">U</option>
+                                                <option value="ERAV">V</option>
+                                                <option value="ERAW">W</option>
+                                                <option value="ERAX">X</option>
+                                                <option value="ERAY">Y</option>
+                                                <option value="ERAZ">Z</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alveole"> Alveole : </label>
+                                            <select class="form-control" name="alveole" id="alveole" required="required">
+                                                <option value=""></option>
+                                                <option value="**0001">1</option>
+                                                <option value="**0002">2</option>
+                                                <option value="**0003">3</option>
+                                                <option value="**0004">4</option>
+                                                <option value="**0005">5</option>
+                                                <option value="**0006">6</option>
+                                                <option value="**0007">7</option>
+                                                <option value="**0008">8</option>
+                                                <option value="**0009">9</option>
+                                                <option value="**0010">10</option>
+                                                <option value="**0011">11</option>
+                                                <option value="**0012">12</option>
+                                                <option value="**0013">13</option>
+                                                <option value="**0014">14</option>
+                                                <option value="**0015">15</option>
+                                                <option value="**0016">16</option>
+                                                <option value="**0017">17</option>
+                                                <option value="**0018">18</option>
+                                                <option value="**0019">19</option>
+                                                <option value="**0020">20</option>
+                                                <option value="**0021">21</option>
+                                                <option value="**0022">22</option>
+                                                <option value="**0023">23</option>
+                                                <option value="**0024">24</option>
+                                                <option value="**0025">25</option>
+                                                <option value="**0026">26</option>
+                                                <option value="**0027">27</option>
+                                                <option value="**0028">28</option>
+                                                <option value="**0029">29</option>
+                                                <option value="**0030">30</option>
+                                                <option value="**0031">31</option>
+                                                <option value="**0032">32</option>
+                                                <option value="**0033">33</option>
+                                                <option value="**0034">34</option>
+                                                <option value="**0035">35</option>
+                                                <option value="**0036">36</option>
+                                                <option value="**0037">37</option>
+                                                <option value="**0038">38</option>
+                                                <option value="**0039">39</option>
+                                                <option value="**0040">40</option>
+                                                <option value="**0041">41</option>
+                                                <option value="**0042">42</option>
+                                                <option value="**0043">43</option>
+                                                <option value="**0044">44</option>
+                                                <option value="**0045">45</option>
+                                                <option value="**0046">46</option>
+                                                <option value="**0047">47</option>
+                                                <option value="**0048">48</option>
+                                                <option value="**0049">49</option>
+                                                <option value="**0050">50</option>
+                                                <option value="**0051">51</option>
+                                                <option value="**0052">52</option>
+                                                <option value="**0053">53</option>
+                                                <option value="**0054">54</option>
+                                                <option value="**0055">55</option>
+                                                <option value="**0056">56</option>
+                                                <option value="**0057">57</option>
+                                                <option value="**0058">58</option>
+                                                <option value="**0059">59</option>
+                                                <option value="**0060">60</option>
+                                                <option value="**0061">61</option>
+                                                <option value="**0062">62</option>
+                                                <option value="**0063">63</option>
+                                                <option value="**0064">64</option>
+                                                <option value="**0065">65</option>
+                                                <option value="**0066">66</option>
+                                                <option value="**0067">67</option>
+                                                <option value="**0068">68</option>
+                                                <option value="**0069">69</option>
+                                                <option value="**0070">70</option>
+                                                <option value="**0071">71</option>
+                                                <option value="**0072">72</option>
+                                                <option value="**0073">73</option>
+                                                <option value="**0074">74</option>
+                                                <option value="**0075">75</option>
+                                                <option value="**0076">76</option>
+                                                <option value="**0077">77</option>
+                                                <option value="**0078">78</option>
+                                                <option value="**0079">79</option>
+                                                <option value="**0080">80</option>
+                                                <option value="**0081">81</option>
+                                                <option value="**0082">82</option>
+                                                <option value="**0083">83</option>
+                                                <option value="**0084">84</option>
+                                                <option value="**0085">85</option>
+                                                <option value="**0086">86</option>
+                                                <option value="**0087">87</option>
+                                                <option value="**0088">88</option>
+                                                <option value="**0089">89</option>
+                                                <option value="**0090">90</option>
+                                                <option value="**0091">91</option>
+                                                <option value="**0092">92</option>
+                                                <option value="**0093">93</option>
+                                                <option value="**0094">94</option>
+                                                <option value="**0095">95</option>
+                                                <option value="**0096">96</option>
+                                                <option value="**0097">97</option>
+                                                <option value="**0098">98</option>
+                                                <option value="**0099">99</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="etage"> Etage : </label>
+                                            <select class="form-control" name="etage" id="etage" required="required">
+                                                <option value=""></option>
+                                                <option value="01">1</option>
+                                                <option value="02">2</option>
+                                                <option value="03">3</option>
+                                                <option value="04">4</option>
+                                                <option value="05">5</option>
+                                                <option value="06">6</option>
+                                                <option value="07">7</option>
+                                                <option value="08">8</option>
+                                                <option value="09">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" name="emplacement_btn" id="emp-{{ results.emplacement[loop.index0].id }}" class="btn btn-primary">Sauver</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
             {% endfor %}
+
                 </div>
         </div>
     </div>
@@ -72,7 +251,8 @@
 {% block javascripts %}
 
     <script>
-             $('#rechercher_colis').prop('disabled', true);
+            $('#rechercher_colis').prop('disabled', true);
+
             $("button[name='btn_submit_emplacement']").click(function(e){
                 e.preventDefault();
                 var idClicked = e.target.id;
@@ -99,11 +279,12 @@
                         }
                     });
                 }
-
             });
 
-            $("#appbundle_gestionretour_numeroSage").focusout(function(){
+            $("#appbundle_gestionretour_numeroSage").focusout(function(e){
                 $('#rechercher_colis').prop('disabled', true);
+                e.preventDefault();
+                var divSage = $("#divNumeroSage");
                 var nameClicked = $('#appbundle_gestionretour_numeroSage').val();
                 if ( (nameClicked !== null) && (nameClicked !== ''))
                 {
@@ -120,18 +301,45 @@
                         {
                             if(data === '1' )
                             {
-                                $("#divNumeroSage").removeClass('has-error');
-                                $("#divNumeroSage").addClass('has-success');
+                                divSage.removeClass('has-error').addClass('has-success');
                                 $('#rechercher_colis').prop('disabled', false);
                             }
                             else
                             {
-                                $("#divNumeroSage").removeClass('has-success');
-                                $("#divNumeroSage").addClass('has-error');
-
+                                divSage.removeClass('has-success').addClass('has-error');
                             }
                         }
                     });
+                }
+            });
+
+            $("button[name='emplacement_btn']").click(function(e){
+               // e.preventDefault();
+                var idClicked = e.target.id;
+                var nameClicked = $('#num_' + idClicked.substr(4)).find('input[id="appbundle_emplacement_numeroEmplacement"]');
+                var rack = $('#myModal' + idClicked.substr(4)).find('select[id="rack"]').val();
+                var alveole = $('#myModal' + idClicked.substr(4)).find('select[id="alveole"]').val();
+                var etage = $('#myModal' + idClicked.substr(4)).find('select[id="etage"]').val();
+
+                if ( rack !== "" && alveole !== "" && etage !== "")
+                {
+                    nameClicked.val(rack + alveole + etage);
+                    $.ajax({
+                        url: "{{ path('add_in_rack') }}",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {
+                            "id":  idClicked.substr(4),
+                            "emplacement": (rack + alveole + etage)
+                        },
+                        async: true,
+                        success: function ()
+                        {
+                            $('#myModal'+idClicked.substr(4)).modal('toggle');
+                        }
+                    });
+
+
                 }
 
             });

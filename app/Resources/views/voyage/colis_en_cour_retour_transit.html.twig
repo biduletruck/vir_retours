@@ -1,0 +1,13 @@
+{% block liste_retour %}
+    <tbody>
+    {% for retour in listing_retour %}
+        <tr id="suppr{{ retour.retour.id }}" class="{{ retour.id }}">
+            <td>{{ retour.retour.numeroSage }}</td>
+            <td>{{ retour.retour.nombreColis }}</td>
+            <td class="chargement"><input id="charge-{{ retour.id }}" name="charge" type="checkbox" {{ retour.chargement == 0 ? "" : "checked" }} data-toggle="toggle" data-on="Chargé" data-off="En attente" data-onstyle="success" data-offstyle="danger" data-size="mini" data-width="100"></td>
+            <td class="dechargement"><input id="decharge-{{ retour.id }}" {{ retour.chargement == 1 ? "" : "disabled" }} name="decharge" type="checkbox" {{ retour.dechargement == 0 ? "" : "checked" }} data-toggle="toggle" data-on="Déchargé" data-off="En transit" data-onstyle="success" data-offstyle="danger" data-size="mini" data-width="100"></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}
+
