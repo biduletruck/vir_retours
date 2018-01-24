@@ -165,7 +165,10 @@ class DetailVoyageController extends Controller
             $em->persist($voyage);
             $em->flush();
 
-            return new JsonResponse($content->get('status'),$content->get('id'));
+            return new JsonResponse(array(
+                $content->get('status'),
+                $content->get('id')
+            ));
         }
         return false;
     }
