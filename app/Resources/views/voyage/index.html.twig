@@ -9,7 +9,8 @@
     <table  class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
-                <th>Nomvoyage</th>
+                <th>Gestion du voyage</th>
+                <th>Suivi du chargement</th>
                 <th>Datecreation</th>
                 <th>Dateretour</th>
                 <th>Statut</th>
@@ -20,7 +21,8 @@
         <tbody>
         {% for voyage in voyages %}
             <tr>
-                <td><a href="{{ path('voyage_show', { 'id': voyage.id }) }}">{{ voyage.nomVoyage }}</a></td>
+                <td><a class="btn btn-primary" href="{{ path('voyage_create_retour', { 'id': voyage.id }) }}">{{ voyage.nomVoyage }}</a></td>
+                <td><a class="btn btn-info" href="{{ path('voyage_show', { 'id': voyage.id }) }}">{{ voyage.nomVoyage }}</a></td>
                 <td>{% if voyage.dateCreation %}{{ voyage.dateCreation|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if voyage.dateRetour %}{{ voyage.dateRetour|date('Y-m-d') }}{% endif %}</td>
                 <td>{% if voyage.statut %}Yes{% else %}No{% endif %}</td>
